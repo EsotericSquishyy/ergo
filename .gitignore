@@ -1,0 +1,5 @@
+*.pdf
+venv/
+!examples/*.pdf
+TEST/
+.DS_Store

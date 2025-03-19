@@ -1,0 +1,11 @@
+[package]
+name = "superTheorems"
+version = "0.1.0"
+compiler = "0.13.0"
+entrypoint = "lib.typ"
+
+authors = ["Jesse Cobb <@EsotericSquishyy>, Nate Annau <@aneziac>"]
+repository = "https://github.com/EsotericSquishyy/superTheorems"
+description = "A suite of environments for ease of taking notes or doing problem sets in Mathematics, Computer Science, and Physics"
+disciplines = ["mathematics", "computer-science", "physics"]
+license = "MIT-0"
