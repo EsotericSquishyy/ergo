@@ -1,5 +1,10 @@
 #import "theme/theme.typ": *
 
+
+
+
+
+
 //-----Setup-----//
 #let problem_counter = counter("problem")
 
@@ -8,8 +13,12 @@
   colors: "classic",
   headers: "tab",
 ) = context {
-  env_colors.update(colors)
-  env_headers.update(headers)
+  if(colors in env_colors_list) {
+    env_colors.update(colors)
+  }
+  if(headers in env_headers_list) {
+    env_headers.update(headers)
+  }
 
   let theme_colors = env_colors.get()
 
@@ -18,6 +27,9 @@
 
   body
 }
+
+
+
 
 
 
@@ -52,6 +64,9 @@
     )
   )
 }
+
+
+
 
 
 
@@ -188,6 +203,9 @@
     id:           "proposition",
   )
 }
+
+
+
 
 
 
@@ -353,6 +371,9 @@
     id:           "runtime",
   )
 }
+
+
+
 
 
 
