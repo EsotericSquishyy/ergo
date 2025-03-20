@@ -1,10 +1,12 @@
 {
-  "fill": "#282828",
-  "text1": "#ebdbb2",
-  "text2": "#fbf1c7",
-  "h1": "#fbf1c7",
-  "h2": "#d5c4a1",
-  "strong": "#fe8019",
+  "opts": {
+    "fill": "#282828",
+    "text1": "#ebdbb2",
+    "text2": "#fbf1c7",
+    "h1": "#fbf1c7",
+    "h2": "#d5c4a1",
+    "strong": "#fe8019"
+  },
   "bookmark": {
     "bgcolor": "#282828",
     "strokecolor": "#cc241d"

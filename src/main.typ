@@ -20,10 +20,29 @@
     env_headers.update(headers)
   }
 
-  let theme_colors = env_colors.get()
+  let theme = env_colors.get()
 
-  set text(get_text_color(theme_colors, 1))
-  set page(fill: get_page_color(theme_colors))
+  let h1_color     = get_colors(theme, "opts", "h1", default: rgb("#020004"))
+  let h2_color     = get_colors(theme, "opts", "h2", default: rgb("#16428e"))
+  let strong_color = get_colors(theme, "opts", "strong", default: rgb("#020004"))
+
+  show strong: it => {
+    set text(fill: strong_color)
+    it
+  }
+
+  show heading.where(level: 1): it => {
+    set text(fill: h1_color)
+    it
+  }
+
+  show heading.where(level: 2): it => {
+    set text(fill: h2_color)
+    it
+  }
+
+  set text(get_text_color(theme, 1))
+  set page(fill: get_page_color(theme))
 
   body
 }
@@ -48,8 +67,9 @@
   title,
   info,
 ) = context {
-  let bgcolor     = colors(env_colors.get(), "bookmark", "bgcolor")
-  let strokecolor = colors(env_colors.get(), "bookmark", "strokecolor")
+  let theme = env_colors.get()
+  let bgcolor     = get_colors(theme, "bookmark", "bgcolor")
+  let strokecolor = get_colors(theme, "bookmark", "strokecolor")
 
   block(
     fill: bgcolor,
@@ -81,10 +101,10 @@
 ) = context {
   let theme = env_colors.get()
 
-  let bgcolor1      = colors(theme, id, "bgcolor1")
-  let bgcolor2      = colors(theme, id, "bgcolor2")
-  let strokecolor1  = colors(theme, id, "strokecolor1")
-  let strokecolor2  = colors(theme, id, "strokecolor2")
+  let bgcolor1      = get_colors(theme, id, "bgcolor1")
+  let bgcolor2      = get_colors(theme, id, "bgcolor2")
+  let strokecolor1  = get_colors(theme, id, "strokecolor1")
+  let strokecolor2  = get_colors(theme, id, "strokecolor2")
 
   show raw.where(block: false): r => {
     box(
@@ -219,8 +239,8 @@
 ) = context {
   let theme = env_colors.get()
 
-  let bgcolor     = colors(theme, id, "bgcolor")
-  let strokecolor = colors(theme, id, "strokecolor")
+  let bgcolor     = get_colors(theme, id, "bgcolor")
+  let strokecolor = get_colors(theme, id, "strokecolor")
 
   let name_content = [=== #kind]
   if name != [] {
@@ -390,10 +410,10 @@
 ) = context {
   let theme = env_colors.get()
 
-  let bgcolor1      = colors(theme, id, "bgcolor1")
-  let bgcolor2      = colors(theme, id, "bgcolor2")
-  let strokecolor1  = colors(theme, id, "strokecolor1")
-  let strokecolor2  = colors(theme, id, "strokecolor2")
+  let bgcolor1      = get_colors(theme, id, "bgcolor1")
+  let bgcolor2      = get_colors(theme, id, "bgcolor2")
+  let strokecolor1  = get_colors(theme, id, "strokecolor1")
+  let strokecolor2  = get_colors(theme, id, "strokecolor2")
 
   show raw.where(block: false): r => {
     box(
