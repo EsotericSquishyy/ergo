@@ -10,7 +10,7 @@
 
 #let thmS-init(
   body,
-  colors: "classic",
+  colors: "bootstrap",
   headers: "tab",
 ) = context {
   if(colors in env_colors_list) {
@@ -20,7 +20,7 @@
     env_headers.update(headers)
   }
 
-  let theme = env_colors.get()
+  let theme        = env_colors.get()
 
   let h1_color     = get_colors(theme, "opts", "h1", default: rgb("#020004"))
   let h2_color     = get_colors(theme, "opts", "h2", default: rgb("#16428e"))
@@ -68,7 +68,8 @@
   title,
   info,
 ) = context {
-  let theme = env_colors.get()
+  let theme       = env_colors.get()
+
   let bgcolor     = get_colors(theme, "bookmark", "bgcolor")
   let strokecolor = get_colors(theme, "bookmark", "strokecolor")
 
@@ -100,7 +101,7 @@
   breakable:    false,
   id:           "",
 ) = context {
-  let theme = env_colors.get()
+  let theme         = env_colors.get()
 
   let bgcolor1      = get_colors(theme, id, "bgcolor1")
   let bgcolor2      = get_colors(theme, id, "bgcolor2")
@@ -181,49 +182,25 @@
   )
 }
 
-#let theorem(statement, proof, name: [], breakable: false) = {
-  proof_env(
-    name,
-    statement,
-    proof,
-    kind:         [Theorem],
-    breakable:    breakable,
-    id:           "theorem",
-  )
-}
+#let theorem = proof_env.with(
+  kind: [Theorem],
+  id:   "theorem"
+)
 
-#let lemma(statement, proof, name: [], breakable: false) = {
-  proof_env(
-    name,
-    statement,
-    proof,
-    kind:         [Lemma],
-    breakable:    breakable,
-    id:           "lemma",
-  )
-}
+#let lemma = proof_env.with(
+  kind: [Lemma],
+  id:   "lemma"
+)
 
-#let corollary(statement, proof, name: [], breakable: false) = {
-  proof_env(
-    name,
-    statement,
-    proof,
-    kind:         [Corollary],
-    breakable:    breakable,
-    id:           "corollary",
-  )
-}
+#let corollary = proof_env.with(
+  kind: [Corollary],
+  id:   "corollary"
+)
 
-#let proposition(statement, proof, name: [], breakable: false) = {
-  proof_env(
-    name,
-    statement,
-    proof,
-    kind:         [Proposition],
-    breakable:    breakable,
-    id:           "proposition",
-  )
-}
+#let proposition = proof_env.with(
+  kind: [Proposition],
+  id:   "proposition"
+)
 
 
 
@@ -303,95 +280,50 @@
   )
 }
 
-#let note(statement, name: [], breakable: false) = {
-  statement_env(
-    name,
-    statement,
-    kind:         [Note],
-    breakable:    breakable,
-    id:           "note",
-  )
-}
+#let note = statement_env.with(
+  kind: [Note],
+  id:   "note"
+)
 
-#let definition(statement, name: [], breakable: false) = {
-  statement_env(
-    name,
-    statement,
-    kind:         [Definition],
-    breakable:    breakable,
-    id:           "definition",
-  )
-}
+#let definition = statement_env.with(
+  kind: [Definition],
+  id:   "definition"
+)
 
-#let remark(statement, name: [], breakable: false) = {
-  statement_env(
-    name,
-    statement,
-    kind:         [Remark],
-    breakable:    breakable,
-    id:           "remark",
-  )
-}
+#let remark = statement_env.with(
+  kind: [Remark],
+  id:   "remark"
+)
 
-#let notation(statement, name: [], breakable: false) = {
-  statement_env(
-    name,
-    statement,
-    kind:         [Notation],
-    breakable:    breakable,
-    id:           "notation",
-  )
-}
+#let notation = statement_env.with(
+  kind: [Notation],
+  id:   "notation"
+)
 
-#let example(statement, name: [], breakable: false) = {
-  statement_env(
-    name,
-    statement,
-    kind:         [Example],
-    breakable:    breakable,
-    id:           "example",
-  )
-}
+#let example = statement_env.with(
+  kind: [Example],
+  id:   "example"
+)
 
-#let concept(statement, name: [], breakable: false) = {
-  statement_env(
-    name,
-    statement,
-    kind:         [Concept],
-    breakable:    breakable,
-    id:           "concept",
-  )
-}
+#let concept = statement_env.with(
+  kind: [Concept],
+  id:   "concept"
+)
 
-#let computational_problem(statement, name: [], breakable: false) = {
-  statement_env(
-    name,
-    statement,
-    kind:         [Computational Problem],
-    breakable:    breakable,
-    id:           "computational_problem",
-  )
-}
+#let computational_problem = statement_env.with(
+  kind: [Computational Problem],
+  id:   "computational_problem"
+)
 
-#let algorithm(statement, name: [], breakable: false) = {
-  statement_env(
-    name,
-    statement,
-    kind:         [Algorithm],
-    breakable:    breakable,
-    id:           "algorithm",
-  )
-}
+#let algorithm = statement_env.with(
+  kind: [Algorithm],
+  id:   "algorithm"
+)
 
-#let runtime(statement, name: [], breakable: false) = {
-  statement_env(
-    name,
-    statement,
-    kind:         [Runtime Analysis],
-    breakable:    breakable,
-    id:           "runtime",
-  )
-}
+#let runtime = statement_env.with(
+  kind: [Runtime Analysis],
+  id:   "runtime"
+)
 
 
 
