@@ -94,12 +94,15 @@
 
 //-----Theorem Environments-----//
 #let proof_env(
-  name,
   statement,
   proof_statement,
+  name:         [],
   kind:         [],
   breakable:    false,
   id:           "",
+  formal:       true,
+  width:        100%,
+  height:       auto,
 ) = context {
   let theme         = env_colors.get()
 
@@ -118,9 +121,12 @@
     )
   }
 
-  let name_content = [=== _ #kind _]
-  if name != [] {
-    name_content = [=== _ #kind: _ #name]
+  let name_content = [=== #kind #name]
+  if formal {
+    let name_content = [=== _ #kind _]
+    if name != [] {
+      name_content = [=== _ #kind: _ #name]
+    }
   }
 
   let block_inset
@@ -153,7 +159,7 @@
       fill: bgcolor2,
       inset: 8pt,
       radius: 2pt,
-      width: 100%,
+      width: width,
       stroke: (
         left: strokecolor2 + 6pt
       ),
@@ -163,12 +169,21 @@
   let proof_content = []
 
   if proof != [] {
-    proof_content = pad(proof(proof_statement), side_pad)
+    if formal {
+      proof_content = pad(proof(proof_statement), side_pad)
+    } else {
+      proof_content = stack(
+        pad([*Solution*], top: 12pt, left: side_pad),
+        pad(proof_statement, left: side_pad, right: side_pad, bottom: side_pad, top: 12pt)
+      )
+    }
+
   }
 
   block(
     fill: bgcolor1,
-    width: 100%,
+    width: width,
+    height: height,
     inset: block_inset,
     radius: 7pt,
     stroke: strokecolor1,
@@ -201,6 +216,59 @@
   kind: [Proposition],
   id:   "proposition"
 )
+
+#let problem(
+  statement,
+  solution,
+  name:       [],
+  breakable:  false,
+  width:      100%,
+  height:     auto,
+) = {
+  problem_counter.step()
+
+  let suffix = [:]
+  if name == [] {
+    name = [#context { problem_counter.display() }]
+    suffix = []
+  }
+
+  proof_env(
+    statement,
+    solution,
+    name:         name,
+    kind:         [Problem] + suffix,
+    breakable:    breakable,
+    id:           "problem",
+    width:        width,
+    height:       height,
+    formal:       false
+  )
+}
+
+#let exercise(
+  statement,
+  solution,
+  name:       [],
+  breakable:  false,
+  width:      100%,
+  height:     auto,
+) = {
+  let suffix = [:]
+  if name == [] { suffix = [] }
+
+  prob_env(
+    statement,
+    solution,
+    name:         name,
+    kind:         [Exercise] + suffix,
+    breakable:    breakable,
+    id:           "exercise",
+    width:        width,
+    height:       height,
+    formal:       false
+  )
+}
 
 
 
@@ -324,145 +392,3 @@
   kind: [Runtime Analysis],
   id:   "runtime"
 )
-
-
-
-
-
-
-//-----Problem Environments-----//
-#let prob_env(
-  name,
-  statement,
-  solution,
-  kind:         [],
-  breakable:    false,
-  id:           "",
-  width:        100%,
-  height:       auto,
-) = context {
-  let theme = env_colors.get()
-
-  let bgcolor1      = get_colors(theme, id, "bgcolor1")
-  let bgcolor2      = get_colors(theme, id, "bgcolor2")
-  let strokecolor1  = get_colors(theme, id, "strokecolor1")
-  let strokecolor2  = get_colors(theme, id, "strokecolor2")
-
-  show raw.where(block: false): r => {
-    box(
-      fill: bgcolor1.saturate(ratios(theme, "raw", "saturation")),
-      outset: (x: 1pt, y: 3pt),
-      inset: (x: 2pt),
-      radius: 2pt,
-      r
-    )
-  }
-
-  let name_content = [=== #kind #name]
-  let block_inset
-  let top_pad
-  let side_pad
-  if env_headers.get() == "tab" {
-    name_content = block(
-      fill: strokecolor1,
-      inset: 7pt,
-      width: 100%,
-      text(get_text_color(theme, 2))[#name_content]
-    )
-
-    block_inset = 0pt
-    top_pad = 8pt
-    side_pad = 12pt
-
-  } else if env_headers.get() == "classic" {
-    block_inset = 8pt
-    top_pad = 12pt
-    side_pad = 0pt
-  }
-
-  let statement_content = pad(
-    top: top_pad,
-    right: 12pt,
-    bottom: 12pt,
-    left: 12pt,
-    block(
-      fill: bgcolor2,
-      inset: 8pt,
-      radius: 2pt,
-      width: width,
-      stroke: (
-        left: strokecolor2 + 6pt
-      ),
-      statement
-    )
-  )
-
-  block(
-    fill: bgcolor1,
-    width: width,
-    height: height,
-    inset: block_inset,
-    radius: 7pt,
-    stroke: strokecolor1,
-    breakable: breakable,
-    clip: true,
-    stack(
-      name_content,
-      statement_content,
-      pad([*Solution*], top: 12pt, left: side_pad),
-      pad(solution, left: side_pad, right: side_pad, bottom: side_pad, top: 12pt)
-    )
-  )
-}
-
-// proof param?
-#let problem(
-  statement,
-  solution,
-  name:       [],
-  breakable:  false,
-  width:      100%,
-  height:     auto,
-) = {
-  problem_counter.step()
-
-  let suffix = [:]
-  if name == [] {
-    name = [#context { problem_counter.display() }]
-    suffix = []
-  }
-
-  prob_env(
-    name,
-    statement,
-    solution,
-    kind:         [Problem] + suffix,
-    breakable:    breakable,
-    id:           "problem",
-    width:        width,
-    height:       height,
-  )
-}
-
-#let exercise(
-  statement,
-  solution,
-  name:       [],
-  breakable:  false,
-  width:      100%,
-  height:     auto,
-) = {
-  let suffix = [:]
-  if name == [] { suffix = [] }
-
-  prob_env(
-    name,
-    statement,
-    solution,
-    kind:         [Exercise] + suffix,
-    breakable:    breakable,
-    id:           "exercise",
-    width:        width,
-    height:       height,
-  )
-}
