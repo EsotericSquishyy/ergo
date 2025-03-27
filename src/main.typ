@@ -59,7 +59,8 @@
 
 #let qed = [#v(0.2em) #h(90%) $square.big$]
 
-#let pf(body) = {
+// add option of changing : to .
+#let proof(body) = {
   [*Proof:* ]; body; qed
 }
 
@@ -94,7 +95,7 @@
 #let proof_env(
   name,
   statement,
-  proof,
+  proof_statement,
   kind:         [],
   breakable:    false,
   id:           "",
@@ -161,7 +162,7 @@
   let proof_content = []
 
   if proof != [] {
-    proof_content = pad(pf(proof), side_pad)
+    proof_content = pad(proof(proof_statement), side_pad)
   }
 
   block(

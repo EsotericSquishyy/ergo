@@ -1,7 +1,7 @@
 #import "src/main.typ": (
   thmS-init,
   correction,
-  pf,
+  proof,
   bookmark,
   theorem,
   lemma,
@@ -20,6 +20,8 @@
   exercise,
 )
 
+#let pf = proof
+
 #let thm = theorem
 #let lem = lemma
 #let cor = corollary
@@ -36,4 +38,3 @@
 
 #let prob = problem
 #let excs = exercise
-
