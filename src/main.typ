@@ -94,16 +94,31 @@
 
 //-----Theorem Environments-----//
 #let proof_env(
-  statement,
-  proof_statement,
-  name:         [],
-  kind:         [],
-  breakable:    false,
-  id:           "",
-  formal:       true,
-  width:        100%,
-  height:       auto,
+  statement:       [],
+  proof_statement: [],
+  name:            [],
+  kind:            [],
+  breakable:       false,
+  id:              "",
+  formal:          true,
+  problem:         false,
+  width:           100%,
+  height:          auto,
+  ..args
 ) = context {
+  let argv = args.pos()
+  let argc = argv.len()
+
+  if argc < 2 {
+    panic("Must pass in at least two positional arguments")
+  } else if argc > 3 {
+    panic("Muss pass in at most 3 positional arguments")
+  }
+
+  let name = if argc == 3 {argv.at(0)} else {name}
+  let statement = if argc == 2 {argv.at(0)} else {argv.at(1)}
+  let proof_statement = if argc == 2 {argv.at(1)} else {argv.at(2)}
+
   let theme         = env_colors.get()
 
   let bgcolor1      = get_colors(theme, id, "bgcolor1")
@@ -121,12 +136,29 @@
     )
   }
 
-  let name_content = [=== #kind #name]
+  let name_content
   if formal {
-    let name_content = [=== _ #kind _]
+    name_content = [=== _ #kind _]
     if name != [] {
       name_content = [=== _ #kind: _ #name]
     }
+
+  } else {
+    let suffix = [:]
+
+    if problem {
+      problem_counter.step()
+      if name == [] {
+        name = [#context { problem_counter.display() }]
+        suffix = []
+      }
+
+    } else {
+      if name == [] { suffix = [] }
+    }
+
+    let kind_content = kind + suffix
+    name_content = [=== #kind_content #name]
   }
 
   let block_inset
@@ -217,58 +249,18 @@
   id:   "proposition"
 )
 
-#let problem(
-  statement,
-  solution,
-  name:       [],
-  breakable:  false,
-  width:      100%,
-  height:     auto,
-) = {
-  problem_counter.step()
+#let problem = proof_env.with(
+  kind:    [Problem],
+  id:      "problem",
+  formal:  false,
+  problem: true
+)
 
-  let suffix = [:]
-  if name == [] {
-    name = [#context { problem_counter.display() }]
-    suffix = []
-  }
-
-  proof_env(
-    statement,
-    solution,
-    name:         name,
-    kind:         [Problem] + suffix,
-    breakable:    breakable,
-    id:           "problem",
-    width:        width,
-    height:       height,
-    formal:       false
-  )
-}
-
-#let exercise(
-  statement,
-  solution,
-  name:       [],
-  breakable:  false,
-  width:      100%,
-  height:     auto,
-) = {
-  let suffix = [:]
-  if name == [] { suffix = [] }
-
-  prob_env(
-    statement,
-    solution,
-    name:         name,
-    kind:         [Exercise] + suffix,
-    breakable:    breakable,
-    id:           "exercise",
-    width:        width,
-    height:       height,
-    formal:       false
-  )
-}
+#let exercise = proof_env.with(
+  kind:   [Exercise],
+  id:     "exercise",
+  formal: false
+)
 
 
 
@@ -277,13 +269,28 @@
 
 //-----Definition Environments-----//
 #let statement_env(
-  name,
-  statement,
+  name:         [],
+  statement:    [],
   kind:         [],
   breakable:    false,
   id:           "",
+  width:           100%,
+  height:          auto,
+  ..args
 ) = context {
-  let theme = env_colors.get()
+  let argv = args.pos()
+  let argc = argv.len()
+
+  if argc < 1 {
+    panic("Must pass in at least one positional argument")
+  } else if argc > 2 {
+    panic("Muss pass in at most 2 positional arguments")
+  }
+
+  let name = if argc == 2 {argv.at(0)} else {name}
+  let statement = if argc == 1 {argv.at(0)} else {argv.at(1)}
+
+  let theme       = env_colors.get()
 
   let bgcolor     = get_colors(theme, id, "bgcolor")
   let strokecolor = get_colors(theme, id, "strokecolor")
@@ -329,7 +336,8 @@
 
   block(
     fill: bgcolor,
-    width: 100%,
+    width: width,
+    height: height,
     inset: block_inset,
     radius: 7pt,
     stroke: strokecolor,
