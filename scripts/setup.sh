@@ -7,7 +7,7 @@ fi
 PKG_DIR=$(pwd)
 
 if [[ "$(uname)" == "Darwin" ]]; then
-    TARGET_DIR="$HOME/Library/Application Support/typst/packages/local/superTemplate"
+    TARGET_DIR="$HOME/Library/Application Support/typst/packages/local/superTheorems"
     VERSION=$(grep '^version = ' typst.toml | sed -E 's/^version = "([^"]+)"/\1/')
 
     mkdir -p $TARGET_DIR
@@ -16,7 +16,7 @@ if [[ "$(uname)" == "Darwin" ]]; then
     exit 0
 
 elif [[ "$(expr substr $(uname -s) 1 5)" == "Linux" ]]; then
-    TARGET_DIR="$HOME/.local/share/typst/packages/local/superTemplate"
+    TARGET_DIR="$HOME/.local/share/typst/packages/local/superTheorems"
     VERSION=$(grep -oP '(?<=^version = ").*?(?=")' typst.toml)
 
     mkdir -p $TARGET_DIR
