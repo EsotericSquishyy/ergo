@@ -112,7 +112,7 @@
   if argc < 2 {
     panic("Must pass in at least two positional arguments")
   } else if argc > 3 {
-    panic("Muss pass in at most 3 positional arguments")
+    panic("Must pass in at most 3 positional arguments")
   }
 
   let name = if argc == 3 {argv.at(0)} else {name}
@@ -200,7 +200,7 @@
   )
   let proof_content = []
 
-  if proof != [] {
+  if proof_statement != [] {
     if formal {
       proof_content = pad(proof(proof_statement), side_pad)
     } else {
