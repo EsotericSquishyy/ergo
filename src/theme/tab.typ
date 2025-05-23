@@ -4,7 +4,7 @@
 }
 
 
-#let classic_proof_env(
+#let tab_proof_env(
   statement,
   proof_statement,
   name,
@@ -39,7 +39,6 @@
     if name != [] {
       name_content = [=== _ #kind: _ #name]
     }
-
   } else {
     let suffix = [:]
 
@@ -58,9 +57,16 @@
     name_content = [=== #kind_content #name]
   }
 
-  let block_inset = 8pt
-  let top_pad     = 12pt
-  let side_pad    = 0pt
+  name_content = block(
+    fill: strokecolor1,
+    inset: 7pt,
+    width: 100%,
+    text(rgb(opts_colors.at("text2")))[#name_content]
+  )
+
+  let block_inset = 0pt
+  let top_pad = 8pt
+  let side_pad = 12pt
 
   let statement_content = pad(
     top: top_pad,
@@ -109,7 +115,7 @@
   )
 }
 
-#let classic_statement_env(
+#let tab_statement_env(
   name,
   statement,
   colors,
@@ -118,7 +124,7 @@
   kind,
   breakable,
   width,
-  height
+  height,
 ) = context {
   let bgcolor      = rgb(colors.at("bgcolor"))
   let strokecolor  = rgb(colors.at("strokecolor"))
@@ -138,10 +144,17 @@
     )
   }
 
-  let block_inset = 8pt
-  let top_pad = 12pt
-  let side_pad = 0pt
-  let bottom_pad = 3pt
+  name_content = block(
+    fill: strokecolor,
+    inset: 7pt,
+    width: 100%,
+    text(rgb(opts_colors.at("text2")))[#name_content]
+  )
+
+  let block_inset = 0pt
+  let top_pad = 8pt
+  let side_pad = 12pt
+  let bottom_pad = 10pt
 
   block(
     fill: bgcolor,

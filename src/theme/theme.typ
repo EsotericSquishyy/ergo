@@ -1,4 +1,4 @@
-#import "tabs.typ": *
+#import "tab.typ": *
 #import "classic.typ": *
 #import "sidebar.typ": *
 
