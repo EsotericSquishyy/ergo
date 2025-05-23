@@ -1,5 +1,5 @@
+#import "color/color.typ": *
 #import "theme/theme.typ": *
-
 
 
 
