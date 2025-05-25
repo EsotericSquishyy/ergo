@@ -1,8 +1,4 @@
-#let qed = [#v(0.2em) #h(90%) $square.big$]
-#let proof(body) = {
-  [*Proof:* ]; body; qed
-}
-
+#import "reqs.typ": *
 
 #let tab_proof_env(
   statement,
@@ -17,7 +13,7 @@
   problem,
   width,
   height
-) = context {
+) = {
   let bgcolor1      = rgb(colors.at("bgcolor1"))
   let bgcolor2      = rgb(colors.at("bgcolor2"))
   let strokecolor1  = rgb(colors.at("strokecolor1"))
@@ -125,7 +121,7 @@
   breakable,
   width,
   height,
-) = context {
+) = {
   let bgcolor      = rgb(colors.at("bgcolor"))
   let strokecolor  = rgb(colors.at("strokecolor"))
 

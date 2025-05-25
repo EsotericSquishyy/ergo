@@ -6,8 +6,6 @@
 
 
 //-----Setup-----//
-#let problem_counter = counter("problem")
-
 #let thmS-init(
   body,
   colors: "bootstrap",
