@@ -1,8 +1,10 @@
 #import "src/main.typ": (
   thmS-init,
   correction,
-  proof,
   bookmark,
+  equation_box,
+  proof,
+  qed,
   theorem,
   lemma,
   corollary,
@@ -21,6 +23,7 @@
 )
 
 #let pf = proof
+#let eqbox = equation_box
 
 #let thm = theorem
 #let lem = lemma

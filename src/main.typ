@@ -94,8 +94,8 @@
   )
 }
 
-#let eqbox(
-  eq,
+#let equation_box(
+  equation,
 ) = context {
   let theme = env_colors.get()
   let colors = get_opts_colors(theme)
@@ -104,7 +104,7 @@
 
   align(center)[
     #rect(stroke: text1)[
-      #eq
+      #equation
     ]
   ]
 }
