@@ -94,6 +94,20 @@
   )
 }
 
+#let eqbox(
+  eq,
+) = context {
+  let theme = env_colors.get()
+  let colors = get_opts_colors(theme)
+
+  let text1 = rgb(colors.at("text1"))
+
+  align(center)[
+    #rect(stroke: text1)[
+      #eq
+    ]
+  ]
+}
 
 
 
