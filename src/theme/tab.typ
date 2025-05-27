@@ -1,20 +1,57 @@
 #import "reqs.typ": *
 
 #let tab_proof_env(
+  name,
   statement,
   proof_statement,
-  name_content,
-  colors,
-  opts_colors,
   breakable,
   formal,
   width,
-  height
+  height,
+  kind,
+  problem,
+  colors,
+  opts_colors,
+  raw_ratio
 ) = {
   let bgcolor1      = rgb(colors.at("bgcolor1"))
   let bgcolor2      = rgb(colors.at("bgcolor2"))
   let strokecolor1  = rgb(colors.at("strokecolor1"))
   let strokecolor2  = rgb(colors.at("strokecolor2"))
+
+  show raw.where(block: false): r => {
+    box(
+      fill: bgcolor.saturate(raw_ratio),
+      outset:  (x: 1pt, y: 3pt),
+      inset:   (x: 2pt),
+      radius:  2pt,
+      r,
+    )
+  }
+
+  let name_content
+  if formal {
+    name_content = [=== _ #kind _]
+    if name != [] {
+      name_content = [=== _ #kind: _ #name]
+    }
+  } else {
+    let suffix = [:]
+
+    if problem {
+      problem_counter.step()
+      if name == [] {
+        name = [#context { problem_counter.display() }]
+        suffix = []
+      }
+    } else {
+      if name == [] { suffix = [] }
+    }
+
+    let kind_content = kind + suffix
+    name_content = [=== #kind_content #name]
+  }
+
 
   name_content = block(
     fill: strokecolor1,
@@ -75,16 +112,33 @@
 }
 
 #let tab_statement_env(
-  name_content,
+  name,
   statement,
-  colors,
-  opts_colors,
   breakable,
   width,
   height,
+  kind,
+  colors,
+  opts_colors,
+  raw_ratio
 ) = {
   let bgcolor      = rgb(colors.at("bgcolor"))
   let strokecolor  = rgb(colors.at("strokecolor"))
+
+  show raw.where(block: false): r => {
+    box(
+      fill: bgcolor.saturate(raw_ratio),
+      outset:  (x: 1pt, y: 3pt),
+      inset:   (x: 2pt),
+      radius:  2pt,
+      r
+    )
+  }
+
+  let name_content = [=== #kind]
+  if name != [] {
+    name_content = [=== #kind: #name]
+  }
 
   name_content = block(
     fill: strokecolor,

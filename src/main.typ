@@ -145,74 +145,50 @@
   let raw_ratio   = get_ratio(env_colors.get(), "raw", "saturation")
   let theme       = env_headers.get()
 
-  show raw.where(block: false): r => {
-    box(
-      fill: bgcolor.saturate(raw_ratio),
-      outset:  (x: 1pt, y: 3pt),
-      inset:   (x: 2pt),
-      radius:  2pt,
-      r,
-    )
-  }
-
-  let name_content
-  if formal {
-    name_content = [=== _ #kind _]
-    if name != [] {
-      name_content = [=== _ #kind: _ #name]
-    }
-  } else {
-    let suffix = [:]
-
-    if problem {
-      problem_counter.step()
-      if name == [] {
-        name = [#context { problem_counter.display() }]
-        suffix = []
-      }
-    } else {
-      if name == [] { suffix = [] }
-    }
-
-    let kind_content = kind + suffix
-    name_content = [=== #kind_content #name]
-  }
-
   if (theme == "tab") {
     return tab_proof_env(
+      name,
       statement,
       proof_statement,
-      name_content,
-      colors,
-      opts_colors,
       breakable,
       formal,
       width,
-      height
+      height,
+      kind,
+      problem,
+      colors,
+      opts_colors,
+      raw_ratio
     )
   } else if (theme == "classic") {
     return classic_proof_env(
+      name,
       statement,
       proof_statement,
-      name_content,
-      colors,
-      opts_colors,
       breakable,
       formal,
       width,
-      height
+      height,
+      kind,
+      problem,
+      colors,
+      opts_colors,
+      raw_ratio
     )
   } else if (theme == "sidebar") {
     return sidebar_proof_env(
+      name,
       statement,
       proof_statement,
-      name_content,
-      colors,
-      opts_colors,
       breakable,
       formal,
       width,
-      height
+      height,
+      kind,
+      problem,
+      colors,
+      opts_colors,
+      raw_ratio
     )
   }
 }
@@ -283,50 +259,41 @@
   let raw_ratio   = get_ratio(env_colors.get(), "raw", "saturation")
   let theme       = env_headers.get()
 
-  show raw.where(block: false): r => {
-    box(
-      fill: bgcolor.saturate(raw_ratio),
-      outset:  (x: 1pt, y: 3pt),
-      inset:   (x: 2pt),
-      radius:  2pt,
-      r
-    )
-  }
-
-  let name_content = [=== #kind]
-  if name != [] {
-    name_content = [=== #kind: #name]
-  }
-
   if (theme == "tab") {
     return tab_statement_env(
-      name_content,
+      name,
       statement,
-      colors,
-      opts_colors,
       breakable,
       width,
-      height
+      height,
+      kind,
+      colors,
+      opts_colors,
+      raw_ratio
     )
   } else if (theme == "classic") {
     return classic_statement_env(
-      name_content,
+      name,
       statement,
-      colors,
-      opts_colors,
       breakable,
       width,
-      height
+      height,
+      kind,
+      colors,
+      opts_colors,
+      raw_ratio
     )
   } else if (theme == "sidebar") {
     return sidebar_statement_env(
-      name_content,
+      name,
       statement,
-      colors,
-      opts_colors,
       breakable,
       width,
-      height
+      height,
+      kind,
+      colors,
+      opts_colors,
+      raw_ratio
     )
   }
 }

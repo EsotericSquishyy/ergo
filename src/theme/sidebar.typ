@@ -1,18 +1,54 @@
 #import "reqs.typ": *
 
 #let sidebar_proof_env(
+  name,
   statement,
   proof_statement,
-  name_content,
-  colors,
-  opts_colors,
   breakable,
   formal,
   width,
   height,
+  kind,
+  problem,
+  colors,
+  opts_colors,
+  raw_ratio
 ) = {
   let bgcolor = rgb(colors.at("bgcolor1"))
   let strokecolor = rgb(colors.at("strokecolor1"))
+
+  show raw.where(block: false): r => {
+    box(
+      fill: bgcolor.saturate(raw_ratio),
+      outset: (x: 1pt, y: 3pt),
+      inset: (x: 2pt),
+      radius: 2pt,
+      r
+    )
+  }
+
+  let name_content
+  if formal {
+    name_content = [=== _ #kind _]
+    if name != [] {
+      name_content = [=== _ #kind: _ #name]
+    }
+  } else {
+    let suffix = [:]
+
+    if problem {
+      problem_counter.step()
+      if name == [] {
+        name = [#context { problem_counter.display() }]
+        suffix = []
+      }
+    } else {
+      if name == [] { suffix = [] }
+    }
+
+    let kind_content = kind + suffix
+    name_content = [=== #kind_content #name]
+  }
 
   let block_inset = 10pt
   let elem_spacing = 12pt
@@ -40,16 +76,34 @@
 }
 
 #let sidebar_statement_env(
-  name_content,
+  name,
   statement,
-  colors,
-  opts_colors,
   breakable,
   width,
-  height
+  height,
+  kind,
+  colors,
+  opts_colors,
+  raw_ratio
 ) = {
   let bgcolor = rgb(colors.at("bgcolor"))
   let strokecolor = rgb(colors.at("strokecolor"))
+
+  show raw.where(block: false): r => {
+    box(
+      fill: bgcolor.saturate(raw_ratio),
+      outset:  (x: 1pt, y: 3pt),
+      inset:   (x: 2pt),
+      radius:  2pt,
+      r
+    )
+  }
+
+  let name_content = [=== #kind]
+  if name != [] {
+    name_content = [=== #kind: #name]
+  }
+
 
   let block_inset = 10pt
   let elem_spacing = 12pt
@@ -64,7 +118,7 @@
     height: height,
     stack(
       spacing: elem_spacing,
-      text(fill: strokecolor, weight: "bold")[#name_content],
+      text(fill: strokecolor)[#name_content],
       statement,
     ),
   )
