@@ -11,8 +11,8 @@
   width,
   height,
 ) = {
-  let bgcolor = rgb(opts_colors.at("fill"))
-  let strokecolor = rgb(colors.at("strokecolor2"))
+  let bgcolor = rgb(colors.at("bgcolor1"))
+  let strokecolor = rgb(colors.at("strokecolor1"))
 
   let block_inset = 10pt
   let elem_spacing = 12pt
@@ -27,7 +27,7 @@
     width: width,
     height: height,
     inset: block_inset,
-    stroke: (left: strokecolor + 3pt, top: strokecolor + 1pt, bottom: strokecolor + 1pt),
+    stroke: (left: strokecolor + 3pt),
     breakable: breakable,
     clip: true,
     stack(
@@ -60,6 +60,8 @@
     stroke: (left: strokecolor + 3pt),
     breakable: breakable,
     clip: true,
+    width: width,
+    height: height,
     stack(
       spacing: elem_spacing,
       text(fill: strokecolor, weight: "bold")[#name_content],
