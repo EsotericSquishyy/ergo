@@ -3,14 +3,11 @@
 #let classic_proof_env(
   statement,
   proof_statement,
-  name,
+  name_content,
   colors,
   opts_colors,
-  raw_ratio,
-  kind,
   breakable,
   formal,
-  problem,
   width,
   height
 ) = {
@@ -18,41 +15,6 @@
   let bgcolor2      = rgb(colors.at("bgcolor2"))
   let strokecolor1  = rgb(colors.at("strokecolor1"))
   let strokecolor2  = rgb(colors.at("strokecolor2"))
-
-  show raw.where(block: false): r => {
-    box(
-      fill: bgcolor1.saturate(raw_ratio),
-      outset: (x: 1pt, y: 3pt),
-      inset: (x: 2pt),
-      radius: 2pt,
-      r
-    )
-  }
-
-  let name_content
-  if formal {
-    name_content = [=== _ #kind _]
-    if name != [] {
-      name_content = [=== _ #kind: _ #name]
-    }
-
-  } else {
-    let suffix = [:]
-
-    if problem {
-      problem_counter.step()
-      if name == [] {
-        name = [#context { problem_counter.display() }]
-        suffix = []
-      }
-
-    } else {
-      if name == [] { suffix = [] }
-    }
-
-    let kind_content = kind + suffix
-    name_content = [=== #kind_content #name]
-  }
 
   let block_inset = 8pt
   let top_pad     = 12pt
@@ -106,33 +68,16 @@
 }
 
 #let classic_statement_env(
-  name,
+  name_content,
   statement,
   colors,
   opts_colors,
-  raw_ratio,
-  kind,
   breakable,
   width,
   height
 ) = {
   let bgcolor      = rgb(colors.at("bgcolor"))
   let strokecolor  = rgb(colors.at("strokecolor"))
-
-  let name_content = [=== #kind]
-  if name != [] {
-    name_content = [=== #kind: #name]
-  }
-
-  show raw.where(block: false): r => {
-    box(
-      fill: bgcolor.saturate(raw_ratio),
-      outset: (x: 1pt, y: 3pt),
-      inset: (x: 2pt),
-      radius: 2pt,
-      r
-    )
-  }
 
   let block_inset = 8pt
   let top_pad = 12pt

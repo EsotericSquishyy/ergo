@@ -1,3 +1,5 @@
+#import "reqs.typ": proof, qed
+
 #import "tab.typ": *
 #import "classic.typ": *
 #import "sidebar.typ": *

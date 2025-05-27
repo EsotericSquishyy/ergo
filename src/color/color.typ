@@ -1,16 +1,19 @@
-// Colors
 #let env_colors_list  = ("classic", "bw", "bootstrap", "gruvbox_dark")
 #let env_colors       = state("theme", "bootstrap")
 #let colors_dict      = (:)
+
 #for colors_name in env_colors_list {
   colors_dict.insert(colors_name, json(colors_name + ".json"))
 }
+
 #let get_ratio(theme_name, env_name, parameter_name) = {
   return float(colors_dict.at(theme_name).at(env_name).at(parameter_name)) * 100%
 }
+
 #let get_colors(theme_name, env_name) = {
   return colors_dict.at(theme_name).at(env_name, default: none)
 }
+
 #let get_opts_colors(theme_name) = {
   let opts = get_colors(theme_name, "opts")
 

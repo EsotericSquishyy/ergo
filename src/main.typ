@@ -1,5 +1,6 @@
 #import "color/color.typ": *
 #import "theme/theme.typ": *
+#import "toggles.typ": *
 
 
 
@@ -10,15 +11,25 @@
   body,
   colors: "bootstrap",
   headers: "tab",
+  all_breakable: false
 ) = context {
-  if(colors in env_colors_list) {
+  if type(colors) == str and colors in env_colors_list {
     env_colors.update(colors)
+  } else {
+    panic("Unrecognized or invalid color")
   }
-  if(headers in env_headers_list) {
+  if type(headers) == str and headers in env_headers_list {
     env_headers.update(headers)
+  } else {
+    panic("Unrecognized or invalid header style")
+  }
+  if type(all_breakable) == bool {
+    all_breakable_state.update(all_breakable)
+  } else {
+    panic("Non boolean passed to boolean")
   }
 
-  let colors       = env_colors.get()
+
   let opts_colors  = get_opts_colors(env_colors.get())
 
   let bg_color     = rgb(opts_colors.at("fill"))
@@ -57,13 +68,6 @@
 //-----Misc-----//
 #let correction(body) = {
   text(fill: rgb("#ea4120"), weight: "semibold", body)
-}
-
-#let qed = [#v(0.2em) #h(90%) $square.big$]
-
-// add option of changing : to .
-#let proof(body) = {
-  [*Proof:* ]; body; qed
 }
 
 #let bookmark(
@@ -127,18 +131,48 @@
   let raw_ratio   = get_ratio(env_colors.get(), "raw", "saturation")
   let theme       = env_headers.get()
 
+  show raw.where(block: false): r => {
+    box(
+      fill: bgcolor.saturate(raw_ratio),
+      outset:  (x: 1pt, y: 3pt),
+      inset:   (x: 2pt),
+      radius:  2pt,
+      r,
+    )
+  }
+
+  let name_content
+  if formal {
+    name_content = [=== _ #kind _]
+    if name != [] {
+      name_content = [=== _ #kind: _ #name]
+    }
+  } else {
+    let suffix = [:]
+
+    if problem {
+      problem_counter.step()
+      if name == [] {
+        name = [#context { problem_counter.display() }]
+        suffix = []
+      }
+    } else {
+      if name == [] { suffix = [] }
+    }
+
+    let kind_content = kind + suffix
+    name_content = [=== #kind_content #name]
+  }
+
   if (theme == "tab") {
     return tab_proof_env(
       statement,
       proof_statement,
-      name,
+      name_content,
       colors,
       opts_colors,
-      raw_ratio,
-      kind,
       breakable,
       formal,
-      problem,
       width,
       height
     )
@@ -146,14 +180,11 @@
     return classic_proof_env(
       statement,
       proof_statement,
-      name,
+      name_content,
       colors,
       opts_colors,
-      raw_ratio,
-      kind,
       breakable,
       formal,
-      problem,
       width,
       height
     )
@@ -161,14 +192,11 @@
     return sidebar_proof_env(
       statement,
       proof_statement,
-      name,
+      name_content,
       colors,
       opts_colors,
-      raw_ratio,
-      kind,
       breakable,
       formal,
-      problem,
       width,
       height
     )
@@ -220,8 +248,8 @@
   kind:         [],
   breakable:    false,
   id:           "",
-  width:           100%,
-  height:          auto,
+  width:        100%,
+  height:       auto,
   ..args
 ) = context {
   let argv = args.pos()
@@ -241,38 +269,47 @@
   let raw_ratio   = get_ratio(env_colors.get(), "raw", "saturation")
   let theme       = env_headers.get()
 
+  show raw.where(block: false): r => {
+    box(
+      fill: bgcolor.saturate(raw_ratio),
+      outset:  (x: 1pt, y: 3pt),
+      inset:   (x: 2pt),
+      radius:  2pt,
+      r
+    )
+  }
+
+  let name_content = [=== #kind]
+  if name != [] {
+    name_content = [=== #kind: #name]
+  }
+
   if (theme == "tab") {
     return tab_statement_env(
-      name,
+      name_content,
       statement,
       colors,
       opts_colors,
-      raw_ratio,
-      kind,
       breakable,
       width,
       height
     )
   } else if (theme == "classic") {
     return classic_statement_env(
-      name,
+      name_content,
       statement,
       colors,
       opts_colors,
-      raw_ratio,
-      kind,
       breakable,
       width,
       height
     )
   } else if (theme == "sidebar") {
     return sidebar_statement_env(
-      name,
+      name_content,
       statement,
       colors,
       opts_colors,
-      raw_ratio,
-      kind,
       breakable,
       width,
       height
@@ -324,3 +361,4 @@
   kind: [Runtime Analysis],
   id:   "runtime"
 )
+
