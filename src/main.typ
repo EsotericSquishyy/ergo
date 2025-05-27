@@ -157,6 +157,21 @@
       width,
       height
     )
+  } else if (theme == "sidebar") {
+    return sidebar_proof_env(
+      statement,
+      proof_statement,
+      name,
+      colors,
+      opts_colors,
+      raw_ratio,
+      kind,
+      breakable,
+      formal,
+      problem,
+      width,
+      height
+    )
   }
 }
 
@@ -240,6 +255,18 @@
     )
   } else if (theme == "classic") {
     return classic_statement_env(
+      name,
+      statement,
+      colors,
+      opts_colors,
+      raw_ratio,
+      kind,
+      breakable,
+      width,
+      height
+    )
+  } else if (theme == "sidebar") {
+    return sidebar_statement_env(
       name,
       statement,
       colors,

@@ -3,5 +3,5 @@
 #import "sidebar.typ": *
 
 
-#let env_headers_list = ("tab", "classic")
+#let env_headers_list = ("tab", "classic", "sidebar")
 #let env_headers      = state("headers", "tab")
