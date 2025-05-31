@@ -29,7 +29,6 @@
     panic("Non boolean passed to boolean")
   }
 
-
   let opts_colors  = get_opts_colors(env_colors.get())
 
   let bg_color     = rgb(opts_colors.at("fill"))
@@ -115,20 +114,17 @@
 
 //-----Theorem Environments-----//
 #let proof_env(
-  statement:       [],
-  proof_statement: [],
-  name:            [],
-  kind:            [],
-  breakable:       false,
-  id:              "",
-  formal:          true,
-  problem:         false,
-  width:           100%,
-  height:          auto,
-  ..args
+  kind,
+  id,
+  problem,
+  breakable:  false,
+  width:      100%,
+  height:     auto,
+  ..argv
 ) = context {
-  let argv = args.pos()
-  let argc = argv.len()
+  let args    = argv.pos()
+  let argc    = args.len()
+  let kwargs  = argv.named() // passed to child function
 
   if argc < 2 {
     panic("Must pass in at least two positional arguments")
@@ -136,94 +132,89 @@
     panic("Must pass in at most 3 positional arguments")
   }
 
-  let name            = if argc == 3 {argv.at(0)} else {name}
-  let statement       = if argc == 2 {argv.at(0)} else {argv.at(1)}
-  let proof_statement = if argc == 2 {argv.at(1)} else {argv.at(2)}
+  let name            = if argc == 3 {args.at(0)} else {[]}
+  let statement       = if argc == 2 {args.at(0)} else {args.at(1)}
+  let proof_statement = if argc == 2 {args.at(1)} else {args.at(2)}
 
-  let colors      = get_colors(env_colors.get(), id)
-  let opts_colors = get_opts_colors(env_colors.get())
-  let raw_ratio   = get_ratio(env_colors.get(), "raw", "saturation")
-  let theme       = env_headers.get()
+  let theme_name  = env_headers.get()
+  let color_name  = env_colors.get()
+  let colors      = (
+    "env": get_colors(color_name, id),
+    "opt": get_opts_colors(color_name),
+    "raw": get_ratio(color_name, "raw", "saturation")
+  )
 
-  if (theme == "tab") {
+  let child_argv = arguments(
+    kind:      kind,
+    id:        id,
+    breakable: breakable,
+    width:     width,
+    height:    height,
+    problem:   problem,
+    ..kwargs
+  )
+
+  if (theme_name == "tab") {
     return tab_proof_env(
       name,
       statement,
       proof_statement,
-      breakable,
-      formal,
-      width,
-      height,
-      kind,
-      problem,
       colors,
-      opts_colors,
-      raw_ratio
+      ..child_argv
     )
-  } else if (theme == "classic") {
+  } else if (theme_name == "classic") {
     return classic_proof_env(
       name,
       statement,
       proof_statement,
-      breakable,
-      formal,
-      width,
-      height,
-      kind,
-      problem,
       colors,
-      opts_colors,
-      raw_ratio
+      ..child_argv
     )
-  } else if (theme == "sidebar") {
+  } else if (theme_name == "sidebar") {
     return sidebar_proof_env(
       name,
       statement,
       proof_statement,
-      breakable,
-      formal,
-      width,
-      height,
-      kind,
-      problem,
       colors,
-      opts_colors,
-      raw_ratio
+      ..child_argv
     )
   }
 }
 
 #let theorem = proof_env.with(
-  kind: [Theorem],
-  id:   "theorem"
+  [Theorem],
+  "theorem",
+  false
 )
 
 #let lemma = proof_env.with(
-  kind: [Lemma],
-  id:   "lemma"
+  [Lemma],
+  "lemma",
+  false
 )
 
 #let corollary = proof_env.with(
-  kind: [Corollary],
-  id:   "corollary"
+  [Corollary],
+  "corollary",
+  false
 )
 
 #let proposition = proof_env.with(
-  kind: [Proposition],
-  id:   "proposition"
+  [Proposition],
+  "proposition",
+  false
 )
 
 #let problem = proof_env.with(
-  kind:    [Problem],
-  id:      "problem",
-  formal:  false,
-  problem: true
+  [Problem],
+  "problem",
+  true
 )
 
 #let exercise = proof_env.with(
-  kind:   [Exercise],
-  id:     "exercise",
-  formal: false
+  [Exercise],
+  "exercise",
+  true
 )
 
 
@@ -233,17 +224,16 @@
 
 //-----Definition Environments-----//
 #let statement_env(
-  name:         [],
-  statement:    [],
-  kind:         [],
-  breakable:    false,
-  id:           "",
-  width:        100%,
-  height:       auto,
-  ..args
+  kind,
+  id,
+  breakable:  false,
+  width:      100%,
+  height:     auto,
+  ..argv
 ) = context {
-  let argv = args.pos()
-  let argc = argv.len()
+  let args    = argv.pos()
+  let argc    = args.len()
+  let kwargs  = argv.named() // passed to child function
 
   if argc < 1 {
     panic("Must pass in at least one positional argument")
@@ -251,95 +241,92 @@
     panic("Muss pass in at most 2 positional arguments")
   }
 
-  let name = if argc == 2 {argv.at(0)} else {name}
-  let statement = if argc == 1 {argv.at(0)} else {argv.at(1)}
+  let name      = if argc == 2 {args.at(0)} else {[]}
+  let statement = if argc == 1 {args.at(0)} else {args.at(1)}
 
-  let colors      = get_colors(env_colors.get(), id)
-  let opts_colors = get_opts_colors(env_colors.get())
-  let raw_ratio   = get_ratio(env_colors.get(), "raw", "saturation")
-  let theme       = env_headers.get()
+  let theme_name  = env_headers.get()
+  let color_name  = env_colors.get()
+  let colors      = (
+    "env": get_colors(color_name, id),
+    "opt": get_opts_colors(color_name),
+    "raw": get_ratio(color_name, "raw", "saturation")
+  )
 
-  if (theme == "tab") {
+  let child_argv = arguments(
+    kind:      kind,
+    id:        id,
+    breakable: breakable,
+    width:     width,
+    height:    height,
+    ..kwargs
+  )
+
+  if (theme_name == "tab") {
     return tab_statement_env(
       name,
       statement,
-      breakable,
-      width,
-      height,
-      kind,
       colors,
-      opts_colors,
-      raw_ratio
+      ..child_argv
     )
-  } else if (theme == "classic") {
+  } else if (theme_name == "classic") {
     return classic_statement_env(
       name,
       statement,
-      breakable,
-      width,
-      height,
-      kind,
       colors,
-      opts_colors,
-      raw_ratio
+      ..child_argv
     )
-  } else if (theme == "sidebar") {
+  } else if (theme_name == "sidebar") {
     return sidebar_statement_env(
       name,
       statement,
-      breakable,
-      width,
-      height,
-      kind,
       colors,
-      opts_colors,
-      raw_ratio
+      ..child_argv
     )
   }
 }
 
 #let note = statement_env.with(
-  kind: [Note],
-  id:   "note"
+  [Note],
+  "note"
 )
 
 #let definition = statement_env.with(
-  kind: [Definition],
-  id:   "definition"
+  [Definition],
+  "definition"
 )
 
 #let remark = statement_env.with(
-  kind: [Remark],
-  id:   "remark"
+  [Remark],
+  "remark"
 )
 
 #let notation = statement_env.with(
-  kind: [Notation],
-  id:   "notation"
+  [Notation],
+  "notation"
 )
 
 #let example = statement_env.with(
-  kind: [Example],
-  id:   "example"
+  [Example],
+  "example"
 )
 
 #let concept = statement_env.with(
-  kind: [Concept],
-  id:   "concept"
+  [Concept],
+  "concept"
 )
 
 #let computational_problem = statement_env.with(
-  kind: [Computational Problem],
-  id:   "computational_problem"
+  [Computational Problem],
+  "computational_problem"
 )
 
 #let algorithm = statement_env.with(
-  kind: [Algorithm],
-  id:   "algorithm"
+  [Algorithm],
+  "algorithm"
 )
 
 #let runtime = statement_env.with(
-  kind: [Runtime Analysis],
-  id:   "runtime"
+  [Runtime Analysis],
+  "runtime"
 )
 

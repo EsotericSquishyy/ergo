@@ -4,24 +4,18 @@
   name,
   statement,
   proof_statement,
-  breakable,
-  formal,
-  width,
-  height,
-  kind,
-  problem,
   colors,
-  opts_colors,
-  raw_ratio
+  ..argv
 ) = {
-  let bgcolor1      = rgb(colors.at("bgcolor1"))
-  let bgcolor2      = rgb(colors.at("bgcolor2"))
-  let strokecolor1  = rgb(colors.at("strokecolor1"))
-  let strokecolor2  = rgb(colors.at("strokecolor2"))
+  let kwargs        = argv.named()
+  let bgcolor1      = rgb(colors.env.bgcolor1)
+  let bgcolor2      = rgb(colors.env.bgcolor2)
+  let strokecolor1  = rgb(colors.env.strokecolor1)
+  let strokecolor2  = rgb(colors.env.strokecolor2)
 
   show raw.where(block: false): r => {
     box(
-      fill: bgcolor.saturate(raw_ratio),
+      fill: bgcolor.saturate(colors.raw),
       outset:  (x: 1pt, y: 3pt),
       inset:   (x: 2pt),
       radius:  2pt,
@@ -30,26 +24,22 @@
   }
 
   let name_content
-  if formal {
-    name_content = [=== _ #kind _]
-    if name != [] {
-      name_content = [=== _ #kind: _ #name]
+  let kind = kwargs.kind
+  if kwargs.problem {
+    problem_counter.step()
+    let count = [#context { problem_counter.display() }]
+
+    if name == [] {
+      name_content = [=== #kind #count: #name]
+    } else {
+      name_content = [=== #kind #count: #name]
     }
   } else {
-    let suffix = [:]
-
-    if problem {
-      problem_counter.step()
-      if name == [] {
-        name = [#context { problem_counter.display() }]
-        suffix = []
-      }
+    if name == [] {
+      name_content = [=== _ #kind _]
     } else {
-      if name == [] { suffix = [] }
+      name_content = [=== _ #kind: _ #name]
     }
-
-    let kind_content = kind + suffix
-    name_content = [=== #kind_content #name]
   }
 
   let block_inset = 8pt
@@ -65,7 +55,7 @@
       fill: bgcolor2,
       inset: 8pt,
       radius: 2pt,
-      width: width,
+      width: 100%,
       stroke: (
         left: strokecolor2 + 6pt
       ),
@@ -75,26 +65,25 @@
   let proof_content = []
 
   if proof_statement != [] {
-    if formal {
-      proof_content = pad(proof(proof_statement), side_pad)
-    } else {
+    if kwargs.problem {
       proof_content = stack(
         pad([*Solution*], top: 12pt, left: side_pad),
         pad(proof_statement, left: side_pad, right: side_pad, bottom: side_pad, top: 12pt)
       )
+    } else {
+      proof_content = pad(proof(proof_statement), side_pad)
     }
-
   }
 
   block(
-    fill: bgcolor1,
-    width: width,
-    height: height,
-    inset: block_inset,
-    radius: 7pt,
-    stroke: strokecolor1,
-    breakable: breakable,
-    clip: true,
+    stroke:     strokecolor1,
+    fill:       bgcolor1,
+    inset:      block_inset,
+    width:      kwargs.width,
+    height:     kwargs.height,
+    breakable:  kwargs.breakable,
+    radius:     7pt,
+    clip:       true,
     stack(
       name_content,
       statement_content,
@@ -104,20 +93,18 @@
 }
 
 #let classic_statement_env(
-  name_content,
+  name,
   statement,
   colors,
-  opts_colors,
-  breakable,
-  width,
-  height
+  ..argv
 ) = {
-  let bgcolor      = rgb(colors.at("bgcolor"))
-  let strokecolor  = rgb(colors.at("strokecolor"))
+  let kwargs       = argv.named()
+  let bgcolor      = rgb(colors.env.bgcolor)
+  let strokecolor  = rgb(colors.env.strokecolor)
 
   show raw.where(block: false): r => {
     box(
-      fill: bgcolor.saturate(raw_ratio),
+      fill: bgcolor.saturate(colors.raw),
       outset:  (x: 1pt, y: 3pt),
       inset:   (x: 2pt),
       radius:  2pt,
@@ -125,9 +112,12 @@
     )
   }
 
-  let name_content = [=== #kind]
-  if name != [] {
-    name_content = [=== #kind: #name]
+  let name_content
+  let kind = kwargs.kind
+  if name == [] {
+    name_content = [=== _ #kind _]
+  } else {
+    name_content = [=== _ #kind: _ #name]
   }
 
   let block_inset = 8pt
@@ -136,14 +126,14 @@
   let bottom_pad = 3pt
 
   block(
-    fill: bgcolor,
-    width: width,
-    height: height,
-    inset: block_inset,
-    radius: 7pt,
-    stroke: strokecolor,
-    breakable: breakable,
-    clip: true,
+    stroke:     strokecolor,
+    fill:       bgcolor,
+    inset:      block_inset,
+    width:      kwargs.width,
+    height:     kwargs.height,
+    breakable:  kwargs.breakable,
+    radius:     7pt,
+    clip:       true,
     stack(
       name_content,
       pad(
