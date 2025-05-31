@@ -11,34 +11,9 @@
   let bgcolor     = rgb(colors.env.bgcolor1)
   let strokecolor = rgb(colors.env.strokecolor1)
 
-  show raw.where(block: false): r => {
-    box(
-      fill: bgcolor.saturate(colors.raw),
-      outset: (x: 1pt, y: 3pt),
-      inset: (x: 2pt),
-      radius: 2pt,
-      r
-    )
-  }
+  show raw.where(block: false): r => highlight_raw(r, bgcolor.saturate(colors.raw))
 
-  let name_content
-  let kind = kwargs.kind
-  if kwargs.problem {
-    problem_counter.step()
-    let count = [#context { problem_counter.display() }]
-
-    if name == [] {
-      name_content = [=== #kind #count: #name]
-    } else {
-      name_content = [=== #kind #count: #name]
-    }
-  } else {
-    if name == [] {
-      name_content = [=== _ #kind _]
-    } else {
-      name_content = [=== _ #kind: _ #name]
-    }
-  }
+  let name_content = get_name_content(kwargs.kind, name, problem: kwargs.problem)
 
   let block_inset = 10pt
   let elem_spacing = 12pt
@@ -75,23 +50,9 @@
   let bgcolor     = rgb(colors.env.bgcolor)
   let strokecolor = rgb(colors.env.strokecolor)
 
-  show raw.where(block: false): r => {
-    box(
-      fill: bgcolor.saturate(colors.raw),
-      outset:  (x: 1pt, y: 3pt),
-      inset:   (x: 2pt),
-      radius:  2pt,
-      r
-    )
-  }
+  show raw.where(block: false): r => highlight_raw(r, bgcolor.saturate(colors.raw))
 
-  let name_content
-  let kind = kwargs.kind
-  if name == [] {
-    name_content = [=== _ #kind _]
-  } else {
-    name_content = [=== _ #kind: _ #name]
-  }
+  let name_content = get_name_content(kwargs.kind, name)
 
   let block_inset = 10pt
   let elem_spacing = 12pt
