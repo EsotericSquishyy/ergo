@@ -1,4 +1,4 @@
-#import "reqs.typ": proof, qed
+#import "helpers.typ": proof, solution, qed
 
 #import "tab.typ": *
 #import "classic.typ": *

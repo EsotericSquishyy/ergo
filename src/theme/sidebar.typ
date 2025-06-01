@@ -1,4 +1,4 @@
-#import "reqs.typ": *
+#import "helpers.typ": *
 
 #let sidebar_proof_env(
   name,
@@ -13,28 +13,21 @@
 
   show raw.where(block: false): r => highlight_raw(r, bgcolor.saturate(colors.raw))
 
-  let name_content = get_name_content(kwargs.kind, name, problem: kwargs.problem)
-
-  let block_inset = 10pt
-  let elem_spacing = 12pt
-
-  let proof_content = none
-  if proof_statement != [] {
-    proof_content = if kwargs.problem  { [*Solution:* #proof_statement] } else { proof(proof_statement) }
-  }
+  let name_content      = get_proofname_content(kwargs.kind, name, problem: kwargs.problem)
+  let statement_content = get_statement_content(statement)
+  let proof_content     = get_proof_content(proof_statement, kwargs.problem)
 
   block(
     stroke:     (left: strokecolor + 3pt),
     fill:       bgcolor,
-    inset:      block_inset,
+    inset:      (y: 4pt),
     width:      kwargs.width,
     height:     kwargs.height,
     breakable:  kwargs.breakable,
     clip:       true,
     stack(
-      spacing: elem_spacing,
       text(strokecolor)[#name_content],
-      statement,
+      statement_content,
       proof_content,
     ),
   )
@@ -52,23 +45,20 @@
 
   show raw.where(block: false): r => highlight_raw(r, bgcolor.saturate(colors.raw))
 
-  let name_content = get_name_content(kwargs.kind, name)
-
-  let block_inset = 10pt
-  let elem_spacing = 12pt
+  let name_content      = get_statementname_content(kwargs.kind, name)
+  let statement_content = get_statement_content(statement)
 
   block(
     stroke:     (left: strokecolor + 3pt),
     fill:       bgcolor,
-    inset:      block_inset,
+    inset:      (y: 4pt),
     width:      kwargs.width,
     height:     kwargs.height,
     breakable:  kwargs.breakable,
     clip:       true,
     stack(
-      spacing: elem_spacing,
       text(fill: strokecolor)[#name_content],
-      statement,
+      statement_content,
     ),
   )
 }

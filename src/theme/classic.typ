@@ -1,4 +1,4 @@
-#import "reqs.typ": *
+#import "helpers.typ": *
 
 #let classic_proof_env(
   name,
@@ -15,49 +15,29 @@
 
   show raw.where(block: false): r => highlight_raw(r, bgcolor1.saturate(colors.raw))
 
-  let name_content = get_name_content(kwargs.kind, name, problem: kwargs.problem)
+  let name_content = get_proofname_content(kwargs.kind, name, problem: kwargs.problem)
 
-  let block_inset = 8pt
-  let top_pad     = 12pt
-  let side_pad    = 0pt
-
-  let statement_content = pad(
-    top: top_pad,
-    right: 12pt,
-    left: 12pt,
-    bottom: 12pt,
+  let statement_content = get_statement_content(
     block(
-      fill: bgcolor2,
-      inset: 8pt,
+      fill:   bgcolor2,
+      inset:  8pt,
       radius: 2pt,
-      width: 100%,
-      stroke: (
-        left: strokecolor2 + 6pt
-      ),
+      width:  100%,
+      stroke: (left: strokecolor2 + 6pt),
       statement
     )
   )
-  let proof_content = []
 
-  if proof_statement != [] {
-    if kwargs.problem {
-      proof_content = stack(
-        pad([*Solution*], top: 12pt, left: side_pad),
-        pad(proof_statement, left: side_pad, right: side_pad, bottom: side_pad, top: 12pt)
-      )
-    } else {
-      proof_content = pad(proof(proof_statement), side_pad)
-    }
-  }
+  let proof_content = get_proof_content(proof_statement, kwargs.problem)
 
   block(
     stroke:     strokecolor1,
     fill:       bgcolor1,
-    inset:      block_inset,
+    inset:      (y: 4pt),
     width:      kwargs.width,
     height:     kwargs.height,
     breakable:  kwargs.breakable,
-    radius:     7pt,
+    radius:     6pt,
     clip:       true,
     stack(
       name_content,
@@ -79,31 +59,21 @@
 
   show raw.where(block: false): r => highlight_raw(r, bgcolor.saturate(colors.raw))
 
-  let name_content = get_name_content(kwargs.kind, name)
-
-  let block_inset = 8pt
-  let top_pad = 12pt
-  let side_pad = 0pt
-  let bottom_pad = 3pt
+  let name_content      = get_statementname_content(kwargs.kind, name)
+  let statement_content = get_statement_content(statement)
 
   block(
     stroke:     strokecolor,
     fill:       bgcolor,
-    inset:      block_inset,
+    inset:      (y: 4pt),
     width:      kwargs.width,
     height:     kwargs.height,
     breakable:  kwargs.breakable,
-    radius:     7pt,
+    radius:     6pt,
     clip:       true,
     stack(
       name_content,
-      pad(
-        top: top_pad,
-        bottom: bottom_pad,
-        left: side_pad,
-        right: side_pad,
-        statement
-      )
+      statement_content
     )
   )
 }
