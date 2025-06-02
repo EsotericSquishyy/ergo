@@ -10,7 +10,7 @@
 
 #let highlight_raw(content, raw_color) = {
   box(
-    fill:   raw_color.saturate(50%),
+    fill:   raw_color,
     outset: (x: 1pt, y: 3pt),
     inset:  (x: 2pt),
     radius: 2pt,
