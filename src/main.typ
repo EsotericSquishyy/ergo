@@ -1,6 +1,23 @@
-#import "color/color.typ": *
-#import "theme/theme.typ": *
-#import "toggles.typ": *
+#import "color/color.typ": (
+  env_colors,
+  valid_colors,
+  get_ratio,
+  get_colors,
+  get_opts_colors,
+)
+#import "theme/theme.typ": (
+  env_headers,
+  valid_headers,
+  tab_proof_env,
+  tab_statement_env,
+  classic_proof_env,
+  classic_statement_env,
+  sidebar_proof_env,
+  sidebar_statement_env
+)
+#import "toggles.typ": (
+  breakable_toggle,
+)
 
 
 
@@ -13,18 +30,18 @@
   headers: "tab",
   all_breakable: false
 ) = context {
-  if type(colors) == str and colors in env_colors_list {
+  if type(colors) == str and valid_colors(colors) {
     env_colors.update(colors)
   } else {
     panic("Unrecognized or invalid color")
   }
-  if type(headers) == str and headers in env_headers_list {
+  if type(headers) == str and valid_headers(headers) {
     env_headers.update(headers)
   } else {
     panic("Unrecognized or invalid header style")
   }
   if type(all_breakable) == bool {
-    all_breakable_state.update(all_breakable)
+    breakable_toggle.update(all_breakable)
   } else {
     panic("Non boolean passed to boolean")
   }

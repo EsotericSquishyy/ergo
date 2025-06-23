@@ -1,1 +1,1 @@
-#let all_breakable_state = state("_", true)
+#let breakable_toggle = state("_", true)

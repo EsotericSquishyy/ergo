@@ -6,6 +6,10 @@
   colors_dict.insert(colors_name, json(colors_name + ".json"))
 }
 
+#let valid_colors(colors) = {
+  return colors in env_colors_list
+}
+
 #let get_ratio(theme_name, env_name, parameter_name) = {
   return float(colors_dict.at(theme_name).at(env_name).at(parameter_name)) * 100%
 }

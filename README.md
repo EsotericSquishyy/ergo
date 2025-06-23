@@ -14,7 +14,8 @@ To get started, add the following to your `.typ` file:
 ```typ
 #import "@local/superTheorems:0.1.0": *
 
-#show: thmS-init.with()
+#show: thmS-init
+// equivalently: #show: thmS-init.with()
 ```
 
 Then the default _definition_ and _theorem_ environments can be constructed as follows:
@@ -162,9 +163,7 @@ The following is a sample header:
 There are a few extra functions/macros that may be of interest:
 - `correction(body)` - Add a correction to nearby content.
 - `bookmark(title, info)` - Add additional information with small box.
-- `equation_box(equation)` - Box an equation.
-- `proof(body)` - Prepend body with "Proof:" and append `qed`.
-- `qed` - A macro for `sym.square.big` with additional spacing.
+- `equation_box(equation)` (`eqbox(equation)`) - Box an equation.
 
 
 
@@ -205,16 +204,6 @@ typst compile test.typ
 ```
 The installation is working if the compile didn't fail and `test.pdf` looks like this:
 <img src="gallery/test_output.png" width="50%">
-
-### Updating package
-
-If you want to use a different version of the package than the one currently installed you can do one of the following:
-- **To keep previous version:** Clone this repository a second time (in a different directory) and run `scripts/setup.sh` in the new repository's root directory.
-Note this will remove the any previous verion's symlink that has the same version number as the one you are installing.
-- **To remove previous version:** Pull the changes from the target release/commit and rerun `scripts/setup.sh` from the root of the project directory.
-Optionally, you can remove the dangling symlink from the Typst local package directory.
-
-
 
 ## Known Issues
 - Incorrect colors for arrows in drawing packages such as [Fletcher](https://github.com/Jollywatt/typst-fletcher) when using `gruvbox_dark` color scheme.

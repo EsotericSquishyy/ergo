@@ -3,8 +3,6 @@
   correction,
   bookmark,
   equation_box,
-  proof,
-  qed,
   theorem,
   lemma,
   corollary,
@@ -22,7 +20,6 @@
   exercise,
 )
 
-#let pf = proof
 #let eqbox = equation_box
 
 #let thm = theorem
