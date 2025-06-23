@@ -157,6 +157,14 @@ This is done through an initialization function, `thmS-init`, with the following
     - `"classic"` - Original header style, rounded
     - `"sidebar"` - Less padding, not rounded
 
+For the best outcome this function should be called before any content is rendered to enforce consistency of the documents content.
+The following is a sample header:
+```typ
+#import "@local/superTheorems:0.1.0": *
+#show: thmS-init.with(colors: "gruvbox_dark", headers: "sidebar")
+// body
+```
+
 #### Extras
 
 There are a few extra functions/macros that may be of interest:
@@ -170,7 +178,7 @@ There are a few extra functions/macros that may be of interest:
 
 ## Examples
 
-TODO
+Refer to the `examples/` directory to get an idea of how to work with the package.
 
 
 
