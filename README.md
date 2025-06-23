@@ -1,73 +1,61 @@
 # superTheorems
 
-A [Typst](https://github.com/typst/typst) suite of environments/macros for ease of taking notes or doing problem sets in Mathematics, Computer Science, and Physics.
+**superTheorems** is a [Typst](https://github.com/typst/typst) suite of environments for taking notes and doing problem sets, especially for Mathematics, Computer Science, and Physics.
 
-> [Typst](https://github.com/typst/typst) is required to use this package.
-> You can get started by checking out the integrated language service [`Tinymist`](https://github.com/Myriad-Dreamin/tinymist) or by referring to Typst's [installation page](https://github.com/typst/typst?tab=readme-ov-file#installation).
-> Note that [`Tinymist`](https://github.com/Myriad-Dreamin/tinymist) currently supports `VSCode`, `NeoVim`, `Emacs`, `Sublime Text`, `Helix`, and `Zed`.
-
-
-
-## Installation
-
-Clone this repository somewhere locally on your machine and move to the directory.
-Run `scripts/setup.sh` from the **root of the project directory**.
-Refer to the [Typst Packages](https://github.com/typst/packages) repository for more information.
-
-> The installation process simply symlinks this project directory to the Typst local packages directory mentioned [here](https://github.com/Jollywatt/typst-fletcher).
-
-```bash
-git clone https://github.com/EsotericSquishyy/superTheorems
-cd superTheorems
-scripts/setup.sh
-```
-
-#### Updating package
-
-If you want to use a different version of the package than the one currently installed you can do one of the following:
-- **To keep previous version:** Clone this repository a second time (in a different directory) and run `scripts/setup.sh` in the new repository's root directory.
-Note this will remove the any previous verion's symlink that has the same version number as the one you are installing.
-- **To remove previous version:** Pull the changes from the target release/commit and rerun `scripts/setup.sh` from the root of the project directory.
-Optionally, you can remove the dangling symlink from the Typst local package directory.
-
-#### Testing
-
-Test whether the installation/update worked by opening running the following commands in an empty directory:
-```bash
-cat <<EOF > test.typ
-#import "@local/superTheorems:{Version Number}": *
-#defn[
-    #lorem(5)
-][
-    #lorem(50)
-]
-EOF
-
-typst compile test.typ
-```
-The installation is working if the compile didn't fail and `test.pdf` looks like this:
-<img src="gallery/test_output.png" width="50%">
+> [Typst](https://github.com/typst/typst) is required to use this package (refer to Typst's [installation page](https://github.com/typst/typst?tab=readme-ov-file#installation) here).
+> For the best Typst experience, we recommend the integrated language service [`Tinymist`](https://github.com/Myriad-Dreamin/tinymist).
 
 
 
 ## Usage
 
-To get started simply add the following to your `.typ` file:
+To get started, add the following to your `.typ` file:
+
 ```typ
-#import "@local/superTheorems:{Version Number}": *
+#import "@local/superTheorems:0.1.0": *
+
+#show: thmS-init.with()
 ```
-This will give you access to all of the functions available in the `superTheorems` package.
 
-#### Environments
+Then the default _definition_ and _theorem_ environments can be constructed as follows:
 
-`superTheorems` has three different types of enviornments: proofs, statements, and problems.
-Their individual usages are listed in the subsections below but they all share a set of (optional) keyword arguments:
-- `breakable` (default: `false`) - if the current environment is breakable across multiple pages.
-- `width` (default: `100%`) - width of the current environment in its current scope.
-- `height` (default: `auto`) - height of the current environment in its current scope.
+```typ
+#defn[Group][
+  A *group* is an ordered pair $(G, star)$, where $G$ is a set and $star$ is a binary operation on $G$ satisfying
+  1. The operation is associative: $(a star b) star c = a star (b star c) forall a, b, c in G$
+  2. $G$ has an identity: $exists e in G "such that" e star a = a star e = a forall a in G$
+  3. Every element $a in G$ is invertible: $forall a in G exists a^(-1) in G "such that" a star a^(-1) = a^(-1) star a = e$
+]
 
-The following is a table detailing the three different kinds of environments.
-Note that the arguments are all positional but only one is required for valid syntax.
+#thm[Orbit-Stabilizer Theorem][
+  Let $G$ be a group acting on a set $X$, with $x in X$.
+  Then the map
+  $
+    G \/ G_x &--> G dot x \
+    a G_x &arrow.r.bar a dot x
+  $
+  is well-defined and bijective, and therefore $|G dot x| = [G : G_x]$.
+][
+  Let $a, b in G$.
+  Then
+  $
+    a G_x = b G_x &<==> b^(-1) a in G_x \
+    &<==> b^(-1) a dot x = x \
+    &<==> a dot x = b dot x.
+  $
+  Observe the map is well-defined by $(==>)$ and injective by $(<==)$.
+
+  For surjectivity, note for any $a in G$, $a dot x$ is the image of $a G_x$.
+]
+```
+
+<!--There should be an image here - first we need to fix the bug where thm title is not vertically centered -->
+
+### Environments
+
+More generally, `superTheorems` has three different types of environments: _proofs_, _statements_, and _problems_.
+
+Note the arguments are all positional but only one is required for valid syntax.
 <table>
   <tr>
     <td><b>Type</b></td>
@@ -143,15 +131,19 @@ Note that the arguments are all positional but only one is required for valid sy
   </tr>
 </table>
 
-#### Themes/Colors
+These share a set of (optional) keyword arguments:
+- `breakable` (default: `false`) - whether the current environment is breakable across multiple pages.
+- `width` (default: `100%`) - width of the current environment in its current scope.
+- `height` (default: `auto`) - height of the current environment in its current scope.
 
-`superTheorems` offers several ways to customize the environments.
-This is done through an initialization function, `thmS-init`, with the following keyword arguments:
-- `colors` (default: `"bootstrap"`) - Changes colorscheme of environments and text color
-    - `"classic"` - Original colorscheme
-    - `"bw"` - Black and white colorscheme
-    - `"bootstrap"` - Default colorscheme based on bootstrap colors
-    - `"gruvbox_dark"` - Gruvbox Dark colorscheme, also modifies the background color
+### Themes/Colors
+
+To customize environments, pass the following keyword arguments to `thmS-init`:
+- `colors` (default: `"bootstrap"`) - Changes color scheme of environments
+    - `"classic"` - Original
+    - `"bw"` - Black and white
+    - `"bootstrap"` - Default color scheme based on bootstrap colors
+    - `"gruvbox_dark"` - Gruvbox Dark color scheme, also modifies the background color
 - `headers` (default: `"tab"`) - Changes environment box structure
     - `"tab"` - Default header style, rounded
     - `"classic"` - Original header style, rounded
@@ -179,6 +171,48 @@ There are a few extra functions/macros that may be of interest:
 ## Examples
 
 Refer to the `examples/` directory to get an idea of how to work with the package.
+
+
+
+## Local Installation
+
+1. Clone this repository locally on your machine. 
+2. Run `setup.sh` from the **root of the project directory**.
+  Refer to the [Typst Packages](https://github.com/typst/packages) repository for more information.
+  Note the script simply symlinks the project directory to the Typst local packages directory.
+
+```bash
+git clone https://github.com/EsotericSquishyy/superTheorems
+cd superTheorems
+chmod +x setup.sh
+./setup.sh
+```
+
+### Testing
+
+Test whether the installation/update worked by opening running the following commands in an empty directory:
+```bash
+cat <<EOF > test.typ
+#import "@local/superTheorems:{Version Number}": *
+#defn[
+    #lorem(5)
+][
+    #lorem(50)
+]
+EOF
+
+typst compile test.typ
+```
+The installation is working if the compile didn't fail and `test.pdf` looks like this:
+<img src="gallery/test_output.png" width="50%">
+
+### Updating package
+
+If you want to use a different version of the package than the one currently installed you can do one of the following:
+- **To keep previous version:** Clone this repository a second time (in a different directory) and run `scripts/setup.sh` in the new repository's root directory.
+Note this will remove the any previous verion's symlink that has the same version number as the one you are installing.
+- **To remove previous version:** Pull the changes from the target release/commit and rerun `scripts/setup.sh` from the root of the project directory.
+Optionally, you can remove the dangling symlink from the Typst local package directory.
 
 
 
