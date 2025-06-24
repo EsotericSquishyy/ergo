@@ -5,6 +5,7 @@
   get_colors,
   get_opts_colors,
 )
+#import "theme/helpers.typ": block_title_selector
 #import "theme/theme.typ": (
   env_headers,
   valid_headers,
@@ -62,20 +63,9 @@
   let h2_color     = rgb(opts_colors.at("h2"))
   let strong_color = rgb(opts_colors.at("strong"))
 
-  show strong: it => {
-    set text(fill: strong_color)
-    it
-  }
-
-  show heading.where(level: 1): it => {
-    set text(fill: h1_color)
-    it
-  }
-
-  show heading.where(level: 2): it => {
-    set text(fill: h2_color)
-    it
-  }
+  show strong: set text(fill: strong_color)
+  show heading.where(level: 1): set text(fill: h1_color)
+  show heading.where(level: 2): set text(fill: h2_color)
 
   set text(t1_color)
   set page(fill: bg_color)

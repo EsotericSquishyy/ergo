@@ -1,5 +1,6 @@
 #import "src/main.typ": (
   thmS-init,
+  block_title_selector,
   correction,
   bookmark,
   equation_box,

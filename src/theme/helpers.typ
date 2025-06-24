@@ -1,3 +1,9 @@
+#let block_title_selector = <__superTheorems_block_title>
+#let block_title(content) = {
+  set text(weight: "bold")
+  [#content#block_title_selector]
+}
+
 #let proof(body, inline_qed) = {
   if inline_qed {
     [*Proof:* ]; body; [#h(0.2em) $square.big$]
@@ -30,15 +36,15 @@
     let count = [#{problem_counter.step(); context problem_counter.display()}]
 
     if name == [] {
-      name_content = [=== #kind #count]
+      name_content = block_title[#kind #count]
     } else {
-      name_content = [=== #kind #count: #name]
+      name_content = block_title[#kind #count: #name]
     }
   } else {
     if name == [] {
-      name_content =  [=== _ #kind _]
+      name_content =  block_title[_#kind _]
     } else {
-      name_content = [=== _ #kind: _ #name]
+      name_content = block_title[_#kind: _ #name]
     }
   }
 
@@ -51,9 +57,9 @@
   let name_content = none
 
   if name == [] {
-    name_content =  [=== #kind]
+    name_content =  block_title[#kind]
   } else {
-    name_content = [=== #kind: #name]
+    name_content = block_title[#kind: #name]
   }
 
   return pad(x: xpad, y: ypad, name_content)
