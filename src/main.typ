@@ -134,7 +134,7 @@
   kind,
   id,
   problem,
-  breakable:  false,
+  breakable:  none,
   width:      100%,
   height:     auto,
   ..argv
@@ -161,10 +161,12 @@
     "raw": get_ratio(color_name, "raw", "saturation")
   )
 
+  let new_breakable = if type(breakable) == bool { breakable } else { breakable_toggle.get() }
+
   let child_argv = arguments(
     kind:      kind,
     id:        id,
-    breakable: breakable,
+    breakable: new_breakable,
     width:     width,
     height:    height,
     problem:   problem,
@@ -243,7 +245,7 @@
 #let statement_env(
   kind,
   id,
-  breakable:  false,
+  breakable:  none,
   width:      100%,
   height:     auto,
   ..argv
@@ -269,10 +271,12 @@
     "raw": get_ratio(color_name, "raw", "saturation")
   )
 
+  let new_breakable = if type(breakable) == bool { breakable } else { breakable_toggle.get() }
+
   let child_argv = arguments(
     kind:      kind,
     id:        id,
-    breakable: breakable,
+    breakable: new_breakable,
     width:     width,
     height:    height,
     ..kwargs
