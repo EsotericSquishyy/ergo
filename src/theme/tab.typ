@@ -27,7 +27,6 @@
 
   name_content = block(
     fill:   strokecolor1,
-    inset: (top: 4pt),
     width:  100%,
     text(rgb(colors.opt.text2))[#name_content]
   )
@@ -48,6 +47,7 @@
   block(
     stroke:     strokecolor1,
     fill:       bgcolor1,
+    inset:      (bottom: 4pt),
     width:      kwargs.width,
     height:     kwargs.height,
     breakable:  kwargs.breakable,
