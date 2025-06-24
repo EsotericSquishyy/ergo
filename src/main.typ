@@ -13,10 +13,11 @@
   classic_proof_env,
   classic_statement_env,
   sidebar_proof_env,
-  sidebar_statement_env
+  sidebar_statement_env,
 )
 #import "toggles.typ": (
-  breakable_toggle,
+  all_breakable_toggle,
+  inline_qed_toggle,
 )
 
 
@@ -26,9 +27,10 @@
 //-----Setup-----//
 #let thmS-init(
   body,
-  colors: "bootstrap",
-  headers: "tab",
-  all_breakable: false
+  colors:         "bootstrap",
+  headers:        "tab",
+  all_breakable:  false,
+  inline_qed:     false,
 ) = context {
   if type(colors) == str and valid_colors(colors) {
     env_colors.update(colors)
@@ -41,7 +43,12 @@
     panic("Unrecognized or invalid header style")
   }
   if type(all_breakable) == bool {
-    breakable_toggle.update(all_breakable)
+    all_breakable_toggle.update(all_breakable)
+  } else {
+    panic("Non boolean passed to boolean")
+  }
+  if type(inline_qed) == bool {
+    inline_qed_toggle.update(inline_qed)
   } else {
     panic("Non boolean passed to boolean")
   }
@@ -134,6 +141,7 @@
   kind,
   id,
   problem,
+  inline_qed: none,
   breakable:  none,
   width:      100%,
   height:     auto,
@@ -161,15 +169,17 @@
     "raw": get_ratio(color_name, "raw", "saturation")
   )
 
-  let new_breakable = if type(breakable) == bool { breakable } else { breakable_toggle.get() }
+  let new_breakable  = if type(breakable) == bool { breakable } else { all_breakable_toggle.get() }
+  let new_inline_qed = if type(inline_qed) == bool { inline_qed } else { inline_qed_toggle.get() }
 
   let child_argv = arguments(
-    kind:      kind,
-    id:        id,
-    breakable: new_breakable,
-    width:     width,
-    height:    height,
-    problem:   problem,
+    kind:       kind,
+    id:         id,
+    inline_qed: new_inline_qed,
+    breakable:  new_breakable,
+    width:      width,
+    height:     height,
+    problem:    problem,
     ..kwargs
   )
 
@@ -271,7 +281,7 @@
     "raw": get_ratio(color_name, "raw", "saturation")
   )
 
-  let new_breakable = if type(breakable) == bool { breakable } else { breakable_toggle.get() }
+  let new_breakable = if type(breakable) == bool { breakable } else { all_breakable_toggle.get() }
 
   let child_argv = arguments(
     kind:      kind,

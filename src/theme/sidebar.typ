@@ -1,4 +1,12 @@
-#import "helpers.typ": *
+#import "helpers.typ": (
+  problem_counter,
+  highlight_raw,
+  get_proofname_content,
+  get_statementname_content,
+  get_proof_content,
+  get_statement_content,
+)
+
 
 #let sidebar_proof_env(
   name,
@@ -15,7 +23,7 @@
 
   let name_content      = get_proofname_content(kwargs.kind, name, problem: kwargs.problem)
   let statement_content = get_statement_content(statement)
-  let proof_content     = get_proof_content(proof_statement, kwargs.problem)
+  let proof_content     = get_proof_content(proof_statement, kwargs.problem, kwargs.inline_qed)
 
   block(
     stroke:     (left: strokecolor + 3pt),

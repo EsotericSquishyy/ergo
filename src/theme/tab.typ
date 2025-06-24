@@ -1,4 +1,12 @@
-#import "helpers.typ": *
+#import "helpers.typ": (
+  problem_counter,
+  highlight_raw,
+  get_proofname_content,
+  get_statementname_content,
+  get_proof_content,
+  get_statement_content,
+)
+
 
 #let tab_proof_env(
   name,
@@ -35,7 +43,7 @@
     )
   )
 
-  let proof_content = get_proof_content(proof_statement, kwargs.problem)
+  let proof_content = get_proof_content(proof_statement, kwargs.problem, kwargs.inline_qed)
 
   block(
     stroke:     strokecolor1,
