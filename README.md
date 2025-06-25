@@ -136,49 +136,22 @@ To customize environments, pass the following keyword arguments to `thmS-init`:
     <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>
     <tr>
         <td><code>bootstrap</code></td>
-        <td><a href="src/colors/bootstrap.json"><svg viewBox="0 0 500 150" width="100%">
-            <rect fill="#000000" x="0" y="0" width="50" height="100%"/>
-            <rect fill="#FFFFFF" x="50" y="0" width="50" height="100%"/>
-            <rect fill="#DFD8F1" x="100" y="0" width="50" height="100%"/>
-            <rect fill="#FFF4CD" x="150" y="0" width="50" height="100%"/>
-            <rect fill="#F1D2D5" x="200" y="0" width="50" height="100%"/>
-            <rect fill="#D1E7DE" x="400" y="0" width="50" height="100%"/>
-            <rect fill="#FFE5D1" x="450" y="0" width="50" height="100%"/>
-            <rect fill="#D0E2FF" x="250" y="0" width="50" height="100%"/>
-            <rect fill="#F3D4E3" x="300" y="0" width="50" height="100%"/>
-            <rect fill="#CEE3DA" x="350" y="0" width="50" height="100%"/>
-        </svg></a></td>
+        <td><a href="src/colors/bootstrap.json">
+            <img src="gallery/DOCS/bootstrap_palette.svg" width="500px">
+        </a></td>
     </tr>
     </tr>
     <tr>
         <td><code>bw</code></td>
-        <td><a href="src/colors/bw.json"><svg viewBox="0 0 500 150" width="100%">
-            <rect fill="#000000" x="0" y="0" width="50" height="100%"/>
-            <rect fill="#FFFFFF" x="50" y="0" width="50" height="100%"/>
-            <rect fill="#FFFFFF" x="100" y="0" width="50" height="100%"/>
-            <rect fill="#FFFFFF" x="150" y="0" width="50" height="100%"/>
-            <rect fill="#FFFFFF" x="200" y="0" width="50" height="100%"/>
-            <rect fill="#FFFFFF" x="400" y="0" width="50" height="100%"/>
-            <rect fill="#FFFFFF" x="450" y="0" width="50" height="100%"/>
-            <rect fill="#FFFFFF" x="250" y="0" width="50" height="100%"/>
-            <rect fill="#FFFFFF" x="300" y="0" width="50" height="100%"/>
-            <rect fill="#FFFFFF" x="350" y="0" width="50" height="100%"/>
-        </svg></a></td>
+        <td><a href="src/colors/bw.json">
+            <img src="gallery/DOCS/bw_palette.svg" width="500px">
+        </a></td>
     </tr>
     <tr>
         <td><code>gruvbox_dark</code></td>
-        <td><a href="src/colors/gruvbox_dark.json"><svg viewBox="0 0 500 150" width="100%">
-            <rect fill="#EBDBB2" x="0" y="0" width="50" height="100%"/>
-            <rect fill="#282828" x="50" y="0" width="50" height="100%"/>
-            <rect fill="#3c3836" x="100" y="0" width="50" height="100%"/>
-            <rect fill="#3c3836" x="150" y="0" width="50" height="100%"/>
-            <rect fill="#3c3836" x="200" y="0" width="50" height="100%"/>
-            <rect fill="#3c3836" x="400" y="0" width="50" height="100%"/>
-            <rect fill="#3c3836" x="450" y="0" width="50" height="100%"/>
-            <rect fill="#3c3836" x="250" y="0" width="50" height="100%"/>
-            <rect fill="#3c3836" x="300" y="0" width="50" height="100%"/>
-            <rect fill="#3c3836" x="350" y="0" width="50" height="100%"/>
-        </svg></a></td>
+        <td><a href="src/colors/gruvbox_dark.json">
+            <img src="gallery/DOCS/gruvbox_palette.svg" width="500px">
+        </a></td>
     </tr>
 </table>
 
@@ -278,7 +251,7 @@ EOF
 $ typst compile test.typ
 ```
 The installation is working if the compile didn't fail and `test.pdf` looks like this:
-<img src="gallery/test_output.svg" width="100%">
+<img src="gallery/DOCS/test_output.svg" width="100%">
 
 ## Known Issues
 

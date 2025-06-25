@@ -1,7 +1,5 @@
-*.pdf
-*.png
-*.svg
 !examples/*
 !gallery/*
+*.pdf
 .DS_Store
 TEST
