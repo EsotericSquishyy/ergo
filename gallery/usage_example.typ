@@ -1,6 +1,13 @@
 #import "@local/superTheorems:0.1.0": *
 
-#show: thmS-init.with()
+#set page(
+  width: 16.7cm,
+  height: 13.405cm,
+  margin: 1em
+)
+#show: thmS-init.with(
+
+)
 
 #defn[Group][
   A *group* is an ordered pair $(G, star)$, where $G$ is a set and $star$ is a binary operation on $G$ satisfying
@@ -29,4 +36,3 @@
 
   For surjectivity, note for any $a in G$, $a dot x$ is the image of $a G_x$.
 ]
-

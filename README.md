@@ -5,8 +5,6 @@
 > [Typst](https://github.com/typst/typst) is required to use this package (refer to Typst's [installation page](https://github.com/typst/typst?tab=readme-ov-file#installation) here).
 > For the best Typst experience, we recommend the integrated language service [`Tinymist`](https://github.com/Myriad-Dreamin/tinymist).
 
-
-
 ## Usage
 
 To get started, add the following to your `.typ` file:
@@ -15,10 +13,11 @@ To get started, add the following to your `.typ` file:
 #import "@local/superTheorems:0.1.0": *
 
 #show: thmS-init
-// equivalently: #show: thmS-init.with()
 ```
 
-Then the default _definition_ and _theorem_ environments can be constructed as follows:
+### Example
+
+![](/gallery/usage_example.svg)
 
 ```typ
 #defn[Group][
@@ -50,8 +49,6 @@ Then the default _definition_ and _theorem_ environments can be constructed as f
 ]
 ```
 
-<!--There should be an image here - first we need to fix the bug where thm title is not vertically centered -->
-
 ### Environments
 
 More generally, `superTheorems` has three different types of environments: _proofs_, _statements_, and _problems_.
@@ -62,9 +59,7 @@ Note the arguments are all positional but only one is required for valid syntax.
     <td><b>Type</b></td>
     <td><b>Args (Priority)</b></td>
     <td><b>Environments</b></td>
-    <td><b>Notes</b></td>
   </tr>
-
   <tr>
     <td>Proof</td>
     <td>
@@ -124,11 +119,6 @@ Note the arguments are all positional but only one is required for valid syntax.
             <li><code>exercise</code> (<code>excs</code>)</li>
         </ul>
     </td>
-    <td>
-        <ul>
-            <li>Has built in counter</li>
-        </ul>
-    </td>
   </tr>
 </table>
 
@@ -180,18 +170,19 @@ Refer to the `examples/` directory to get an idea of how to work with the packag
   Refer to the [Typst Packages](https://github.com/typst/packages) repository for more information.
   Note the script simply symlinks the project directory to the Typst local packages directory.
 
-```bash
-git clone https://github.com/EsotericSquishyy/superTheorems
-cd superTheorems
-chmod +x setup.sh
-./setup.sh
+```console
+$ git clone https://github.com/EsotericSquishyy/superTheorems
+$ cd superTheorems
+$ chmod +x setup.sh
+$ ./setup.sh
 ```
 
 ### Testing
 
 Test whether the installation/update worked by opening running the following commands in an empty directory:
-```bash
-cat <<EOF > test.typ
+
+```console
+$ cat <<EOF > test.typ
 #import "@local/superTheorems:{Version Number}": *
 #defn[
     #lorem(5)
@@ -200,7 +191,7 @@ cat <<EOF > test.typ
 ]
 EOF
 
-typst compile test.typ
+$ typst compile test.typ
 ```
 The installation is working if the compile didn't fail and `test.pdf` looks like this:
 <img src="gallery/test_output.png" width="50%">
