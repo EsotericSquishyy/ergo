@@ -167,7 +167,7 @@ To customize environments, pass the following keyword arguments to `thmS-init`:
     </tr>
     <tr>
         <td><code>gruvbox_dark</code></td>
-        <td>href="src/colors/gruvbox_dark.json"><svg viewBox="0 0 500 150" width="100%">
+        <td><a href="src/colors/gruvbox_dark.json"><svg viewBox="0 0 500 150" width="100%">
             <rect fill="#EBDBB2" x="0" y="0" width="50" height="100%"/>
             <rect fill="#282828" x="50" y="0" width="50" height="100%"/>
             <rect fill="#3c3836" x="100" y="0" width="50" height="100%"/>
