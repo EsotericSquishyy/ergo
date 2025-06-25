@@ -1,4 +1,4 @@
-#let env_colors_list  = ("classic", "bw", "bootstrap", "gruvbox_dark")
+#let env_colors_list  = ("bw", "bootstrap", "gruvbox_dark")
 #let env_colors       = state("theme", "bootstrap")
 #let colors_dict      = (:)
 

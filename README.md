@@ -17,7 +17,9 @@ To get started, add the following to your `.typ` file:
 
 ### Example
 
-![](/gallery/usage_example.svg)
+<a href="examples/bootstrap_tab_orbit.typ">
+    <img src="gallery/bootstrap_tab_orbit.svg" width="100%">
+</a>
 
 ```typ
 #defn[Group][
@@ -127,7 +129,6 @@ These share a set of (optional) keyword arguments:
 
 To customize environments, pass the following keyword arguments to `thmS-init`:
 - `colors` (default: `"bootstrap"`) - Changes color scheme of environments
-    - `"classic"` - Original
     - `"bw"` - Black and white
     - `"bootstrap"` - Default color scheme based on bootstrap colors
     - `"gruvbox_dark"` - Gruvbox Dark color scheme, also modifies the background color
@@ -157,6 +158,30 @@ There are a few extra functions/macros that may be of interest:
 
 Refer to the `examples/` directory to get an idea of how to work with the package.
 
+**`bw` colorscheme with `classic` header style (using by [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
+<a href="examples/bw_classic_galoisextensions.typ">
+    <img src="gallery/bw_classic_galoisextensions.svg" width="100%">
+</a>
+
+**`bootstrap` colorscheme with `sidebar` header style**
+<a href="examples/bootstrap_sidebar_taylor.typ">
+    <img src="gallery/bootstrap_sidebar_taylor.svg" width="100%">
+</a>
+
+**`gruvbox_dark` colorscheme with `classic` header style (using [CeTZ](https://github.com/cetz-package/cetz) and [lovelace](https://github.com/andreasKroepelin/lovelace))**
+<a href="examples/gruvbox_classic_huffman.typ">
+    <img src="gallery/gruvbox_classic_huffman.svg" width="100%">
+</a>
+
+**`bw` colorscheme with `tab` header style**
+<a href="examples/bw_tab_crypto.typ">
+    <img src="gallery/bw_tab_crypto.svg" width="100%">
+</a>
+
+**`gruvbox_dark` colorscheme with `sidebar` header style (using by [Physica](https://github.com/Leedehai/typst-physics))**
+<a href="examples/gruvbox_sidebar_lagrangian.typ">
+    <img src="gallery/gruvbox_sidebar_lagrangian.svg" width="100%">
+</a>
 
 
 ## Local Installation
