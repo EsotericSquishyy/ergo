@@ -59,67 +59,66 @@ More generally, `superTheorems` has three different types of environments: _proo
 
 Note the arguments are all positional but only one is required for valid syntax.
 <table>
-  <tr>
-    <td><b>Type</b></td>
-    <td><b>Args (Priority)</b></td>
-    <td><b>Environments</b></td>
-  </tr>
-  <tr>
-    <td>Proof</td>
-    <td>
-        <ul>
-            <li><code>name</code> (3)</li>
-            <li><code>statement</code> (1)</li>
-            <li><code>proof</code> (2)</li>
-        </ul>
-    </td>
-    <td>
-        <ul>
-            <li><code>theorem</code> (<code>thm</code>)</li>
-            <li><code>lemma</code> (<code>lem</code>)</li>
-            <li><code>corollary</code> (<code>cor</code>)</li>
-            <li><code>proposition</code> (<code>prop</code>)</li>
-        </ul>
-    </td>
-  </tr>
-
-  <tr>
-    <td>Statement</td>
-    <td>
-        <ul>
-            <li><code>name</code> (2)</li>
-            <li><code>statement</code> (1)</li>
-        </ul>
-    </td>
-    <td>
-        <ul>
-            <li><code>definition</code> (<code>defn</code>)</li>
-            <li><code>remark</code> (<code>rem</code>, <code>rmk</code>)</li>
-            <li><code>notation</code> (<code>notn</code>)</li>
-            <li><code>example</code> (<code>ex</code>)</li>
-            <li><code>concept</code> (<code>conc</code>)</li>
-            <li><code>computational_problem</code> (<code>comp_prob</code>)</li>
-            <li><code>algorithm</code> (<code>algo</code>)</li>
-        </ul>
-    </td>
-  </tr>
-
-  <tr>
-    <td>Problem</td>
-    <td>
-        <ul>
-            <li><code>name</code> (3)</li>
-            <li><code>statement</code> (1)</li>
-            <li><code>solution</code> (2)</li>
-        </ul>
-    </td>
-    <td>
-        <ul>
-            <li><code>problem</code> (<code>prob</code>)</li>
-            <li><code>exercise</code> (<code>excs</code>)</li>
-        </ul>
-    </td>
-  </tr>
+    <caption><strong>Environments</strong></caption>
+    <tr>
+        <td><b>Type</b></td>
+        <td><b>Args (Priority)</b></td>
+        <td><b>Environments</b></td>
+    </tr>
+    <tr>
+        <td>Proof</td>
+        <td>
+            <ul>
+                <li><code>name</code> (3)</li>
+                <li><code>statement</code> (1)</li>
+                <li><code>proof</code> (2)</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li><code>theorem</code> (<code>thm</code>)</li>
+                <li><code>lemma</code> (<code>lem</code>)</li>
+                <li><code>corollary</code> (<code>cor</code>)</li>
+                <li><code>proposition</code> (<code>prop</code>)</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Statement</td>
+        <td>
+            <ul>
+                <li><code>name</code> (2)</li>
+                <li><code>statement</code> (1)</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li><code>definition</code> (<code>defn</code>)</li>
+                <li><code>remark</code> (<code>rem</code>, <code>rmk</code>)</li>
+                <li><code>notation</code> (<code>notn</code>)</li>
+                <li><code>example</code> (<code>ex</code>)</li>
+                <li><code>concept</code> (<code>conc</code>)</li>
+                <li><code>computational_problem</code> (<code>comp_prob</code>)</li>
+                <li><code>algorithm</code> (<code>algo</code>)</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>Problem</td>
+        <td>
+            <ul>
+                <li><code>name</code> (3)</li>
+                <li><code>statement</code> (1)</li>
+                <li><code>solution</code> (2)</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li><code>problem</code> (<code>prob</code>)</li>
+                <li><code>exercise</code> (<code>excs</code>)</li>
+            </ul>
+        </td>
+    </tr>
 </table>
 
 These share a set of (optional) keyword arguments:
@@ -131,13 +130,75 @@ These share a set of (optional) keyword arguments:
 
 To customize environments, pass the following keyword arguments to `thmS-init`:
 - `colors` (default: `"bootstrap"`) - Changes color scheme of environments
-    - `"bw"` - Black and white
-    - `"bootstrap"` - Default color scheme based on bootstrap colors
-    - `"gruvbox_dark"` - Gruvbox Dark color scheme, also modifies the background color
 - `headers` (default: `"tab"`) - Changes environment box structure
-    - `"tab"` - Default header style, rounded
-    - `"classic"` - Original header style, rounded
-    - `"sidebar"` - Less padding, not rounded
+
+<table>
+    <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>
+    <tr>
+        <td><code>bootstrap</code></td>
+        <td><a href="src/colors/bootstrap.json"><svg viewBox="0 0 500 150" width="100%">
+            <rect fill="#000000" x="0" y="0" width="50" height="100%"/>
+            <rect fill="#FFFFFF" x="50" y="0" width="50" height="100%"/>
+            <rect fill="#DFD8F1" x="100" y="0" width="50" height="100%"/>
+            <rect fill="#FFF4CD" x="150" y="0" width="50" height="100%"/>
+            <rect fill="#F1D2D5" x="200" y="0" width="50" height="100%"/>
+            <rect fill="#D1E7DE" x="400" y="0" width="50" height="100%"/>
+            <rect fill="#FFE5D1" x="450" y="0" width="50" height="100%"/>
+            <rect fill="#D0E2FF" x="250" y="0" width="50" height="100%"/>
+            <rect fill="#F3D4E3" x="300" y="0" width="50" height="100%"/>
+            <rect fill="#CEE3DA" x="350" y="0" width="50" height="100%"/>
+        </svg></a></td>
+    </tr>
+    </tr>
+    <tr>
+        <td><code>bw</code></td>
+        <td><a href="src/colors/bw.json"><svg viewBox="0 0 500 150" width="100%">
+            <rect fill="#000000" x="0" y="0" width="50" height="100%"/>
+            <rect fill="#FFFFFF" x="50" y="0" width="50" height="100%"/>
+            <rect fill="#FFFFFF" x="100" y="0" width="50" height="100%"/>
+            <rect fill="#FFFFFF" x="150" y="0" width="50" height="100%"/>
+            <rect fill="#FFFFFF" x="200" y="0" width="50" height="100%"/>
+            <rect fill="#FFFFFF" x="400" y="0" width="50" height="100%"/>
+            <rect fill="#FFFFFF" x="450" y="0" width="50" height="100%"/>
+            <rect fill="#FFFFFF" x="250" y="0" width="50" height="100%"/>
+            <rect fill="#FFFFFF" x="300" y="0" width="50" height="100%"/>
+            <rect fill="#FFFFFF" x="350" y="0" width="50" height="100%"/>
+        </svg></a></td>
+    </tr>
+    <tr>
+        <td><code>gruvbox_dark</code></td>
+        <td>href="src/colors/gruvbox_dark.json"><svg viewBox="0 0 500 150" width="100%">
+            <rect fill="#EBDBB2" x="0" y="0" width="50" height="100%"/>
+            <rect fill="#282828" x="50" y="0" width="50" height="100%"/>
+            <rect fill="#3c3836" x="100" y="0" width="50" height="100%"/>
+            <rect fill="#3c3836" x="150" y="0" width="50" height="100%"/>
+            <rect fill="#3c3836" x="200" y="0" width="50" height="100%"/>
+            <rect fill="#3c3836" x="400" y="0" width="50" height="100%"/>
+            <rect fill="#3c3836" x="450" y="0" width="50" height="100%"/>
+            <rect fill="#3c3836" x="250" y="0" width="50" height="100%"/>
+            <rect fill="#3c3836" x="300" y="0" width="50" height="100%"/>
+            <rect fill="#3c3836" x="350" y="0" width="50" height="100%"/>
+        </svg></a></td>
+    </tr>
+</table>
+
+<table>
+    <caption><strong>Header Styles (values for <code>headers</code>)</strong></caption>
+    <tr>
+        <td><code>tab</code></td>
+        <td>Default header style, rounded</td>
+    </tr>
+    </tr>
+    <tr>
+        <td><code>classic</code></td>
+        <td>Original header style, rounded</td>
+    </tr>
+    <tr>
+        <td><code>sidebar</code></td>
+        <td>Less padding, not rounded</td>
+    </tr>
+</table>
+
 
 For the best outcome this function should be called before any content is rendered to enforce consistency of the documents content.
 The following is a sample header:
@@ -155,6 +216,7 @@ There are a few extra functions/macros that may be of interest:
 - `correction(body)` - Add a correction to nearby content.
 - `bookmark(title, info)` - Add additional information with small box.
 - `equation_box(equation)` (`eqbox(equation)`) - Box an equation.
+- `block_title_selector` - A selector controlling the style of the headers in the blocks.
 
 
 
