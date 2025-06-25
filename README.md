@@ -5,6 +5,8 @@
 > [Typst](https://github.com/typst/typst) is required to use this package (refer to Typst's [installation page](https://github.com/typst/typst?tab=readme-ov-file#installation) here).
 > For the best Typst experience, we recommend the integrated language service [`Tinymist`](https://github.com/Myriad-Dreamin/tinymist).
 
+
+
 ## Usage
 
 To get started, add the following to your `.typ` file:
@@ -141,7 +143,9 @@ For the best outcome this function should be called before any content is render
 The following is a sample header:
 ```typ
 #import "@local/superTheorems:0.1.0": *
+
 #show: thmS-init.with(colors: "gruvbox_dark", headers: "sidebar")
+
 // body
 ```
 
@@ -156,21 +160,9 @@ There are a few extra functions/macros that may be of interest:
 
 ## Examples
 
-Refer to the `examples/` directory to get an idea of how to work with the package.
-
-**`bw` colorscheme with `classic` header style (using by [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
-<a href="examples/bw_classic_galoisextensions.typ">
-    <img src="gallery/bw_classic_galoisextensions.svg" width="100%">
-</a>
-
 **`bootstrap` colorscheme with `sidebar` header style**
 <a href="examples/bootstrap_sidebar_taylor.typ">
     <img src="gallery/bootstrap_sidebar_taylor.svg" width="100%">
-</a>
-
-**`gruvbox_dark` colorscheme with `classic` header style (using [CeTZ](https://github.com/cetz-package/cetz) and [lovelace](https://github.com/andreasKroepelin/lovelace))**
-<a href="examples/gruvbox_classic_huffman.typ">
-    <img src="gallery/gruvbox_classic_huffman.svg" width="100%">
 </a>
 
 **`bw` colorscheme with `tab` header style**
@@ -182,6 +174,19 @@ Refer to the `examples/` directory to get an idea of how to work with the packag
 <a href="examples/gruvbox_sidebar_lagrangian.typ">
     <img src="gallery/gruvbox_sidebar_lagrangian.svg" width="100%">
 </a>
+
+**`bw` colorscheme with `classic` header style (using by [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
+<a href="examples/bw_classic_galoisextensions.typ">
+    <img src="gallery/bw_classic_galoisextensions.svg" width="100%">
+</a>
+
+**`gruvbox_dark` colorscheme with `classic` header style (using [CeTZ](https://github.com/cetz-package/cetz) and [lovelace](https://github.com/andreasKroepelin/lovelace))**
+<a href="examples/gruvbox_classic_huffman.typ">
+    <img src="gallery/gruvbox_classic_huffman.svg" width="100%">
+</a>
+
+> Refer to the `examples/` directory for more examples.
+
 
 
 ## Local Installation
@@ -201,7 +206,6 @@ $ ./setup.sh
 ### Testing
 
 Test whether the installation/update worked by opening running the following commands in an empty directory:
-
 ```console
 $ cat <<EOF > test.typ
 #import "@local/superTheorems:{Version Number}": *
@@ -215,5 +219,7 @@ The installation is working if the compile didn't fail and `test.pdf` looks like
 <img src="gallery/test_output.svg" width="100%">
 
 ## Known Issues
+
 - Incorrect colors for arrows in drawing packages such as [Fletcher](https://github.com/Jollywatt/typst-fletcher) when using `gruvbox_dark` color scheme.
+
 
