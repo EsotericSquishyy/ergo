@@ -2,7 +2,7 @@
 
 #set page(
   width: 16.7cm,
-  height: 13.405cm,
+  height: 13.58cm,
   margin: 1em
 )
 #show: thmS-init.with(

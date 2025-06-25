@@ -77,8 +77,6 @@ Note the arguments are all positional but only one is required for valid syntax.
             <li><code>proposition</code> (<code>prop</code>)</li>
         </ul>
     </td>
-    <td>
-    </td>
   </tr>
 
   <tr>
@@ -99,8 +97,6 @@ Note the arguments are all positional but only one is required for valid syntax.
             <li><code>computational_problem</code> (<code>comp_prob</code>)</li>
             <li><code>algorithm</code> (<code>algo</code>)</li>
         </ul>
-    </td>
-    <td>
     </td>
   </tr>
 
