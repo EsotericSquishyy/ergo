@@ -136,20 +136,20 @@ To customize environments, pass the following keyword arguments to `thmS-init`:
     <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>
     <tr>
         <td><code>bootstrap</code></td>
-        <td><a href="src/colors/bootstrap.json">
+        <td><a href="src/color/bootstrap.json">
             <img src="gallery/DOCS/bootstrap_palette.svg" width="500px">
         </a></td>
     </tr>
     </tr>
     <tr>
         <td><code>bw</code></td>
-        <td><a href="src/colors/bw.json">
+        <td><a href="src/color/bw.json">
             <img src="gallery/DOCS/bw_palette.svg" width="500px">
         </a></td>
     </tr>
     <tr>
         <td><code>gruvbox_dark</code></td>
-        <td><a href="src/colors/gruvbox_dark.json">
+        <td><a href="src/color/gruvbox_dark.json">
             <img src="gallery/DOCS/gruvbox_palette.svg" width="500px">
         </a></td>
     </tr>
