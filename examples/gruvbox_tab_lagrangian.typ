@@ -3,9 +3,9 @@
 
 #show: thmS-init.with(colors: "gruvbox_dark", headers: "sidebar")
 #set page(
-  width: 20cm,
-  height: 24.7cm,
-  margin: 2.5em
+  width: 18cm,
+  height: 24cm,
+  margin: 1em
 )
 
 = Lagrangian Mechanics

@@ -7,7 +7,7 @@
 
 
 #set page(
-  width: 16.7cm,
+  width: 18cm,
   height: 27cm,
   margin: 1em
 )

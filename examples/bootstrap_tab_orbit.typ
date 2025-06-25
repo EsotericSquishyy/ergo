@@ -1,6 +1,6 @@
 #import "@local/superTheorems:0.1.0": *
 #set page(
-  width: 16.7cm,
+  width: 18cm,
   height: 13.58cm,
   margin: 1em
 )
