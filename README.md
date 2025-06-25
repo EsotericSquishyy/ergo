@@ -180,17 +180,14 @@ Test whether the installation/update worked by opening running the following com
 ```console
 $ cat <<EOF > test.typ
 #import "@local/superTheorems:{Version Number}": *
-#defn[
-    #lorem(5)
-][
-    #lorem(50)
-]
+#show: thmS-init
+#defn[#lorem(5)][#lorem(50)]
 EOF
 
 $ typst compile test.typ
 ```
 The installation is working if the compile didn't fail and `test.pdf` looks like this:
-<img src="gallery/test_output.png" width="50%">
+<img src="gallery/test_output.svg" width="100%">
 
 ## Known Issues
 - Incorrect colors for arrows in drawing packages such as [Fletcher](https://github.com/Jollywatt/typst-fletcher) when using `gruvbox_dark` color scheme.
