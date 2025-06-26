@@ -35,7 +35,7 @@ def gen_proof_shades(base_color_hex):
         lighten_color(base_color_hex, 0.8)
     ]
 
-def create_typst_scheme(base16_colors):
+def create_typst_scheme(base16_colors, dark=False):
     get_color = lambda key: base16_colors.get(key, '000000')
 
     theorem_shades      = gen_proof_shades(get_color('base07'))
@@ -69,26 +69,26 @@ def create_typst_scheme(base16_colors):
             "strokecolor":  f"#{get_color('base08')}"
         },
         "theorem": {
-            "bgcolor1":     f"#{theorem_shades[3]}",
-            "bgcolor2":     f"#{theorem_shades[2]}",
+            "bgcolor1":     f"#{get_color('base00') if dark else theorem_shades[3]}",
+            "bgcolor2":     f"#{get_color('base00') if dark else theorem_shades[2]}",
             "strokecolor1": f"#{theorem_shades[0]}",
             "strokecolor2": f"#{theorem_shades[1]}"
         },
         "lemma": {
-            "bgcolor1":     f"#{lemma_shades[3]}",
-            "bgcolor2":     f"#{lemma_shades[2]}",
+            "bgcolor1":     f"#{get_color('base00') if dark else lemma_shades[3]}",
+            "bgcolor2":     f"#{get_color('base00') if dark else lemma_shades[2]}",
             "strokecolor1": f"#{lemma_shades[0]}",
             "strokecolor2": f"#{lemma_shades[1]}"
         },
         "corollary": {
-            "bgcolor1":     f"#{corollary_shades[3]}",
-            "bgcolor2":     f"#{corollary_shades[2]}",
+            "bgcolor1":     f"#{get_color('base00') if dark else corollary_shades[3]}",
+            "bgcolor2":     f"#{get_color('base00') if dark else corollary_shades[2]}",
             "strokecolor1": f"#{corollary_shades[0]}",
             "strokecolor2": f"#{corollary_shades[1]}"
         },
         "proposition": {
-            "bgcolor1":     f"#{proposition_shades[3]}",
-            "bgcolor2":     f"#{proposition_shades[2]}",
+            "bgcolor1":     f"#{get_color('base00') if dark else proposition_shades[3]}",
+            "bgcolor2":     f"#{get_color('base00') if dark else proposition_shades[2]}",
             "strokecolor1": f"#{proposition_shades[0]}",
             "strokecolor2": f"#{proposition_shades[1]}"
         },
@@ -97,46 +97,46 @@ def create_typst_scheme(base16_colors):
             "strokecolor":  f"#{get_color('base06')}"
         },
         "definition": {
-            "bgcolor":      f"#{definition_shades[1]}",
+            "bgcolor":      f"#{get_color('base00') if dark else definition_shades[1]}",
             "strokecolor":  f"#{definition_shades[0]}"
         },
         "remark": {
-            "bgcolor":      f"#{remark_shades[1]}",
+            "bgcolor":      f"#{get_color('base00') if dark else remark_shades[1]}",
             "strokecolor":  f"#{remark_shades[0]}"
         },
         "notation": {
-            "bgcolor":      f"#{notation_shades[1]}",
+            "bgcolor":      f"#{get_color('base00') if dark else notation_shades[1]}",
             "strokecolor":  f"#{notation_shades[0]}"
         },
         "example": {
-            "bgcolor":      f"#{example_shades[1]}",
+            "bgcolor":      f"#{get_color('base00') if dark else example_shades[1]}",
             "strokecolor":  f"#{example_shades[0]}"
         },
         "concept": {
-            "bgcolor":      f"#{concept_shades[1]}",
+            "bgcolor":      f"#{get_color('base00') if dark else concept_shades[1]}",
             "strokecolor":  f"#{concept_shades[0]}"
         },
         "computational_problem": {
-            "bgcolor":      f"#{computational_problem_shades[1]}",
+            "bgcolor":      f"#{get_color('base00') if dark else computational_problem_shades[1]}",
             "strokecolor":  f"#{computational_problem_shades[0]}"
         },
         "algorithm": {
-            "bgcolor":      f"#{algorithm_shades[1]}",
+            "bgcolor":      f"#{get_color('base00') if dark else algorithm_shades[1]}",
             "strokecolor":  f"#{algorithm_shades[0]}"
         },
         "runtime": {
-            "bgcolor":      f"#{runtime_shades[1]}",
+            "bgcolor":      f"#{get_color('base00') if dark else runtime_shades[1]}",
             "strokecolor":  f"#{runtime_shades[0]}"
         },
         "problem": {
-            "bgcolor1":     f"#{problem_shades[3]}",
-            "bgcolor2":     f"#{problem_shades[2]}",
+            "bgcolor1":     f"#{get_color('base00') if dark else problem_shades[3]}",
+            "bgcolor2":     f"#{get_color('base00') if dark else problem_shades[2]}",
             "strokecolor1": f"#{problem_shades[0]}",
             "strokecolor2": f"#{problem_shades[1]}"
         },
         "exercise": {
-            "bgcolor1":     f"#{exercise_shades[3]}",
-            "bgcolor2":     f"#{exercise_shades[2]}",
+            "bgcolor1":     f"#{get_color('base00') if dark else exercise_shades[3]}",
+            "bgcolor2":     f"#{get_color('base00') if dark else exercise_shades[2]}",
             "strokecolor1": f"#{exercise_shades[0]}",
             "strokecolor2": f"#{exercise_shades[1]}"
         },
@@ -152,13 +152,14 @@ def main():
     parser = argparse.ArgumentParser(description='Generate a Typst scheme from a Base16 YAML.')
     parser.add_argument('-f', '--file', help='Path to input YAML file')
     parser.add_argument('-o', '--output', help='Path to output JSON file')
+    parser.add_argument('--dark', action='store_true', help='Theme is dark')
 
     args = parser.parse_args()
     input_path = args.file
     output_path = args.output or input_path.split('.')[0] + '.json'
 
     base16_colors = parse_base16_file(input_path)
-    typst_scheme = create_typst_scheme(base16_colors)
+    typst_scheme = create_typst_scheme(base16_colors, dark=args.dark)
 
     with open(output_path, 'w') as f:
         json.dump(typst_scheme, f, indent=2)

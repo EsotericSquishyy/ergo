@@ -171,6 +171,12 @@ To customize environments, pass the following keyword arguments to `thmS-init`:
             -->
         </td>
     </tr>
+    <tr>
+        <td><code>ayu_light</code></td>
+        <td>
+            Adapated from <a href="https://github.com/dempfi/ayu">ayu</a>
+        </td>
+    </tr>
 </table>
 
 <table>
