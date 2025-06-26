@@ -223,17 +223,17 @@ There are a few extra functions/macros that may be of interest:
     <img src="gallery/bw_tab_crypto.svg" width="100%">
 </a>
 
-**`gruvbox_dark` colorscheme with `sidebar` header style (assisted by [Physica](https://github.com/Leedehai/typst-physics))**
+**`gruvbox_dark` colorscheme with `sidebar` header style (with [Physica](https://github.com/Leedehai/typst-physics))**
 <a href="examples/gruvbox_sidebar_lagrangian.typ">
     <img src="gallery/gruvbox_sidebar_lagrangian.svg" width="100%">
 </a>
 
-**`bw` colorscheme with `classic` header style (assisted by [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
+**`bw` colorscheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
 <a href="examples/bw_classic_galoisextensions.typ">
     <img src="gallery/bw_classic_galoisextensions.svg" width="100%">
 </a>
 
-**`gruvbox_dark` colorscheme with `classic` header style (assisted by [CeTZ](https://github.com/cetz-package/cetz) and [lovelace](https://github.com/andreasKroepelin/lovelace))**
+**`gruvbox_dark` colorscheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [lovelace](https://github.com/andreasKroepelin/lovelace))**
 <a href="examples/gruvbox_classic_huffman.typ">
     <img src="gallery/gruvbox_classic_huffman.svg" width="100%">
 </a>

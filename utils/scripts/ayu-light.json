@@ -24,52 +24,52 @@
     "strokecolor2": "#F38D93"
   },
   "corollary": {
-    "bgcolor1": "#D1D2D4",
-    "bgcolor2": "#A3A5A9",
-    "strokecolor1": "#1A1F29",
-    "strokecolor2": "#474B53"
-  },
-  "proposition": {
     "bgcolor1": "#FEE8D8",
     "bgcolor2": "#FDD1B1",
     "strokecolor1": "#FA8D3E",
     "strokecolor2": "#FBA364"
+  },
+  "proposition": {
+    "bgcolor1": "#FCEEDA",
+    "bgcolor2": "#F9DEB6",
+    "strokecolor1": "#F2AE49",
+    "strokecolor2": "#F4BE6D"
   },
   "note": {
     "bgcolor": "#FAFAFA",
     "strokecolor": "#242936"
   },
   "definition": {
-    "bgcolor": "#FCEEDA",
-    "strokecolor": "#F2AE49"
+    "bgcolor": "#E6EFCC",
+    "strokecolor": "#86B300"
   },
   "remark": {
-    "bgcolor": "#E6EFCC",
-    "strokecolor": "#86B300"
-  },
-  "notation": {
-    "bgcolor": "#E6EFCC",
-    "strokecolor": "#86B300"
-  },
-  "example": {
     "bgcolor": "#DBF2EA",
     "strokecolor": "#4CBF99"
   },
-  "concept": {
+  "notation": {
+    "bgcolor": "#DBF2EA",
+    "strokecolor": "#4CBF99"
+  },
+  "example": {
     "bgcolor": "#D6ECF7",
     "strokecolor": "#36A3D9"
+  },
+  "concept": {
+    "bgcolor": "#D1D2D4",
+    "strokecolor": "#1A1F29"
   },
   "computational_problem": {
-    "bgcolor": "#D6ECF7",
-    "strokecolor": "#36A3D9"
+    "bgcolor": "#FCE2E4",
+    "strokecolor": "#F07178"
   },
   "algorithm": {
-    "bgcolor": "#D6ECF7",
-    "strokecolor": "#36A3D9"
+    "bgcolor": "#FEE8D8",
+    "strokecolor": "#FA8D3E"
   },
   "runtime": {
-    "bgcolor": "#D6ECF7",
-    "strokecolor": "#36A3D9"
+    "bgcolor": "#FCEEDA",
+    "strokecolor": "#F2AE49"
   },
   "problem": {
     "bgcolor1": "#ECE4F4",
