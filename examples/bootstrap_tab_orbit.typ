@@ -1,5 +1,5 @@
-#import "@local/superTheorems:0.1.0": *
-#show: thmS-init.with(inline_qed: true)
+#import "@local/ergo:0.1.0": *
+#show: ergo-init.with(inline_qed: true)
 
 #set page(
   width: 18cm,

@@ -1,5 +1,5 @@
-#import "@local/superTheorems:0.1.0": *
-#show: thmS-init.with(
+#import "@local/ergo:0.1.0": *
+#show: ergo-init.with(
   colors: "bootstrap",
   headers: "sidebar",
 )

@@ -1,6 +1,6 @@
-#import "@local/superTheorems:0.1.0": *
+#import "@local/ergo:0.1.0": *
 #import "@preview/fletcher:0.5.4" as fletcher: diagram, node, edge
-#show: thmS-init.with(
+#show: ergo-init.with(
   colors: "bw",
   headers: "classic",
   inline_qed: true,

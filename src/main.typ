@@ -5,7 +5,7 @@
   get_colors,
   get_opts_colors,
 )
-#import "theme/helpers.typ": block_title_selector
+#import "theme/helpers.typ": ergo_title_selector
 #import "theme/theme.typ": (
   env_headers,
   valid_headers,
@@ -26,7 +26,7 @@
 
 
 //-----Setup-----//
-#let thmS-init(
+#let ergo-init(
   body,
   colors:         "bootstrap",
   headers:        "tab",

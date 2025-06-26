@@ -1,7 +1,7 @@
-#let block_title_selector = <__superTheorems_block_title>
-#let block_title(content) = {
+#let ergo_title_selector = <__ergo_title>
+#let ergo_title(content) = {
   set text(weight: "bold")
-  [#content#block_title_selector]
+  [#content#ergo_title_selector]
 }
 
 #let proof(body, inline_qed) = {
@@ -36,15 +36,15 @@
     let count = [#{problem_counter.step(); context problem_counter.display()}]
 
     if name == [] {
-      name_content = block_title[#kind #count]
+      name_content = ergo_title[#kind #count]
     } else {
-      name_content = block_title[#kind #count: #name]
+      name_content = ergo_title[#kind #count: #name]
     }
   } else {
     if name == [] {
-      name_content =  block_title[_#kind _]
+      name_content =  ergo_title[_#kind _]
     } else {
-      name_content = block_title[_#kind: _ #name]
+      name_content = ergo_title[_#kind: _ #name]
     }
   }
 
@@ -57,9 +57,9 @@
   let name_content = none
 
   if name == [] {
-    name_content =  block_title[#kind]
+    name_content =  ergo_title[#kind]
   } else {
-    name_content = block_title[#kind: #name]
+    name_content = ergo_title[#kind: #name]
   }
 
   return pad(x: xpad, y: ypad, name_content)

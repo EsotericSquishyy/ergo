@@ -1,8 +1,8 @@
 #import "@preview/cetz:0.4.0": *
-#import "@local/superTheorems:0.1.0": *
+#import "@local/ergo:0.1.0": *
 #import "@preview/lovelace:0.3.0": *
 
-#show: thmS-init.with(colors: "gruvbox_dark", headers: "classic")
+#show: ergo-init.with(colors: "gruvbox_dark", headers: "classic")
 #set page(
   width: 18cm,
   height: 19.5cm,

@@ -1,6 +1,6 @@
 #import "@preview/physica:0.9.5": *
-#import "@local/superTheorems:0.1.0": *
-#show: thmS-init.with(colors: "gruvbox_dark", headers: "sidebar")
+#import "@local/ergo:0.1.0": *
+#show: ergo-init.with(colors: "gruvbox_dark", headers: "sidebar")
 
 #set page(
   width: 18cm,

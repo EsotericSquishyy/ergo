@@ -1,6 +1,6 @@
-# superTheorems
+# Ergo
 
-**superTheorems** is a [Typst](https://typst.app/) suite of environments for taking notes and doing problem sets, especially for Mathematics, Computer Science, and Physics.
+**Ergo** is a [Typst](https://typst.app/) suite of environments for taking notes and doing problem sets, especially for Mathematics, Computer Science, and Physics.
 
 > **Typst** is required to use this package (refer to Typst's installation page [here](https://github.com/typst/typst?tab=readme-ov-file#installation)).
 > For the best Typst experience, we recommend the integrated language service [`Tinymist`](https://github.com/Myriad-Dreamin/tinymist).
@@ -10,9 +10,9 @@
 To get started, add the following to your `.typ` file:
 
 ```typ
-#import "@local/superTheorems:0.1.0": *
+#import "@local/ergo:0.1.0": *
 
-#show: thmS-init
+#show: ergo-init
 ```
 
 ### Example
@@ -54,7 +54,7 @@ To get started, add the following to your `.typ` file:
 
 ### Environments
 
-More generally, `superTheorems` has three different types of environments: _proofs_, _statements_, and _problems_.
+More generally, `Ergo` has three different types of environments: _proofs_, _statements_, and _problems_.
 
 Note the arguments are all positional but only one is required for valid syntax.
 <table>
@@ -131,7 +131,7 @@ Note that the `problem` environment includes an automatic counter if no title is
 
 ### Themes/Colors
 
-To customize environments, pass the following keyword arguments to `thmS-init`:
+To customize environments, pass the following keyword arguments to `ergo-init`:
 - `colors` (default: `"bootstrap"`)
 - `headers` (default: `"tab"`)
 
@@ -200,9 +200,9 @@ This function should be called before any content is rendered to enforce consist
 The following is a sample header:
 
 ```typ
-#import "@local/superTheorems:0.1.0": *
+#import "@local/ergo:0.1.0": *
 
-#show: thmS-init.with(colors: "gruvbox_dark", headers: "sidebar")
+#show: ergo-init.with(colors: "gruvbox_dark", headers: "sidebar")
 
 // body
 ```
@@ -213,7 +213,7 @@ There are a few extra functions/macros that may be of interest:
 - `correction(body)` - Add a correction to nearby content.
 - `bookmark(title, info)` - Add additional information with small box.
 - `equation_box(equation)` (`eqbox(equation)`) - Box an equation.
-- `block_title_selector` - A selector controlling the style of the headers in the blocks.
+- `ergo_title_selector` - A selector controlling the style of the headers in the blocks.
 
 
 
@@ -256,8 +256,8 @@ There are a few extra functions/macros that may be of interest:
   Note the script simply symlinks the project directory to the Typst local packages directory.
 
 ```console
-$ git clone https://github.com/EsotericSquishyy/superTheorems
-$ cd superTheorems
+$ git clone https://github.com/EsotericSquishyy/ergo
+$ cd ergo
 $ chmod +x setup.sh
 $ ./setup.sh
 ```
@@ -267,8 +267,8 @@ $ ./setup.sh
 Test whether the installation/update worked by opening running the following commands in an empty directory:
 ```console
 $ cat <<EOF > test.typ
-#import "@local/superTheorems:{Version Number}": *
-#show: thmS-init
+#import "@local/ergo:{Version Number}": *
+#show: ergo-init
 #defn[#lorem(5)][#lorem(50)]
 EOF
 
