@@ -64,17 +64,17 @@ To get started, add the following to your `.typ` file:
     <img src="gallery/bw_tab_crypto.svg" width="100%">
 </a>
 
-**Classical Mechanics notes using the `gruvbox_dark` colorscheme with `sidebar` header style (with [Physica](https://github.com/Leedehai/typst-physics))**
+**Classical Mechanics Notes using the `gruvbox_dark` color scheme with `sidebar` header style (with [Physica](https://github.com/Leedehai/typst-physics))**
 <a href="examples/gruvbox_sidebar_lagrangian.typ">
     <img src="gallery/gruvbox_sidebar_lagrangian.svg" width="100%">
 </a>
 
-**Abstract Algebra Notes using the `bw` colorscheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
+**Abstract Algebra Notes using the `bw` color scheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
 <a href="examples/bw_classic_galoisextensions.typ">
     <img src="gallery/bw_classic_galoisextensions.svg" width="100%">
 </a>
 
-**Data Structures and Algorithms Notes using the `gruvbox_dark` colorscheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [Lovelace](https://github.com/andreasKroepelin/lovelace))**
+**Data Structures and Algorithms Notes using the `gruvbox_dark` color scheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [Lovelace](https://github.com/andreasKroepelin/lovelace))**
 <a href="examples/gruvbox_classic_huffman.typ">
     <img src="gallery/gruvbox_classic_huffman.svg" width="100%">
 </a>
