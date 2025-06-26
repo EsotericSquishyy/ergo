@@ -6,7 +6,7 @@
 
 #let proof(body, inline_qed) = {
   if inline_qed {
-    [*Proof:* ]; body; [#h(0.2em) $square.big$]
+    [*Proof:* ]; body; [$square.big$]
   } else {
     [*Proof:* ]; body; [#v(0.2em) #h(90%) $square.big$]
   }

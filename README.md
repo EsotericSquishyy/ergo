@@ -1,11 +1,9 @@
 # superTheorems
 
-**superTheorems** is a [Typst](https://github.com/typst/typst) suite of environments for taking notes and doing problem sets, especially for Mathematics, Computer Science, and Physics.
+**superTheorems** is a [Typst](https://typst.app/) suite of environments for taking notes and doing problem sets, especially for Mathematics, Computer Science, and Physics.
 
-> [Typst](https://github.com/typst/typst) is required to use this package (refer to Typst's [installation page](https://github.com/typst/typst?tab=readme-ov-file#installation) here).
+> **Typst** is required to use this package (refer to Typst's installation page [here](https://github.com/typst/typst?tab=readme-ov-file#installation)).
 > For the best Typst experience, we recommend the integrated language service [`Tinymist`](https://github.com/Myriad-Dreamin/tinymist).
-
-
 
 ## Usage
 
@@ -26,26 +24,27 @@ To get started, add the following to your `.typ` file:
 ```typ
 #defn[Group][
   A *group* is an ordered pair $(G, star)$, where $G$ is a set and $star$ is a binary operation on $G$ satisfying
-  1. The operation is associative: $(a star b) star c = a star (b star c) forall a, b, c in G$
-  2. $G$ has an identity: $exists e in G "such that" e star a = a star e = a forall a in G$
-  3. Every element $a in G$ is invertible: $forall a in G exists a^(-1) in G "such that" a star a^(-1) = a^(-1) star a = e$
+  1. _Associativity:_ $(a star b) star c = a star (b star c) forall a, b, c in G$
+  2. _Identity:_ $exists e in G "such that" e star a = a star e = a forall a in G$
+  3. _Invertibility:_ $forall a in G exists a^(-1) in G "such that" a star a^(-1) = a^(-1) star a = e$
 ]
 
 #thm[Orbit-Stabilizer Theorem][
   Let $G$ be a group acting on a set $X$, with $x in X$.
   Then the map
   $
-    G \/ G_x &--> G dot x \
-    a G_x &arrow.r.bar a dot x
+    G \/ G_x &-->              G dot x \
+    a G_x    &arrow.r.bar.long a dot x
   $
   is well-defined and bijective, and therefore $|G dot x| = [G : G_x]$.
 ][
   Let $a, b in G$.
   Then
   $
-    a G_x = b G_x &<==> b^(-1) a in G_x \
+    a G_x = b G_x
+    &<==> b^(-1) a in  G_x \
     &<==> b^(-1) a dot x = x \
-    &<==> a dot x = b dot x.
+    &<==> a dot x  = b dot x.
   $
   Observe the map is well-defined by $(==>)$ and injective by $(<==)$.
 
@@ -100,6 +99,8 @@ Note the arguments are all positional but only one is required for valid syntax.
                 <li><code>concept</code> (<code>conc</code>)</li>
                 <li><code>computational_problem</code> (<code>comp_prob</code>)</li>
                 <li><code>algorithm</code> (<code>algo</code>)</li>
+                <li><code>runtime</code> </li>
+                <li><code>note</code> </li>
             </ul>
         </td>
     </tr>
@@ -126,32 +127,49 @@ These share a set of (optional) keyword arguments:
 - `width` (default: `100%`) - width of the current environment in its current scope.
 - `height` (default: `auto`) - height of the current environment in its current scope.
 
+Note that the `problem` environment includes an automatic counter if no title is passed in.
+
 ### Themes/Colors
 
 To customize environments, pass the following keyword arguments to `thmS-init`:
-- `colors` (default: `"bootstrap"`) - Changes color scheme of environments
-- `headers` (default: `"tab"`) - Changes environment box structure
+- `colors` (default: `"bootstrap"`)
+- `headers` (default: `"tab"`)
 
 <table>
     <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>
     <tr>
         <td><code>bootstrap</code></td>
-        <td><a href="src/color/bootstrap.json">
-            <img src="gallery/DOCS/bootstrap_palette.svg" width="500px">
-        </a></td>
+        <td>
+            Color scheme adapted from the popular CSS framework <a href="https://getbootstrap.com/">Bootstrap</a>
+            <!--
+            <a href="src/color/bootstrap.json">
+                <img src="gallery/DOCS/bootstrap_palette.svg" width="500px">
+            </a>
+            -->
+        </td>
     </tr>
     </tr>
     <tr>
         <td><code>bw</code></td>
-        <td><a href="src/color/bw.json">
-            <img src="gallery/DOCS/bw_palette.svg" width="500px">
-        </a></td>
+        <td>
+            Black and white color scheme
+            <!--
+            <a href="src/color/bw.json">
+                <img src="gallery/DOCS/bw_palette.svg" width="500px">
+            </a>
+            -->
+        </td>
     </tr>
     <tr>
         <td><code>gruvbox_dark</code></td>
-        <td><a href="src/color/gruvbox_dark.json">
-            <img src="gallery/DOCS/gruvbox_palette.svg" width="500px">
-        </a></td>
+        <td>
+            Adapated from the popular neovim color scheme <a href="https://github.com/morhetz/gruvbox">gruvbox</a>
+            <!--
+            <a href="src/color/gruvbox_dark.json">
+                <img src="gallery/DOCS/gruvbox_palette.svg" width="500px">
+            </a>
+            -->
+        </td>
     </tr>
 </table>
 
@@ -172,9 +190,9 @@ To customize environments, pass the following keyword arguments to `thmS-init`:
     </tr>
 </table>
 
-
-For the best outcome this function should be called before any content is rendered to enforce consistency of the documents content.
+This function should be called before any content is rendered to enforce consistency of the document content.
 The following is a sample header:
+
 ```typ
 #import "@local/superTheorems:0.1.0": *
 
@@ -205,17 +223,17 @@ There are a few extra functions/macros that may be of interest:
     <img src="gallery/bw_tab_crypto.svg" width="100%">
 </a>
 
-**`gruvbox_dark` colorscheme with `sidebar` header style (using by [Physica](https://github.com/Leedehai/typst-physics))**
+**`gruvbox_dark` colorscheme with `sidebar` header style (assisted by [Physica](https://github.com/Leedehai/typst-physics))**
 <a href="examples/gruvbox_sidebar_lagrangian.typ">
     <img src="gallery/gruvbox_sidebar_lagrangian.svg" width="100%">
 </a>
 
-**`bw` colorscheme with `classic` header style (using by [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
+**`bw` colorscheme with `classic` header style (assisted by [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
 <a href="examples/bw_classic_galoisextensions.typ">
     <img src="gallery/bw_classic_galoisextensions.svg" width="100%">
 </a>
 
-**`gruvbox_dark` colorscheme with `classic` header style (using [CeTZ](https://github.com/cetz-package/cetz) and [lovelace](https://github.com/andreasKroepelin/lovelace))**
+**`gruvbox_dark` colorscheme with `classic` header style (assisted by [CeTZ](https://github.com/cetz-package/cetz) and [lovelace](https://github.com/andreasKroepelin/lovelace))**
 <a href="examples/gruvbox_classic_huffman.typ">
     <img src="gallery/gruvbox_classic_huffman.svg" width="100%">
 </a>
