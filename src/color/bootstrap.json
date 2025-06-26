@@ -1,4 +1,12 @@
 {
+  "opts": {
+    "fill": "#FFFFFF",
+    "text1": "#000000",
+    "text2": "#FFFFFF",
+    "h1": "#020004",
+    "h2": "#16428E",
+    "strong": "#020004"
+  },
   "bookmark": {
     "bgcolor": "#FFFFFF",
     "strokecolor": "#B02A37"
