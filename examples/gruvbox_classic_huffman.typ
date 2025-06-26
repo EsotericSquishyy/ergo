@@ -9,19 +9,22 @@
   margin: 1em
 )
 
+#let gruv_blue = rgb("#458588")
+#let gruv_blue2 = rgb("#83a598")
+
 #conc[Binary Tree Representation of Codes][
   #grid(
     columns: 2,
-    column-gutter: 2em,
+    column-gutter: 1em,
     [
-      We represent binary codes using a tree as follows, where the code for a letter is the sequence of bits between the root anda a leaf.
+      We represent binary codes using a tree as follows, where the code for a letter is the sequence of bits between the root and a leaf.
 
       Note that the constant length coding is a balanced binary tree, whereas variable length coding is not necessarily balanced.
       Further, if a node has children, it cannot have an associated letter, because it will be a prefix of the children.
     ],
     [
       #let data = (
-        [100], ([86], [a: 58], [b: 28]), ([14], [c: 14], [d: 12],)
+        [100], ([86], [a: 58], [b: 28]), ([14], [c: 12], [d: 2],)
       )
 
       #align(
@@ -30,8 +33,8 @@
           import draw: *
 
           set-style(content: (padding: .2),
-            fill: blue.darken(20%),
-            stroke: blue.darken(20%))
+            fill: gruv_blue.darken(20%),
+            stroke: gruv_blue2.darken(20%))
 
           tree.tree(data, spread: 2.5, grow: 1.5, draw-node: (node, ..) => {
             circle((), radius: .45, stroke: gray)
@@ -47,34 +50,37 @@
 ]
 
 #comp_prob[Optimal Coding Scheme][
-  Let $C$ denote our alphabet (character set), and $f(p)$ denote the frequency of a letter $p$.
-  Let $T$ be the tree for a prefix code, and $d_T (p)$ the depth of $p$ in $T$.
-  Then the total number of bits needed to encode a file using this code is:
+  Let $C$ denote our alphabet, and let $f(p)$ denote the frequency of a letter $p$.
+  Let $T$ be the tree for a prefix code, and let $d_T (p)$ be the depth of $p$ in $T$.
+  Then the total number of bits needed to encode a file using this code is
   $
-    B(T) = sum_(p in C) f(p) d_T (p)
+    B(T) = sum_(p in C) f(p) d_T (p).
   $
   We want a code that achieves the minimum possible value of $B(T)$.
 ]
 
 #algo[Huffman's Algorithm][
   #grid(
-    columns: 2,
+    columns: 3,
+    column-gutter: 0.8em,
     [
-      We can intuitively think of this algorithm as building the best tree $T$ to represent binary codes.
+      We can intuitively think of Huffman's algorithm as building the best tree $T$ to represent binary codes.
 
       Initially, each letter is represented by a single node tree, whose weight equals the letter's frequency.
       We repeatedly choose the smallest tree roots (by weight) and merge them.
       The new root's weight is the sum of the two children's weights.
       If there are $n$ letters in the alphabet, there are $n - 1$ merges.
       #runtime(width: 90%)[
-        Note that this is $O(n log n)$ because we initially sort and then do $n$ heap operations.
+        This algorithm runs in  $O(n log n)$ because we initially sort and then do $n$ heap operations.
       ]
     ],
+    grid.vline(stroke: 1pt + gray),
+    [],
     [
       #align(
-        horizon
+        horizon + right
       )[
-        #pseudocode-list[
+        #pseudocode-list(title: [_Huffman's Algorithm_])[
           + $Q <- C$ ($Q$ is a priority queue)
           + for $i = 1$ to $n - 1$ do
             + $z <- "allocateNode()"$
@@ -88,5 +94,4 @@
     ]
   )
 ]
-
 

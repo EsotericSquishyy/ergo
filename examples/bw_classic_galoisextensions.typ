@@ -5,11 +5,13 @@
   headers: "classic",
   inline_qed: true,
 )
+
 #set page(
   width: 18cm,
-  height: 16.25cm,
+  height: 16.8cm,
   margin: 1em
 )
+
 #let Gal = $op("Gal")$
 #let iso = sym.tilde.equiv
 #let ang(..args) = {
@@ -17,14 +19,20 @@
   $lr(angle.l joined angle.r)$
 }
 
+
 #thm[Galois Subextensions][
-  Let $K \/ F$ be a finite Galois extension, then:
-  1. if $H lt.eq G$, $K^H \/ F$ is Galois if and only if $H lt.tri.eq G$. In this case $Gal(K^H \/ F) iso G / H$;
-  2. if $F subset.eq E subset.eq K$, $E \/ F$ is Galois if and only if $Gal(K \/ E) lt.tri.eq G$. In this case $Gal(E \/ F) iso Gal(K \/ F) / Gal(K \/ E)$.
+  Let $K \/ F$ be a finite Galois extension.
+  Then:
+  1. If $H lt.eq G$, $K^H \/ F$ is Galois if and only if $H lt.tri.eq G$.
+    In this case, $Gal(K^H \/ F) iso G / H$;
+  2. If $F subset.eq E subset.eq K$, $E \/ F$ is Galois if and only if $Gal(K \/ E) lt.tri.eq G$. 
+    In this case $Gal(E \/ F) iso Gal(K \/ F) / Gal(K \/ E)$.
 ][]
 
 #ex[Galois Correspondence][
-  Let $zeta_3 = e^((2 pi i)/3)$ then the splitting field of $f(X) = X^3 - 2 in QQ[X]$ is $K = QQ(root(3, 2), zeta_3)$ where $Gal(K \/ QQ) iso S_3$. Then we can observe the following generators of $Gal(K \/ QQ)$, $sigma_1:K -> K$ and $sigma_2:K -> K$. They are defined by $
+  Let $zeta_3 = e^((2 pi i)/3)$.
+  Then the splitting field of $f(X) = X^3 - 2 in QQ[X]$ is $K = QQ(root(3, 2), zeta_3)$, where $Gal(K \/ QQ) iso S_3$. 
+  Now consider the generators of $Gal(K \/ QQ)$, $sigma_1:K -> K$ and $sigma_2:K -> K$, defined by $
     sigma_1 (zeta_3)
       &= zeta_3, quad
     sigma_1 (root(3, 2))
@@ -33,7 +41,8 @@
       &= zeta_3^2, quad
     sigma_2 (root(3, 2))
       &= root(3, 2).
-  $ Then the subgroups of $Gal(K \/ QQ)$ are given by $ang(sigma_1), ang(sigma_2), ang(sigma_1 sigma_2), ang(sigma_1^2 sigma_2)$ such that we have the following correspondence by checking which generators of $Gal(K \/ QQ)$ fixes which basis elements:
+  $ 
+  Thus, the subgroups of $Gal(K \/ QQ)$ are given by $ang(sigma_1), ang(sigma_2), ang(sigma_1 sigma_2), ang(sigma_1^2 sigma_2)$, implying the following correspondence (which comes from checking which generators of $Gal(K \/ QQ)$ fix which basis elements):
 
   #align(center)[#diagram(spacing: 2em, label-sep: 0.1em, {
     let (A, B, C, D, E, F) = ((2, 5), (0, 2), (3, 2), (6, 2), (9, 2), (2, -1))
