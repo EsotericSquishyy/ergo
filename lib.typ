@@ -1,6 +1,6 @@
 #import "src/main.typ": (
   ergo-init,
-  ergo_title_selector,
+  ergo-title-selector,
   correction,
   bookmark,
   equation_box,
@@ -21,23 +21,23 @@
   exercise,
 )
 
-#let eqbox = equation_box
+#let eqbox  = equation_box
 
-#let thm = theorem
-#let lem = lemma
-#let cor = corollary
-#let prop = proposition
+#let thm    = theorem
+#let lem    = lemma
+#let cor    = corollary
+#let prop   = proposition
 
-#let defn = definition
-#let rem = remark
-#let rmk = remark
-#let notn = notation
-#let ex = example
-#let conc = concept
+#let defn   = definition
+#let rem    = remark
+#let rmk    = remark
+#let notn   = notation
+#let ex     = example
+#let conc   = concept
 #let comp_prob = computational_problem
-#let algo = algorithm
+#let algo   = algorithm
 
-#let prob = problem
-#let excs = exercise
+#let prob   = problem
+#let excs   = exercise
 
 

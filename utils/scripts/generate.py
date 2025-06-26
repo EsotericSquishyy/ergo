@@ -60,7 +60,7 @@ def create_typst_scheme(base16_colors, dark=False):
             "fill":     f"#{get_color('base00')}",
             "text1":    f"#{get_color('base06')}",
             "text2":    f"#{get_color('base00')}",
-            "h1":       f"#{get_color('base00')}",
+            "h1":       f"#{get_color('base06')}",
             "h2":       f"#{get_color('base06')}",
             "strong":   f"#{get_color('base06')}"
         },

@@ -1,7 +1,7 @@
 #import "@local/ergo:0.1.0": *
 #import "@preview/fletcher:0.5.4" as fletcher: diagram, node, edge
 #show: ergo-init.with(
-  colors: "bw",
+  colors: "ayu_light",
   headers: "classic",
   inline_qed: true,
 )

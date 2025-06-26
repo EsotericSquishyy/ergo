@@ -5,7 +5,7 @@
   get_colors,
   get_opts_colors,
 )
-#import "theme/helpers.typ": ergo_title_selector
+#import "theme/helpers.typ": ergo-title-selector
 #import "theme/theme.typ": (
   env_headers,
   valid_headers,
@@ -16,16 +16,16 @@
   sidebar_proof_env,
   sidebar_statement_env,
 )
-#import "toggles.typ": (
-  all_breakable_toggle,
-  inline_qed_toggle,
-)
+
 
 
 
 
 
 //-----Setup-----//
+#let all_breakable_toggle = state("all_breakable_toggle", false)
+#let inline_qed_toggle    = state("inline_qed_toggle", false)
+
 #let ergo-init(
   body,
   colors:         "bootstrap",
@@ -110,10 +110,9 @@
 #let equation_box(
   equation,
 ) = context {
-  let theme = env_colors.get()
-  let colors = get_opts_colors(theme)
-
-  let text1 = rgb(colors.at("text1"))
+  let theme   = env_colors.get()
+  let colors  = get_opts_colors(theme)
+  let text1   = rgb(colors.at("text1"))
 
   align(center)[
     #rect(stroke: text1)[

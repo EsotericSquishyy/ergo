@@ -1,7 +1,7 @@
-#let ergo_title_selector = <__ergo_title>
+#let ergo-title-selector = <__ergo_title>
 #let ergo_title(content) = {
   set text(weight: "bold")
-  [#content#ergo_title_selector]
+  [#content#ergo-title-selector]
 }
 
 #let proof(body, inline_qed) = {

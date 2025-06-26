@@ -3,7 +3,7 @@
 **Ergo** is a [Typst](https://typst.app/) suite of environments for taking notes and doing problem sets, especially for Mathematics, Computer Science, and Physics.
 
 > **Typst** is required to use this package (refer to Typst's installation page [here](https://github.com/typst/typst?tab=readme-ov-file#installation)).
-> For the best Typst experience, we recommend the integrated language service [`Tinymist`](https://github.com/Myriad-Dreamin/tinymist).
+> For the best Typst experience, we recommend the integrated language service [Tinymist](https://github.com/Myriad-Dreamin/tinymist).
 
 ## Usage
 
@@ -59,7 +59,7 @@ To get started, add the following to your `.typ` file:
     <img src="gallery/bootstrap_sidebar_taylor.svg" width="100%">
 </a>
 
-**Cryptography Homework using the `bw` color scheme with `tab` header style**
+**Cryptography Problem Set using the `bw` color scheme with `tab` header style**
 <a href="examples/bw_tab_crypto.typ">
     <img src="gallery/bw_tab_crypto.svg" width="100%">
 </a>
@@ -70,8 +70,8 @@ To get started, add the following to your `.typ` file:
 </a>
 
 **Abstract Algebra Notes using the `bw` color scheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
-<a href="examples/bw_classic_galoisextensions.typ">
-    <img src="gallery/bw_classic_galoisextensions.svg" width="100%">
+<a href="examples/ayu_classic_galoisextensions.typ">
+    <img src="gallery/ayu_classic_galoisextensions.svg" width="100%">
 </a>
 
 **Data Structures and Algorithms Notes using the `gruvbox_dark` color scheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [Lovelace](https://github.com/andreasKroepelin/lovelace))**
@@ -86,6 +86,10 @@ Refer to `examples/` for more examples.
 `Ergo` has three different types of environments: _proofs_, _statements_, and _problems_.
 
 Note the arguments are all positional but only one is required for valid syntax.
+In the following table the priority refers to which arguments are used when `n` arguments are given.
+> Example: If `2` arguments are given to the Proof type the first will be for `statement` and the second for `proof`.
+> If `3` arguments are given the first will be for `name`, the second for `statement`, and the third for `proof`).
+
 <table>
     <caption><strong>Environments</strong></caption>
     <tr>
@@ -96,11 +100,11 @@ Note the arguments are all positional but only one is required for valid syntax.
     <tr>
         <td>Proof</td>
         <td>
-            <ul>
+            <ol>
                 <li><code>name</code> (3)</li>
                 <li><code>statement</code> (1)</li>
                 <li><code>proof</code> (2)</li>
-            </ul>
+            </ol>
         </td>
         <td>
             <ul>
@@ -114,10 +118,10 @@ Note the arguments are all positional but only one is required for valid syntax.
     <tr>
         <td>Statement</td>
         <td>
-            <ul>
+            <ol>
                 <li><code>name</code> (2)</li>
                 <li><code>statement</code> (1)</li>
-            </ul>
+            </ol>
         </td>
         <td>
             <ul>
@@ -136,11 +140,11 @@ Note the arguments are all positional but only one is required for valid syntax.
     <tr>
         <td>Problem</td>
         <td>
-            <ul>
+            <ol>
                 <li><code>name</code> (3)</li>
                 <li><code>statement</code> (1)</li>
                 <li><code>solution</code> (2)</li>
-            </ul>
+            </ol>
         </td>
         <td>
             <ul>
@@ -161,8 +165,10 @@ Note that the `problem` environment includes an automatic counter if no title is
 ### Themes/Colors
 
 To customize environments, pass the following keyword arguments to `ergo-init`:
-- `colors` (default: `"bootstrap"`)
-- `headers` (default: `"tab"`)
+- `colors` (default: `"bootstrap"`) - colors of theme (refer to **Color Palettes** table for valid arguments).
+- `headers` (default: `"tab"`) - header style of theme (refer to **Header Styles** table for valid arguments).
+- `all_breakable` (default: `false`) - the default value for `breakable` environment parameter.
+- `inline_qed` (default: `false`) - whether the Q.E.D square is inline or on a new line in proof environments.
 
 <table>
     <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>
@@ -172,7 +178,7 @@ To customize environments, pass the following keyword arguments to `ergo-init`:
             Color scheme adapted from the popular CSS framework <a href="https://getbootstrap.com/">Bootstrap</a>
             <!--
             <a href="src/color/bootstrap.json">
-                <img src="gallery/DOCS/bootstrap_palette.svg" width="500px">
+                <img src="gallery/docs/bootstrap_palette.svg" width="500px">
             </a>
             -->
         </td>
@@ -184,7 +190,7 @@ To customize environments, pass the following keyword arguments to `ergo-init`:
             Black and white color scheme
             <!--
             <a href="src/color/bw.json">
-                <img src="gallery/DOCS/bw_palette.svg" width="500px">
+                <img src="gallery/docs/bw_palette.svg" width="500px">
             </a>
             -->
         </td>
@@ -195,7 +201,7 @@ To customize environments, pass the following keyword arguments to `ergo-init`:
             Adapated from the popular neovim color scheme <a href="https://github.com/morhetz/gruvbox">gruvbox</a>
             <!--
             <a href="src/color/gruvbox_dark.json">
-                <img src="gallery/DOCS/gruvbox_palette.svg" width="500px">
+                <img src="gallery/docs/gruvbox_palette.svg" width="500px">
             </a>
             -->
         </td>
@@ -231,7 +237,12 @@ A sample header is
 ```typ
 #import "@local/ergo:0.1.0": *
 
-#show: ergo-init.with(colors: "gruvbox_dark", headers: "sidebar")
+#show: ergo-init.with(
+    colors: "gruvbox_dark",
+    headers: "sidebar",
+    all_breakable: true,
+    inline_qed: true
+)
 
 // body
 ```
@@ -242,7 +253,7 @@ There are a few extra functions/macros that may be of interest:
 - `correction(body)` - Add a correction to nearby content.
 - `bookmark(title, info)` - Add additional information with small box.
 - `equation_box(equation)` (`eqbox(equation)`) - Box an equation.
-- `ergo_title_selector` - A selector controlling the style of the headers in the blocks.
+- `ergo-title-selector` - A selector controlling the style of the headers in the blocks.
 
 ## Local Installation
 
@@ -263,7 +274,7 @@ $ ./setup.sh
 Test whether the installation/update worked by opening running the following commands in an empty directory:
 ```console
 $ cat <<EOF > test.typ
-#import "@local/ergo:{Version Number}": *
+#import "@local/ergo:0.1.0": *
 #show: ergo-init
 #defn[#lorem(5)][#lorem(50)]
 EOF
@@ -271,5 +282,5 @@ EOF
 $ typst compile test.typ
 ```
 The installation is working if the compile didn't fail and `test.pdf` looks like this:
-<img src="gallery/DOCS/test_output.svg" width="100%">
+<img src="gallery/docs/test_output.svg" width="100%">
 

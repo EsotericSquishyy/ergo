@@ -1,8 +1,8 @@
-!examples/*
-!gallery/*
+!examples/
+!gallery/
 *.pdf
 .DS_Store
-TEST
+TEST/
 */venv/
 */.venv/
 utils/scripts/*.yaml
