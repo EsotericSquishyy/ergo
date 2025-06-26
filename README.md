@@ -52,9 +52,38 @@ To get started, add the following to your `.typ` file:
 ]
 ```
 
+### Gallery
+
+**Real Analysis Notes using the `bootstrap` color scheme with `sidebar` header style**
+<a href="examples/bootstrap_sidebar_taylor.typ">
+    <img src="gallery/bootstrap_sidebar_taylor.svg" width="100%">
+</a>
+
+**Cryptography Homework using the `bw` color scheme with `tab` header style**
+<a href="examples/bw_tab_crypto.typ">
+    <img src="gallery/bw_tab_crypto.svg" width="100%">
+</a>
+
+**Classical Mechanics notes using the `gruvbox_dark` colorscheme with `sidebar` header style (with [Physica](https://github.com/Leedehai/typst-physics))**
+<a href="examples/gruvbox_sidebar_lagrangian.typ">
+    <img src="gallery/gruvbox_sidebar_lagrangian.svg" width="100%">
+</a>
+
+**Abstract Algebra Notes using the `bw` colorscheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
+<a href="examples/bw_classic_galoisextensions.typ">
+    <img src="gallery/bw_classic_galoisextensions.svg" width="100%">
+</a>
+
+**Data Structures and Algorithms Notes using the `gruvbox_dark` colorscheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [Lovelace](https://github.com/andreasKroepelin/lovelace))**
+<a href="examples/gruvbox_classic_huffman.typ">
+    <img src="gallery/gruvbox_classic_huffman.svg" width="100%">
+</a>
+
+Refer to `examples/` for more examples.
+
 ### Environments
 
-More generally, `Ergo` has three different types of environments: _proofs_, _statements_, and _problems_.
+`Ergo` has three different types of environments: _proofs_, _statements_, and _problems_.
 
 Note the arguments are all positional but only one is required for valid syntax.
 <table>
@@ -197,7 +226,7 @@ To customize environments, pass the following keyword arguments to `ergo-init`:
 </table>
 
 This function should be called before any content is rendered to enforce consistency of the document content.
-The following is a sample header:
+A sample header is
 
 ```typ
 #import "@local/ergo:0.1.0": *
@@ -214,39 +243,6 @@ There are a few extra functions/macros that may be of interest:
 - `bookmark(title, info)` - Add additional information with small box.
 - `equation_box(equation)` (`eqbox(equation)`) - Box an equation.
 - `ergo_title_selector` - A selector controlling the style of the headers in the blocks.
-
-
-
-## Examples
-
-**`bootstrap` colorscheme with `sidebar` header style**
-<a href="examples/bootstrap_sidebar_taylor.typ">
-    <img src="gallery/bootstrap_sidebar_taylor.svg" width="100%">
-</a>
-
-**`bw` colorscheme with `tab` header style**
-<a href="examples/bw_tab_crypto.typ">
-    <img src="gallery/bw_tab_crypto.svg" width="100%">
-</a>
-
-**`gruvbox_dark` colorscheme with `sidebar` header style (with [Physica](https://github.com/Leedehai/typst-physics))**
-<a href="examples/gruvbox_sidebar_lagrangian.typ">
-    <img src="gallery/gruvbox_sidebar_lagrangian.svg" width="100%">
-</a>
-
-**`bw` colorscheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
-<a href="examples/bw_classic_galoisextensions.typ">
-    <img src="gallery/bw_classic_galoisextensions.svg" width="100%">
-</a>
-
-**`gruvbox_dark` colorscheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [lovelace](https://github.com/andreasKroepelin/lovelace))**
-<a href="examples/gruvbox_classic_huffman.typ">
-    <img src="gallery/gruvbox_classic_huffman.svg" width="100%">
-</a>
-
-> Refer to the `examples/` directory for more examples.
-
-
 
 ## Local Installation
 
