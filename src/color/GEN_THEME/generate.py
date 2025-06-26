@@ -1,9 +1,18 @@
 import json
-import yaml
 import argparse
 
 INPUT_FILE = 'file.yaml'
 OUTPUT_FILE = 'file.json'
+
+def parse_base16_file(path):
+    base16_colors = {}
+    with open(path, 'r') as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith('base') and ':' in line:
+                key, value = line.split(':', 1)
+                base16_colors[key.strip()] = value.strip().strip('"')
+    return base16_colors
 
 def hex_to_rgb(hex_color):
     return int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16)
@@ -31,17 +40,17 @@ def create_typst_scheme(base16_colors):
 
     theorem_shades      = gen_proof_shades(get_color('base07'))
     lemma_shades        = gen_proof_shades(get_color('base08'))
-    corollary_shades    = gen_proof_shades(get_color('base07'))
-    proposition_shades  = gen_proof_shades(get_color('base09'))
+    corollary_shades    = gen_proof_shades(get_color('base09'))
+    proposition_shades  = gen_proof_shades(get_color('base0A'))
 
-    definition_shades   = gen_statement_shades(get_color('base0A'))
-    remark_shades       = gen_statement_shades(get_color('base0B'))
-    notation_shades     = gen_statement_shades(get_color('base0B'))
-    example_shades      = gen_statement_shades(get_color('base0C'))
-    concept_shades      = gen_statement_shades(get_color('base0D'))
-    computational_problem_shades = gen_statement_shades(get_color('base0D'))
-    algorithm_shades    = gen_statement_shades(get_color('base0D'))
-    runtime_shades      = gen_statement_shades(get_color('base0D'))
+    definition_shades   = gen_statement_shades(get_color('base0B'))
+    remark_shades       = gen_statement_shades(get_color('base0C'))
+    notation_shades     = gen_statement_shades(get_color('base0C'))
+    example_shades      = gen_statement_shades(get_color('base0D'))
+    concept_shades      = gen_statement_shades(get_color('base07'))
+    computational_problem_shades = gen_statement_shades(get_color('base08'))
+    algorithm_shades    = gen_statement_shades(get_color('base09'))
+    runtime_shades      = gen_statement_shades(get_color('base0A'))
 
     problem_shades      = gen_proof_shades(get_color('base0E'))
     exercise_shades     = gen_proof_shades(get_color('base0F'))
@@ -148,10 +157,7 @@ def main():
     input_path = args.file
     output_path = args.output or input_path.split('.')[0] + '.json'
 
-    with open(input_path, 'r') as f:
-        data = yaml.safe_load(f)
-
-    base16_colors = {k: v for k, v in data.items() if k.startswith('base')}
+    base16_colors = parse_base16_file(input_path)
     typst_scheme = create_typst_scheme(base16_colors)
 
     with open(output_path, 'w') as f:
