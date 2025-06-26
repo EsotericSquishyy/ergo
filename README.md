@@ -277,8 +277,3 @@ $ typst compile test.typ
 The installation is working if the compile didn't fail and `test.pdf` looks like this:
 <img src="gallery/DOCS/test_output.svg" width="100%">
 
-## Known Issues
-
-- Incorrect colors for arrows in drawing packages such as [Fletcher](https://github.com/Jollywatt/typst-fletcher) when using `gruvbox_dark` color scheme.
-
-

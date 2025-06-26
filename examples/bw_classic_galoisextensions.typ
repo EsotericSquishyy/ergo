@@ -5,7 +5,6 @@
   headers: "classic",
   inline_qed: true,
 )
-
 #set page(
   width: 18cm,
   height: 15.8cm,
