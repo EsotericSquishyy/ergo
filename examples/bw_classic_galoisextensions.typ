@@ -8,7 +8,7 @@
 
 #set page(
   width: 18cm,
-  height: 16.8cm,
+  height: 15.8cm,
   margin: 1em
 )
 
@@ -32,7 +32,7 @@
 #ex[Galois Correspondence][
   Let $zeta_3 = e^((2 pi i)/3)$.
   Then the splitting field of $f(X) = X^3 - 2 in QQ[X]$ is $K = QQ(root(3, 2), zeta_3)$, where $Gal(K \/ QQ) iso S_3$. 
-  Now consider the generators of $Gal(K \/ QQ)$, $sigma_1:K -> K$ and $sigma_2:K -> K$, defined by $
+  Now consider generators of $Gal(K \/ QQ)$, $sigma_1:K -> K$ and $sigma_2:K -> K$, defined by $
     sigma_1 (zeta_3)
       &= zeta_3, quad
     sigma_1 (root(3, 2))
@@ -42,7 +42,7 @@
     sigma_2 (root(3, 2))
       &= root(3, 2).
   $ 
-  Thus, the subgroups of $Gal(K \/ QQ)$ are given by $ang(sigma_1), ang(sigma_2), ang(sigma_1 sigma_2), ang(sigma_1^2 sigma_2)$, implying the following correspondence (which comes from checking which generators of $Gal(K \/ QQ)$ fix which basis elements):
+  Thus, the subgroups of $Gal(K \/ QQ)$ are given by $ang(sigma_1), ang(sigma_2), ang(sigma_1 sigma_2), ang(sigma_1^2 sigma_2)$, implying the following correspondence (which comes from comparing the generators of $Gal(K \/ QQ)$ with basis elements):
 
   #align(center)[#diagram(spacing: 2em, label-sep: 0.1em, {
     let (A, B, C, D, E, F) = ((2, 5), (0, 2), (3, 2), (6, 2), (9, 2), (2, -1))
