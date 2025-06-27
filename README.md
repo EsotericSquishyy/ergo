@@ -10,14 +10,14 @@
 To get started, add the following to your `.typ` file:
 
 ```typ
-#import "@local/ergo:0.1.0": *
+#import "@preview/ergo:0.1.0": *
 
 #show: ergo-init
 ```
 
 ### Example
 
-<a href="examples/bootstrap_tab_orbit.typ">
+<a href="gallery/bootstrap_tab_orbit.typ">
     <img src="gallery/bootstrap_tab_orbit.svg" width="100%">
 </a>
 
@@ -55,37 +55,35 @@ To get started, add the following to your `.typ` file:
 ### Gallery
 
 **Real Analysis Notes using the `bootstrap` color scheme with `sidebar` header style**
-<a href="examples/bootstrap_sidebar_taylor.typ">
+<a href="gallery/bootstrap_sidebar_taylor.typ">
     <img src="gallery/bootstrap_sidebar_taylor.svg" width="100%">
 </a>
 
 **Cryptography Problem Set using the `bw` color scheme with `tab` header style**
-<a href="examples/bw_tab_crypto.typ">
+<a href="gallery/bw_tab_crypto.typ">
     <img src="gallery/bw_tab_crypto.svg" width="100%">
 </a>
 
 **Classical Mechanics Notes using the `gruvbox_dark` color scheme with `sidebar` header style (with [Physica](https://github.com/Leedehai/typst-physics))**
-<a href="examples/gruvbox_sidebar_lagrangian.typ">
+<a href="gallery/gruvbox_sidebar_lagrangian.typ">
     <img src="gallery/gruvbox_sidebar_lagrangian.svg" width="100%">
 </a>
 
 **Abstract Algebra Notes using the `bw` color scheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
-<a href="examples/ayu_classic_galoisextensions.typ">
+<a href="gallery/ayu_classic_galoisextensions.typ">
     <img src="gallery/ayu_classic_galoisextensions.svg" width="100%">
 </a>
 
 **Data Structures and Algorithms Notes using the `gruvbox_dark` color scheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [Lovelace](https://github.com/andreasKroepelin/lovelace))**
-<a href="examples/gruvbox_classic_huffman.typ">
+<a href="gallery/gruvbox_classic_huffman.typ">
     <img src="gallery/gruvbox_classic_huffman.svg" width="100%">
 </a>
 
-Refer to `examples/` for more examples.
+Refer to `gallery/` for more examples.
 
 ### Environments
 
 `Ergo` has three different types of environments: _proofs_, _statements_, and _problems_.
-
-The following table details the different environment types and there arguments.
 
 <table>
     <caption><strong>Environments</strong></caption>
@@ -241,7 +239,7 @@ This function should be called before any content is rendered to enforce consist
 A sample header is
 
 ```typ
-#import "@local/ergo:0.1.0": *
+#import "@preview/ergo:0.1.0": *
 
 #show: ergo-init.with(
     colors: "gruvbox_dark",
@@ -280,7 +278,7 @@ $ ./setup.sh
 Test whether the installation/update worked by opening running the following commands in an empty directory:
 ```console
 $ cat <<EOF > test.typ
-#import "@local/ergo:0.1.0": *
+#import "@preview/ergo:0.1.0": *
 #show: ergo-init
 #defn[#lorem(5)][#lorem(50)]
 EOF
