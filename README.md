@@ -127,7 +127,7 @@ The following table details the different environment types and there arguments.
                 <li><code>notation</code> (<code>notn</code>)</li>
                 <li><code>example</code> (<code>ex</code>)</li>
                 <li><code>concept</code> (<code>conc</code>)</li>
-                <li><code>computational_problem</code> (<code>comp_prob</code>)</li>
+                <li><code>computational-problem</code> (<code>comp-prob</code>)</li>
                 <li><code>algorithm</code> (<code>algo</code>)</li>
                 <li><code>runtime</code> </li>
                 <li><code>note</code> </li>
@@ -173,8 +173,8 @@ Note that the `problem` environment includes an automatic counter if no title is
 To customize environments, pass the following keyword arguments to `ergo-init`:
 - `colors` (default: `"bootstrap"`) - colors of theme (refer to **Color Palettes** table for valid arguments).
 - `headers` (default: `"tab"`) - header style of theme (refer to **Header Styles** table for valid arguments).
-- `all_breakable` (default: `false`) - the default value for `breakable` environment parameter.
-- `inline_qed` (default: `false`) - whether the Q.E.D square is inline or on a new line in proof environments.
+- `all-breakable` (default: `false`) - the default value for `breakable` environment parameter.
+- `inline-qed` (default: `false`) - whether the Q.E.D square is inline or on a new line in proof environments.
 
 <table>
     <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>
@@ -246,8 +246,8 @@ A sample header is
 #show: ergo-init.with(
     colors: "gruvbox_dark",
     headers: "sidebar",
-    all_breakable: true,
-    inline_qed: true
+    all-breakable: true,
+    inline-qed: true
 )
 
 // body
@@ -258,7 +258,7 @@ A sample header is
 There are a few extra functions/macros that may be of interest:
 - `correction(body)` - Add a correction to nearby content.
 - `bookmark(title, info)` - Add additional information with small box.
-- `equation_box(equation)` (`eqbox(equation)`) - Box an equation.
+- `equation-box(equation)` (`eqbox(equation)`) - Box an equation.
 - `ergo-title-selector` - A selector controlling the style of the headers in the blocks.
 
 ## Local Installation

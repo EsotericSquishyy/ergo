@@ -89,7 +89,7 @@
   #lorem(100)
 ]
 
-#computational_problem[
+#computational-problem[
   Computational Problem name
 ][
   #lorem(100)

@@ -116,7 +116,7 @@ def create_typst_scheme(base16_colors, dark=False):
             "bgcolor":      f"#{get_color('base00') if dark else concept_shades[1]}",
             "strokecolor":  f"#{concept_shades[0]}"
         },
-        "computational_problem": {
+        "computational-problem": {
             "bgcolor":      f"#{get_color('base00') if dark else computational_problem_shades[1]}",
             "strokecolor":  f"#{computational_problem_shades[0]}"
         },
