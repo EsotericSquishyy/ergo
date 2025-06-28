@@ -158,14 +158,14 @@
     "raw": get_ratio(color_name, "raw", "saturation")
   )
 
-  let new-breakable  = if type(breakable) == bool { breakable } else { all-breakable-toggle.get() }
-  let new-qed = if type(inline-qed) == bool { inline-qed } else { inline-qed-toggle.get() }
+  let new_breakable  = if type(breakable) == bool { breakable } else { all-breakable-toggle.get() }
+  let new_qed = if type(inline-qed) == bool { inline-qed } else { inline-qed-toggle.get() }
 
   let child_argv = arguments(
     kind:       kind,
     id:         id,
-    inline-qed: new-qed,
-    breakable:  new-breakable,
+    inline-qed: new_qed,
+    breakable:  new_breakable,
     width:      width,
     height:     height,
     problem:    problem,
