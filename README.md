@@ -89,10 +89,9 @@ Refer to `gallery/` for more examples.
 `Ergo` has three different types of environments: _proofs_, _statements_, and _problems_.
 
 <table>
-    <caption><strong>Environments</strong></caption>
     <tr>
         <td><b>Type</b></td>
-        <td><b>Args</b></td>
+        <td><b>Arguments</b></td>
         <td><b>Environments</b></td>
     </tr>
     <tr>
@@ -153,7 +152,8 @@ Refer to `gallery/` for more examples.
     </tr>
 </table>
 
-Note the arguments are all positional but `name` is optional such that the following example details their behavior:
+The arguments are all positional, but `name` is optional, meaning either of these work:
+
 ```typ
 // no `name` given
 #theorem[ statement ][ proof ]
@@ -162,27 +162,43 @@ Note the arguments are all positional but `name` is optional such that the follo
 #theorem[ name ][ statement ][ proof ]
 ```
 
+If you wish to state a result without giving a proof, you can leave proof as an empty content block `[]`.
+
 All of these environments (regardless of type) share a set of (optional) keyword arguments:
-- `breakable` (default: `false`) - whether the current environment is breakable across multiple pages.
-- `width` (default: `100%`) - width of the current environment in its current scope.
-- `height` (default: `auto`) - height of the current environment in its current scope.
 
-Note that the `problem` environment includes an automatic counter if no title is passed in.
+- `breakable` (default: `false`) -- whether the current environment is breakable across multiple pages
+- `width` (default: `100%`) -- width of the current environment in its scope
+- `height` (default: `auto`) -- height of the current environment in its scope
 
-### Themes/Colors
+Also, the `problem` environment includes an automatic counter if no title is passed in, which can be helpful when working on problem sets.
 
-To customize environments, pass the following keyword arguments to `ergo-init`:
-- `colors` (default: `"bootstrap"`) - colors of theme (refer to **Color Palettes** table for valid arguments).
-- `headers` (default: `"tab"`) - header style of theme (refer to **Header Styles** table for valid arguments).
-- `all-breakable` (default: `false`) - the default value for `breakable` environment parameter.
-- `inline-qed` (default: `false`) - whether the Q.E.D square is inline or on a new line in proof environments.
+### Themes and Colors
+
+To modify themes and colors, use the `ergo-init` function:
+
+```typ
+#import "@preview/ergo:0.1.1": *
+
+#show: ergo-init.with(
+    colors: "gruvbox_dark",
+    headers: "sidebar",
+    all-breakable: true,
+    inline-qed: true
+)
+```
+
+The modifiable parameters are:
+- `colors` (default: `"bootstrap"`) -- colors of theme (refer to **Color Palettes** table for valid arguments)
+- `headers` (default: `"tab"`) -- header style of theme (refer to **Header Styles** table for valid arguments)
+- `all-breakable` (default: `false`) -- the default value for `breakable` environment parameter
+- `inline-qed` (default: `false`) -- whether the Q.E.D square is inline or right aligned in proof environments
 
 <table>
     <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>
     <tr>
         <td><code>bootstrap</code></td>
         <td>
-            Color scheme adapted from the popular CSS framework <a href="https://getbootstrap.com/">Bootstrap</a>
+            Color scheme adapted from the CSS framework <a href="https://getbootstrap.com/">Bootstrap</a>
             <!--
             <a href="src/color/bootstrap.json">
                 <img src="gallery/docs/bootstrap_palette.svg" width="500px">
@@ -205,7 +221,7 @@ To customize environments, pass the following keyword arguments to `ergo-init`:
     <tr>
         <td><code>gruvbox_dark</code></td>
         <td>
-            Adapated from the popular neovim color scheme <a href="https://github.com/morhetz/gruvbox">gruvbox</a>
+            Adapted from the dark version of the <code>neovim</code> color scheme <a href="https://github.com/morhetz/gruvbox">gruvbox</a>
             <!--
             <a href="src/color/gruvbox_dark.json">
                 <img src="gallery/docs/gruvbox_palette.svg" width="500px">
@@ -239,35 +255,22 @@ To customize environments, pass the following keyword arguments to `ergo-init`:
 </table>
 
 This function should be called before any content is rendered to enforce consistency of the document content.
-A sample header is
-
-```typ
-#import "@preview/ergo:0.1.1": *
-
-#show: ergo-init.with(
-    colors: "gruvbox_dark",
-    headers: "sidebar",
-    all-breakable: true,
-    inline-qed: true
-)
-
-// body
-```
 
 #### Extras
 
-There are a few extra functions/macros that may be of interest:
-- `correction(body)` - Add a correction to nearby content.
-- `bookmark(title, info)` - Add additional information with small box.
-- `equation-box(equation)` (`eqbox(equation)`) - Box an equation.
-- `ergo-title-selector` - A selector controlling the style of the headers in the blocks.
+There are a few extra functions and macros that may be of interest:
 
-## Local Installation
+- `correction(body)` - Content with red text, useful for correcting a previous assignment
+- `bookmark(title, info)` - Add additional information with small box. Particularly useful for recording dates and times
+- `equation-box(equation)` (`eqbox(equation)`) - Box an equation
+- `ergo-title-selector` - A selector controlling the style of the headers in the blocks
+
+## Local Installation (MacOS / Linux)
 
 1. Clone this repository locally on your machine.
 2. Run `setup.sh` from the **root of the project directory**.
+  This script symlinks the project directory to the Typst local packages directory.
   Refer to the [Typst Packages](https://github.com/typst/packages) repository for more information.
-  Note the script simply symlinks the project directory to the Typst local packages directory.
 
 ```console
 $ git clone https://github.com/EsotericSquishyy/ergo
@@ -279,6 +282,7 @@ $ ./setup.sh
 ### Testing
 
 Test whether the installation/update worked by opening running the following commands in an empty directory:
+
 ```console
 $ cat <<EOF > test.typ
 #import "@preview/ergo:0.1.1": *
@@ -288,6 +292,6 @@ EOF
 
 $ typst compile test.typ
 ```
-The installation is working if the compile didn't fail and `test.pdf` looks like this:
-<img src="gallery/docs/test_output.svg" width="100%">
 
+The installation worked if the compilation succeeded and `test.pdf` looks like this:
+<img src="gallery/docs/test_output.svg" width="100%">
