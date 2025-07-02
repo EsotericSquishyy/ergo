@@ -1,4 +1,4 @@
-#import "@local/ergo:0.1.0": *
+#import "@local/ergo:0.1.1": *
 #import "@preview/fletcher:0.5.4" as fletcher: diagram, node, edge
 #show: ergo-init.with(
   colors: "ayu_light",
@@ -24,13 +24,13 @@
   Then:
   1. If $H lt.eq G$, $K^H \/ F$ is Galois if and only if $H lt.tri.eq G$.
     In this case, $Gal(K^H \/ F) iso G / H$;
-  2. If $F subset.eq E subset.eq K$, $E \/ F$ is Galois if and only if $Gal(K \/ E) lt.tri.eq G$. 
+  2. If $F subset.eq E subset.eq K$, $E \/ F$ is Galois if and only if $Gal(K \/ E) lt.tri.eq G$.
     In this case $Gal(E \/ F) iso Gal(K \/ F) / Gal(K \/ E)$.
 ][]
 
 #ex[Galois Correspondence][
   Let $zeta_3 = e^((2 pi i)/3)$.
-  Then the splitting field of $f(X) = X^3 - 2 in QQ[X]$ is $K = QQ(root(3, 2), zeta_3)$, where $Gal(K \/ QQ) iso S_3$. 
+  Then the splitting field of $f(X) = X^3 - 2 in QQ[X]$ is $K = QQ(root(3, 2), zeta_3)$, where $Gal(K \/ QQ) iso S_3$.
   Now consider generators of $Gal(K \/ QQ)$, $sigma_1:K -> K$ and $sigma_2:K -> K$, defined by $
     sigma_1 (zeta_3)
       &= zeta_3, quad
@@ -40,7 +40,7 @@
       &= zeta_3^2, quad
     sigma_2 (root(3, 2))
       &= root(3, 2).
-  $ 
+  $
   Thus, the subgroups of $Gal(K \/ QQ)$ are given by $ang(sigma_1), ang(sigma_2), ang(sigma_1 sigma_2), ang(sigma_1^2 sigma_2)$, implying the following correspondence (which comes from comparing the generators of $Gal(K \/ QQ)$ with basis elements):
 
   #align(center)[#diagram(spacing: 2em, label-sep: 0.1em, {

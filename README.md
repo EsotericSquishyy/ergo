@@ -10,7 +10,7 @@
 To get started, add the following to your `.typ` file:
 
 ```typ
-#import "@preview/ergo:0.1.0": *
+#import "@preview/ergo:0.1.1": *
 
 #show: ergo-init
 ```
@@ -59,22 +59,25 @@ To get started, add the following to your `.typ` file:
     <img src="gallery/bootstrap_sidebar_taylor.svg" width="100%">
 </a>
 
-**Cryptography Problem Set using the `bw` color scheme with `tab` header style**
+#### Cryptography Problem Set using the `bw` color scheme with `tab` header style
 <a href="gallery/bw_tab_crypto.typ">
     <img src="gallery/bw_tab_crypto.svg" width="100%">
 </a>
 
-**Classical Mechanics Notes using the `gruvbox_dark` color scheme with `sidebar` header style (with [Physica](https://github.com/Leedehai/typst-physics))**
+#### Classical Mechanics Notes using the `gruvbox_dark` color scheme with `sidebar` header style (with [Physica](https://github.com/Leedehai/typst-physics))
+
 <a href="gallery/gruvbox_sidebar_lagrangian.typ">
     <img src="gallery/gruvbox_sidebar_lagrangian.svg" width="100%">
 </a>
 
-**Abstract Algebra Notes using the `bw` color scheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))**
+#### Abstract Algebra Notes using the `bw` color scheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))
+
 <a href="gallery/ayu_classic_galoisextensions.typ">
     <img src="gallery/ayu_classic_galoisextensions.svg" width="100%">
 </a>
 
-**Data Structures and Algorithms Notes using the `gruvbox_dark` color scheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [Lovelace](https://github.com/andreasKroepelin/lovelace))**
+#### **Data Structures and Algorithms Notes using the `gruvbox_dark` color scheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [Lovelace](https://github.com/andreasKroepelin/lovelace))**
+
 <a href="gallery/gruvbox_classic_huffman.typ">
     <img src="gallery/gruvbox_classic_huffman.svg" width="100%">
 </a>
@@ -239,7 +242,7 @@ This function should be called before any content is rendered to enforce consist
 A sample header is
 
 ```typ
-#import "@preview/ergo:0.1.0": *
+#import "@preview/ergo:0.1.1": *
 
 #show: ergo-init.with(
     colors: "gruvbox_dark",
@@ -261,7 +264,7 @@ There are a few extra functions/macros that may be of interest:
 
 ## Local Installation
 
-1. Clone this repository locally on your machine. 
+1. Clone this repository locally on your machine.
 2. Run `setup.sh` from the **root of the project directory**.
   Refer to the [Typst Packages](https://github.com/typst/packages) repository for more information.
   Note the script simply symlinks the project directory to the Typst local packages directory.
@@ -278,7 +281,7 @@ $ ./setup.sh
 Test whether the installation/update worked by opening running the following commands in an empty directory:
 ```console
 $ cat <<EOF > test.typ
-#import "@preview/ergo:0.1.0": *
+#import "@preview/ergo:0.1.1": *
 #show: ergo-init
 #defn[#lorem(5)][#lorem(50)]
 EOF
