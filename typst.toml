@@ -4,9 +4,9 @@ version = "0.1.0"
 compiler = "0.13.0"
 entrypoint = "lib.typ"
 
-authors = ["Jesse Cobb <@EsotericSquishyy>, Nate Annau <@aneziac>"]
+authors = ["Jesse Cobb <@EsotericSquishyy>", "Nate Annau <@aneziac>"]
 repository = "https://github.com/EsotericSquishyy/ergo"
-description = "A suite of customizable block environments for ease of taking notes or doing problem sets in Mathematics, Computer Science, Physics, and more."
+description = "A suite of customizable block environments for taking notes and doing problem sets, especially in Mathematics, Computer Science, and Physics."
 disciplines = ["mathematics", "computer-science", "physics"]
 license = "MIT-0"
 exclude = [ "gallery/*", "utils/*" ]
