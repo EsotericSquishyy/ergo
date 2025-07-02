@@ -166,9 +166,9 @@ If you wish to state a result without giving a proof, you can leave proof as an 
 
 All of these environments (regardless of type) share a set of (optional) keyword arguments:
 
-- `breakable` (default: `false`) -- whether the current environment is breakable across multiple pages
-- `width` (default: `100%`) -- width of the current environment in its scope
-- `height` (default: `auto`) -- height of the current environment in its scope
+- `breakable` (default: `false`) — whether the current environment is breakable across multiple pages
+- `width` (default: `100%`) — width of the current environment in its scope
+- `height` (default: `auto`) — height of the current environment in its scope
 
 Also, the `problem` environment includes an automatic counter if no title is passed in, which can be helpful when working on problem sets.
 
@@ -188,10 +188,11 @@ To modify themes and colors, use the `ergo-init` function:
 ```
 
 The modifiable parameters are:
-- `colors` (default: `"bootstrap"`) -- colors of theme (refer to **Color Palettes** table for valid arguments)
-- `headers` (default: `"tab"`) -- header style of theme (refer to **Header Styles** table for valid arguments)
-- `all-breakable` (default: `false`) -- the default value for `breakable` environment parameter
-- `inline-qed` (default: `false`) -- whether the Q.E.D square is inline or right aligned in proof environments
+
+- `colors` (default: `"bootstrap"`) — colors of theme (refer to **Color Palettes** table for valid arguments)
+- `headers` (default: `"tab"`) — header style of theme (refer to **Header Styles** table for valid arguments)
+- `all-breakable` (default: `false`) — the default value for `breakable` environment parameter
+- `inline-qed` (default: `false`) — whether the Q.E.D square is inline or right aligned in proof environments
 
 <table>
     <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>
@@ -260,10 +261,10 @@ This function should be called before any content is rendered to enforce consist
 
 There are a few extra functions and macros that may be of interest:
 
-- `correction(body)` - Content with red text, useful for correcting a previous assignment
-- `bookmark(title, info)` - Add additional information with small box. Particularly useful for recording dates and times
-- `equation-box(equation)` (`eqbox(equation)`) - Box an equation
-- `ergo-title-selector` - A selector controlling the style of the headers in the blocks
+- `correction(body)` — Content with red text, useful for correcting a previous assignment
+- `bookmark(title, info)` — Add additional information with small box. Particularly useful for recording dates and times
+- `equation-box(equation)` (`eqbox(equation)`) — Box an equation
+- `ergo-title-selector` — A selector controlling the style of the headers in the blocks
 
 ## Local Installation (MacOS / Linux)
 
@@ -281,7 +282,7 @@ $ ./setup.sh
 
 ### Testing
 
-Test whether the installation/update worked by opening running the following commands in an empty directory:
+Test whether the installation worked by running the following commands in an empty directory:
 
 ```console
 $ cat <<EOF > test.typ
@@ -293,5 +294,5 @@ EOF
 $ typst compile test.typ
 ```
 
-The installation worked if the compilation succeeded and `test.pdf` looks like this:
+The installation is successful if the file compiled without errors and `test.pdf` looks like this:
 <img src="gallery/docs/test_output.svg" width="100%">
