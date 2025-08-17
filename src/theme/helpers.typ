@@ -1,5 +1,5 @@
 #let ergo-title-selector = <__ergo_title>
-#let ergo_title(content) = {
+#let ergo-title(content) = {
   set text(weight: "bold")
   [#content#ergo-title-selector]
 }
@@ -15,11 +15,11 @@
   [*Solution:* ]; body
 }
 
-#let problem_counter = counter("problem")
+#let problem-counter = counter("problem")
 
-#let highlight_raw(content, raw_color) = {
+#let highlight-raw(content, raw-color) = {
   box(
-    fill:   raw_color,
+    fill:   raw-color,
     outset: (x: 1pt, y: 3pt),
     inset:  (x: 2pt),
     radius: 2pt,
@@ -27,45 +27,45 @@
   )
 }
 
-#let get_proofname_content(kind, name, problem: false, prob-nums: true) = {
+#let get-proofname-content(kind, name, problem: false, prob-nums: true) = {
   let xpad = 12pt
   let ypad = 6pt
-  let name_content = none
+  let name-content = none
 
   if problem {
-    let count = if prob-nums [ #{problem_counter.step(); context problem_counter.display()}] else []
+    let count = if prob-nums [ #{problem-counter.step(); context problem-counter.display()}] else []
 
     if name == [] {
-      name_content = ergo_title[#kind#count]
+      name-content = ergo-title[#kind#count]
     } else {
-      name_content = ergo_title[#kind#count: #name]
+      name-content = ergo-title[#kind#count: #name]
     }
   } else {
     if name == [] {
-      name_content =  ergo_title[_#kind _]
+      name-content =  ergo-title[_#kind _]
     } else {
-      name_content = ergo_title[_#kind: _ #name]
+      name-content = ergo-title[_#kind: _ #name]
     }
   }
 
-  return pad(x: xpad, y: ypad, name_content)
+  return pad(x: xpad, y: ypad, name-content)
 }
 
-#let get_statementname_content(kind, name) = {
+#let get-statementname-content(kind, name) = {
   let xpad = 12pt
   let ypad = 6pt
-  let name_content = none
+  let name-content = none
 
   if name == [] {
-    name_content =  ergo_title[#kind]
+    name-content =  ergo-title[#kind]
   } else {
-    name_content = ergo_title[#kind: #name]
+    name-content = ergo-title[#kind: #name]
   }
 
-  return pad(x: xpad, y: ypad, name_content)
+  return pad(x: xpad, y: ypad, name-content)
 }
 
-#let get_proof_content(statement, problem, inline-qed) = {
+#let get-proof-content(statement, problem, inline-qed) = {
   let xpad = 12pt
   let ypad = 6pt
 
@@ -80,7 +80,7 @@
   }
 }
 
-#let get_statement_content(statement) = {
+#let get-statement-content(statement) = {
   let xpad = 12pt
   let ypad = 6pt
 

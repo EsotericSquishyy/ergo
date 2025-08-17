@@ -1,17 +1,17 @@
 #import "helpers.typ": (
-  problem_counter,
-  highlight_raw,
-  get_proofname_content,
-  get_statementname_content,
-  get_proof_content,
-  get_statement_content,
+  problem-counter,
+  highlight-raw,
+  get-proofname-content,
+  get-statementname-content,
+  get-proof-content,
+  get-statement-content,
 )
 
 
-#let sidebar_proof_env(
+#let sidebar-proof-env(
   name,
   statement,
-  proof_statement,
+  proof-statement,
   colors,
   ..argv
 ) = {
@@ -19,11 +19,11 @@
   let bgcolor     = rgb(colors.env.bgcolor1)
   let strokecolor = rgb(colors.env.strokecolor1)
 
-  show raw.where(block: false): r => highlight_raw(r, bgcolor.saturate(colors.raw))
+  show raw.where(block: false): r => highlight-raw(r, bgcolor.saturate(colors.raw))
 
-  let name_content      = get_proofname_content(kwargs.kind, name, problem: kwargs.problem, prob-nums: kwargs.prob-nums)
-  let statement_content = get_statement_content(statement)
-  let proof_content     = get_proof_content(proof_statement, kwargs.problem, kwargs.inline-qed)
+  let name-content      = get-proofname-content(kwargs.kind, name, problem: kwargs.problem, prob-nums: kwargs.prob-nums)
+  let statement-content = get-statement-content(statement)
+  let proof-content     = get-proof-content(proof-statement, kwargs.problem, kwargs.inline-qed)
 
   block(
     stroke:     (left: strokecolor + 3pt),
@@ -34,14 +34,14 @@
     breakable:  kwargs.breakable,
     clip:       true,
     stack(
-      text(strokecolor)[#name_content],
-      statement_content,
-      proof_content,
+      text(strokecolor)[#name-content],
+      statement-content,
+      proof-content,
     ),
   )
 }
 
-#let sidebar_statement_env(
+#let sidebar-statement-env(
   name,
   statement,
   colors,
@@ -51,10 +51,10 @@
   let bgcolor     = rgb(colors.env.bgcolor)
   let strokecolor = rgb(colors.env.strokecolor)
 
-  show raw.where(block: false): r => highlight_raw(r, bgcolor.saturate(colors.raw))
+  show raw.where(block: false): r => highlight-raw(r, bgcolor.saturate(colors.raw))
 
-  let name_content      = get_statementname_content(kwargs.kind, name)
-  let statement_content = get_statement_content(statement)
+  let name-content      = get-statementname-content(kwargs.kind, name)
+  let statement-content = get-statement-content(statement)
 
   block(
     stroke:     (left: strokecolor + 3pt),
@@ -65,8 +65,8 @@
     breakable:  kwargs.breakable,
     clip:       true,
     stack(
-      text(fill: strokecolor)[#name_content],
-      statement_content,
+      text(fill: strokecolor)[#name-content],
+      statement-content,
     ),
   )
 }

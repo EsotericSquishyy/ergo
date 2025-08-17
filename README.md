@@ -64,7 +64,7 @@ To get started, add the following to your `.typ` file:
     <img src="gallery/bw_tab_crypto.svg" width="100%">
 </a>
 
-#### Classical Mechanics Notes using the `gruvbox_dark` color scheme with `sidebar` header style (with [Physica](https://github.com/Leedehai/typst-physics))
+#### Classical Mechanics Notes using the `gruvbox-dark` color scheme with `sidebar` header style (with [Physica](https://github.com/Leedehai/typst-physics))
 
 <a href="gallery/gruvbox_sidebar_lagrangian.typ">
     <img src="gallery/gruvbox_sidebar_lagrangian.svg" width="100%">
@@ -76,7 +76,7 @@ To get started, add the following to your `.typ` file:
     <img src="gallery/ayu_classic_galoisextensions.svg" width="100%">
 </a>
 
-#### **Data Structures and Algorithms Notes using the `gruvbox_dark` color scheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [Lovelace](https://github.com/andreasKroepelin/lovelace))**
+#### **Data Structures and Algorithms Notes using the `gruvbox-dark` color scheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [Lovelace](https://github.com/andreasKroepelin/lovelace))**
 
 <a href="gallery/gruvbox_classic_huffman.typ">
     <img src="gallery/gruvbox_classic_huffman.svg" width="100%">
@@ -180,7 +180,7 @@ To modify themes and colors, use the `ergo-init` function:
 #import "@preview/ergo:0.1.1": *
 
 #show: ergo-init.with(
-    colors: "gruvbox_dark",
+    colors: "gruvbox-dark",
     headers: "sidebar",
     all-breakable: true,
     inline-qed: true,
@@ -222,18 +222,18 @@ The modifiable parameters are:
         </td>
     </tr>
     <tr>
-        <td><code>gruvbox_dark</code></td>
+        <td><code>gruvbox-dark</code></td>
         <td>
             Adapted from the dark version of the <code>neovim</code> color scheme <a href="https://github.com/morhetz/gruvbox">gruvbox</a>
             <!--
-            <a href="src/color/gruvbox_dark.json">
+            <a href="src/color/gruvbox-dark.json">
                 <img src="gallery/docs/gruvbox_palette.svg" width="500px">
             </a>
             -->
         </td>
     </tr>
     <tr>
-        <td><code>ayu_light</code></td>
+        <td><code>ayu-light</code></td>
         <td>
             Adapated from <a href="https://github.com/dempfi/ayu">ayu</a>
         </td>
