@@ -183,7 +183,8 @@ To modify themes and colors, use the `ergo-init` function:
     colors: "gruvbox_dark",
     headers: "sidebar",
     all-breakable: true,
-    inline-qed: true
+    inline-qed: true,
+    prob-nums: false,
 )
 ```
 
@@ -193,6 +194,7 @@ The modifiable parameters are:
 - `headers` (default: `"tab"`) — header style of theme (refer to **Header Styles** table for valid arguments)
 - `all-breakable` (default: `false`) — the default value for `breakable` environment parameter
 - `inline-qed` (default: `false`) — whether the Q.E.D square is inline or right aligned in proof environments
+- `prob-nums` (default: `true`) — should excercise/problems environments have a numbering system
 
 <table>
     <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>

@@ -21,7 +21,7 @@
 
   show raw.where(block: false): r => highlight_raw(r, bgcolor.saturate(colors.raw))
 
-  let name_content      = get_proofname_content(kwargs.kind, name, problem: kwargs.problem)
+  let name_content      = get_proofname_content(kwargs.kind, name, problem: kwargs.problem, prob-nums: kwargs.prob-nums)
   let statement_content = get_statement_content(statement)
   let proof_content     = get_proof_content(proof_statement, kwargs.problem, kwargs.inline-qed)
 

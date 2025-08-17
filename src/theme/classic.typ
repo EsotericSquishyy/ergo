@@ -23,7 +23,7 @@
 
   show raw.where(block: false): r => highlight_raw(r, bgcolor1.saturate(colors.raw))
 
-  let name_content = get_proofname_content(kwargs.kind, name, problem: kwargs.problem)
+  let name_content = get_proofname_content(kwargs.kind, name, problem: kwargs.problem, prob-nums: kwargs.prob-nums)
 
   let statement_content = get_statement_content(
     block(

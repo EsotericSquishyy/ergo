@@ -27,18 +27,18 @@
   )
 }
 
-#let get_proofname_content(kind, name, problem: false) = {
+#let get_proofname_content(kind, name, problem: false, prob-nums: true) = {
   let xpad = 12pt
   let ypad = 6pt
   let name_content = none
 
   if problem {
-    let count = [#{problem_counter.step(); context problem_counter.display()}]
+    let count = if prob-nums [ #{problem_counter.step(); context problem_counter.display()}] else []
 
     if name == [] {
-      name_content = ergo_title[#kind #count]
+      name_content = ergo_title[#kind#count]
     } else {
-      name_content = ergo_title[#kind #count: #name]
+      name_content = ergo_title[#kind#count: #name]
     }
   } else {
     if name == [] {

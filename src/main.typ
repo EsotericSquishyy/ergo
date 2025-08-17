@@ -25,6 +25,7 @@
 //-----Setup-----//
 #let all-breakable-toggle = state("all-breakable-toggle", false)
 #let inline-qed-toggle    = state("inline-qed-toggle", false)
+#let prob-nums-toggle     = state("prob-nums-toggle", false)
 
 #let ergo-init(
   body,
@@ -32,6 +33,7 @@
   headers:        "tab",
   all-breakable:  false,
   inline-qed:     false,
+  prob-nums:      true,
 ) = context {
   if type(colors) == str and valid_colors(colors) {
     env_colors.update(colors)
@@ -50,6 +52,11 @@
   }
   if type(inline-qed) == bool {
     inline-qed-toggle.update(inline-qed)
+  } else {
+    panic("Non boolean passed to boolean")
+  }
+  if type(prob-nums) == bool {
+    prob-nums-toggle.update(prob-nums)
   } else {
     panic("Non boolean passed to boolean")
   }
@@ -166,6 +173,7 @@
     id:         id,
     inline-qed: new_qed,
     breakable:  new_breakable,
+    prob-nums:  prob-nums-toggle.get(),
     width:      width,
     height:     height,
     problem:    problem,
