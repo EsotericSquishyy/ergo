@@ -1,43 +1,43 @@
-#let env_colors_list  = ("bootstrap", "bw", "gruvbox_dark", "ayu_light")
-#let env_colors       = state("theme", "bootstrap")
-#let colors_dict      = (:)
+#let env-colors-list  = ("bootstrap", "bw", "gruvbox-dark", "ayu-light")
+#let env-colors       = state("theme", "bootstrap")
+#let colors-dict      = (:)
 
-#for colors_name in env_colors_list {
-  colors_dict.insert(colors_name, json(colors_name + ".json"))
+#for colors-name in env-colors-list {
+  colors-dict.insert(colors-name, json(colors-name + ".json"))
 }
 
-#let valid_colors(colors) = {
-  return colors in env_colors_list
+#let valid-colors(colors) = {
+  return colors in env-colors-list
 }
 
-#let get_ratio(theme_name, env_name, parameter_name) = {
-  return float(colors_dict.at(theme_name).at(env_name).at(parameter_name)) * 100%
+#let get-ratio(theme-name, env-name, parameter-name) = {
+  return float(colors-dict.at(theme-name).at(env-name).at(parameter-name)) * 100%
 }
 
-#let get_colors(theme_name, env_name) = {
-  return colors_dict.at(theme_name).at(env_name, default: none)
+#let get-colors(theme-name, env-name) = {
+  return colors-dict.at(theme-name).at(env-name, default: none)
 }
 
-#let get_opts_colors(theme_name) = {
-  let opts = get_colors(theme_name, "opts")
+#let get-opts-colors(theme-name) = {
+  let opts = get-colors(theme-name, "opts")
 
-  let filled_opts = (:)
+  let filled-opts = (:)
 
   if (opts != none) {
-    filled_opts.insert("fill",   opts.at("fill",   default: "#ffffff"))
-    filled_opts.insert("text1",  opts.at("text1",  default: "#000000"))
-    filled_opts.insert("text2",  opts.at("text2",  default: "#ffffff"))
-    filled_opts.insert("h1",     opts.at("h1",     default: "#020004"))
-    filled_opts.insert("h2",     opts.at("h2",     default: "#16428e"))
-    filled_opts.insert("strong", opts.at("strong", default: "#020004"))
+    filled-opts.insert("fill",   opts.at("fill",   default: "#ffffff"))
+    filled-opts.insert("text1",  opts.at("text1",  default: "#000000"))
+    filled-opts.insert("text2",  opts.at("text2",  default: "#ffffff"))
+    filled-opts.insert("h1",     opts.at("h1",     default: "#020004"))
+    filled-opts.insert("h2",     opts.at("h2",     default: "#16428e"))
+    filled-opts.insert("strong", opts.at("strong", default: "#020004"))
   } else {
-    filled_opts.insert("fill",   "#ffffff")
-    filled_opts.insert("text1",  "#000000")
-    filled_opts.insert("text2",  "#ffffff")
-    filled_opts.insert("h1",     "#020004")
-    filled_opts.insert("h2",     "#16428e")
-    filled_opts.insert("strong", "#020004")
+    filled-opts.insert("fill",   "#ffffff")
+    filled-opts.insert("text1",  "#000000")
+    filled-opts.insert("text2",  "#ffffff")
+    filled-opts.insert("h1",     "#020004")
+    filled-opts.insert("h2",     "#16428e")
+    filled-opts.insert("strong", "#020004")
   }
 
-  return filled_opts
+  return filled-opts
 }

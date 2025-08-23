@@ -1,4 +1,4 @@
-#import "@local/ergo:0.1.0": *
+#import "@local/ergo:0.1.1": *
 #show: ergo-init.with(
   colors: "bootstrap",
   headers: "sidebar",
@@ -12,7 +12,7 @@
 
 
 #defn[Multi-index][
-  For $alpha_1, ..., alpha_n gt.eq 0$, we call $alpha = (alpha_1, ..., alpha_n)$ a *multi-index*. 
+  For $alpha_1, ..., alpha_n gt.eq 0$, we call $alpha = (alpha_1, ..., alpha_n)$ a *multi-index*.
   Then define the following:
   1. We let $alpha! = alpha_1 ! dots.h.c alpha_n !$
   2. For $x in RR^n$, define $x^alpha = x_1^(alpha_1) dots.h.c x_n^(alpha_n)$ if $x_i eq.not 0forall i$; otherwise $x^alpha = 0$ if there exists $j$ such that $x_j = 0$
@@ -41,7 +41,7 @@
     $
   ]
 
-  Let $x in B_r (a)$ and define $[a, x] = {phi(t) bar.v t in [0, 1]}$, where $phi:[-1, 1] -> RR^n$ is defined by $phi(t) = a + t (x - a)$. 
+  Let $x in B_r (a)$ and define $[a, x] = {phi(t) bar.v t in [0, 1]}$, where $phi:[-1, 1] -> RR^n$ is defined by $phi(t) = a + t (x - a)$.
   Now let $g(t) = f(phi(t))$ so that $g(0) = f(a)$ and $g(1) = f(x)$.
   Thus $g in cal(C)^k ([-1, 1])$, meaning $
     g(1)

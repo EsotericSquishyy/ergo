@@ -1,17 +1,17 @@
 #import "helpers.typ": (
-  problem_counter,
-  highlight_raw,
-  get_proofname_content,
-  get_statementname_content,
-  get_proof_content,
-  get_statement_content,
+  problem-counter,
+  highlight-raw,
+  get-proofname-content,
+  get-statementname-content,
+  get-proof-content,
+  get-statement-content,
 )
 
 
-#let tab_proof_env(
+#let tab-proof-env(
   name,
   statement,
-  proof_statement,
+  proof-statement,
   colors,
   ..argv
 ) = {
@@ -21,17 +21,17 @@
   let strokecolor1  = rgb(colors.env.strokecolor1)
   let strokecolor2  = rgb(colors.env.strokecolor2)
 
-  show raw.where(block: false): r => highlight_raw(r, bgcolor1.saturate(colors.raw))
+  show raw.where(block: false): r => highlight-raw(r, bgcolor1.saturate(colors.raw))
 
-  let name_content = get_proofname_content(kwargs.kind, name, problem: kwargs.problem)
+  let name-content = get-proofname-content(kwargs.kind, name, problem: kwargs.problem, prob-nums: kwargs.prob-nums)
 
-  name_content = block(
+  name-content = block(
     fill:   strokecolor1,
     width:  100%,
-    text(rgb(colors.opt.text2))[#name_content]
+    text(rgb(colors.opt.text2))[#name-content]
   )
 
-  let statement_content = get_statement_content(
+  let statement-content = get-statement-content(
     block(
       fill:   bgcolor2,
       inset:  8pt,
@@ -42,7 +42,7 @@
     )
   )
 
-  let proof_content = get_proof_content(proof_statement, kwargs.problem, kwargs.inline-qed)
+  let proof-content = get-proof-content(proof-statement, kwargs.problem, kwargs.inline-qed)
 
   block(
     stroke:     strokecolor1,
@@ -54,14 +54,14 @@
     radius:     6pt,
     clip:       true,
     stack(
-      name_content,
-      statement_content,
-      proof_content,
+      name-content,
+      statement-content,
+      proof-content,
     )
   )
 }
 
-#let tab_statement_env(
+#let tab-statement-env(
   name,
   statement,
   colors,
@@ -71,17 +71,17 @@
   let bgcolor      = rgb(colors.env.bgcolor)
   let strokecolor  = rgb(colors.env.strokecolor)
 
-  show raw.where(block: false): r => highlight_raw(r, bgcolor.saturate(colors.raw))
+  show raw.where(block: false): r => highlight-raw(r, bgcolor.saturate(colors.raw))
 
-  let name_content = get_statementname_content(kwargs.kind, name)
+  let name-content = get-statementname-content(kwargs.kind, name)
 
-  name_content = block(
+  name-content = block(
     fill:  strokecolor,
     width: 100%,
-    text(rgb(colors.opt.text2))[#name_content]
+    text(rgb(colors.opt.text2))[#name-content]
   )
 
-  let statement_content = get_statement_content(statement)
+  let statement-content = get-statement-content(statement)
 
   block(
     stroke:     strokecolor,
@@ -93,8 +93,8 @@
     radius:     6pt,
     clip:       true,
     stack(
-      name_content,
-      statement_content
+      name-content,
+      statement-content
     )
   )
 }
