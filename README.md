@@ -1,6 +1,7 @@
 # Ergo
 
 **Ergo** is a [Typst](https://typst.app/) suite of environments for taking notes and doing problem sets, especially for Mathematics, Computer Science, and Physics.
+It is available on Typst Universe [here](https://typst.app/universe/package/ergo).
 
 > **Typst** is required to use this package (refer to Typst's installation page [here](https://github.com/typst/typst?tab=readme-ov-file#installation)).
 > For the best Typst experience, we recommend the integrated language service [Tinymist](https://github.com/Myriad-Dreamin/tinymist).
