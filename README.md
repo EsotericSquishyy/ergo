@@ -11,7 +11,7 @@ It is available on Typst Universe [here](https://typst.app/universe/package/ergo
 To get started, add the following to your `.typ` file:
 
 ```typ
-#import "@preview/ergo:0.1.1": *
+#import "@preview/ergo:0.2.0": *
 
 #show: ergo-init
 ```
@@ -178,7 +178,7 @@ Also, the `problem` environment includes an automatic counter if no title is pas
 To modify themes and colors, use the `ergo-init` function:
 
 ```typ
-#import "@preview/ergo:0.1.1": *
+#import "@preview/ergo:0.2.0": *
 
 #show: ergo-init.with(
     colors: "gruvbox-dark",
@@ -289,7 +289,7 @@ Test whether the installation worked by running the following commands in an emp
 
 ```console
 $ cat <<EOF > test.typ
-#import "@preview/ergo:0.1.1": *
+#import "@preview/ergo:0.2.0": *
 #show: ergo-init
 #defn[#lorem(5)][#lorem(50)]
 EOF
