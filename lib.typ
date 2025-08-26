@@ -1,6 +1,7 @@
 #import "src/main.typ": (
   ergo-init,
   ergo-title-selector,
+  ergo-colors,
   correction,
   bookmark,
   equation-box,

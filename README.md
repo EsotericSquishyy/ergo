@@ -71,7 +71,7 @@ To get started, add the following to your `.typ` file:
     <img src="gallery/gruvbox_sidebar_lagrangian.svg" width="100%">
 </a>
 
-#### Abstract Algebra Notes using the `bw` color scheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))
+#### Abstract Algebra Notes using the `ayu-light` color scheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))
 
 <a href="gallery/ayu_classic_galoisextensions.typ">
     <img src="gallery/ayu_classic_galoisextensions.svg" width="100%">
@@ -181,7 +181,7 @@ To modify themes and colors, use the `ergo-init` function:
 #import "@preview/ergo:0.2.0": *
 
 #show: ergo-init.with(
-    colors: "gruvbox-dark",
+    colors: ergo-colors.gruvbox-dark,
     headers: "sidebar",
     all-breakable: true,
     inline-qed: true,
@@ -191,7 +191,7 @@ To modify themes and colors, use the `ergo-init` function:
 
 The modifiable parameters are:
 
-- `colors` (default: `"bootstrap"`) — colors of theme (refer to **Color Palettes** table for valid arguments)
+- `colors` (default: `ergo-colors.bootstrap`) — colors of theme (refer to **Color Palettes** table for valid arguments)
 - `headers` (default: `"tab"`) — header style of theme (refer to **Header Styles** table for valid arguments)
 - `all-breakable` (default: `false`) — the default value for `breakable` environment parameter
 - `inline-qed` (default: `false`) — whether the Q.E.D square is inline or right aligned in proof environments
@@ -200,7 +200,7 @@ The modifiable parameters are:
 <table>
     <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>
     <tr>
-        <td><code>bootstrap</code></td>
+        <td><code>ergo-colors.bootstrap</code></td>
         <td>
             Color scheme adapted from the CSS framework <a href="https://getbootstrap.com/">Bootstrap</a>
             <!--
@@ -212,7 +212,7 @@ The modifiable parameters are:
     </tr>
     </tr>
     <tr>
-        <td><code>bw</code></td>
+        <td><code>ergo-colors.bw</code></td>
         <td>
             Black and white color scheme
             <!--
@@ -223,7 +223,7 @@ The modifiable parameters are:
         </td>
     </tr>
     <tr>
-        <td><code>gruvbox-dark</code></td>
+        <td><code>ergo-colors.gruvbox-dark</code></td>
         <td>
             Adapted from the dark version of the <code>neovim</code> color scheme <a href="https://github.com/morhetz/gruvbox">gruvbox</a>
             <!--
@@ -234,7 +234,7 @@ The modifiable parameters are:
         </td>
     </tr>
     <tr>
-        <td><code>ayu-light</code></td>
+        <td><code>ergo-colors.ayu-light</code></td>
         <td>
             Adapated from <a href="https://github.com/dempfi/ayu">ayu</a>
         </td>
@@ -259,6 +259,20 @@ The modifiable parameters are:
 </table>
 
 This function should be called before any content is rendered to enforce consistency of the document content.
+
+#### Custom Color Schemes
+
+We now support custom color schemes so you can write your own theme as a Typst `dictionary` with the valid fields and pass it in to the `ergo-init` function as you would with any other color scheme (you can also define your schemes in json):
+
+```typ
+#import "@preview/ergo:0.2.0": *
+
+#let my-custom-colors = json("my-custom-colors.json")
+#show: ergo-init.with(colors: my-custom-colors)
+```
+
+Refer to existing color schemes in `src/color/` for information on valid fields.
+At the moment we only support RGB and RGBA in hex format (i.e. `"#ffffff"` or `"#ffffffff"`).
 
 #### Extras
 

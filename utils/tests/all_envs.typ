@@ -1,5 +1,6 @@
-#import "@local/ergo:0.1.1": *
-#show: ergo-init.with(colors: "bootstrap", headers: "sidebar")
+#import "@local/ergo:0.2.0": *
+// #show: ergo-init.with(colors: ergo-colors.bootstrap, headers: "sidebar")
+#show: ergo-init.with(colors: json("custom.json"), headers: "sidebar")
 
 = Proof Environments
 

@@ -1,5 +1,5 @@
 #import "color/color.typ": (
-  env-colors,
+  ergo-colors,
   valid-colors,
   get-ratio,
   get-colors,
@@ -23,19 +23,20 @@
 
 
 //-----Setup-----//
+#let env-colors           = state("theme", ergo-colors.bootstrap)
 #let all-breakable-toggle = state("all-breakable-toggle", false)
 #let inline-qed-toggle    = state("inline-qed-toggle", false)
 #let prob-nums-toggle     = state("prob-nums-toggle", false)
 
 #let ergo-init(
   body,
-  colors:         "bootstrap",
+  colors:         ergo-colors.bootstrap,
   headers:        "tab",
   all-breakable:  false,
   inline-qed:     false,
   prob-nums:      true,
 ) = context {
-  if type(colors) == str and valid-colors(colors) {
+  if type(colors) == dictionary and valid-colors(colors) {
     env-colors.update(colors)
   } else {
     panic("Unrecognized or invalid color")
