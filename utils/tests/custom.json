@@ -85,5 +85,17 @@
   },
   "raw": {
     "saturation": "0"
+  },
+  "custom-proof": {
+    "type": "proof",
+    "bgcolor1": "#ffffff",
+    "bgcolor2": "#bbbbbb",
+    "strokecolor1": "#000000",
+    "strokecolor2": "#000000"
+  },
+  "custom-statement": {
+    "type": "statement",
+    "bgcolor": "#bbbbbb",
+    "strokecolor": "#000000"
   }
 }

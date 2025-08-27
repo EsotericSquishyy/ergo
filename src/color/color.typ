@@ -6,24 +6,6 @@
   ergo-colors.insert(colors-name, json(colors-name + ".json"))
 }
 
-// Helper to check if string is valid color
-#let is-hex-color(s) = {
-  if not s.starts-with("#") {
-    return false
-  }
-  let hex-part = s.slice(1)
-  let len = hex-part.len()
-  if not (3, 4, 6, 8).contains(len) {
-    return false
-  }
-  for c in hex-part {
-    if not "0123456789abcdefABCDEF".contains(c) {
-      return false
-    }
-  }
-  return true
-}
-
 // Checks if dict is valid colorscheme
 #let valid-colors(colors) = {
   let proof-envs = (
@@ -45,48 +27,88 @@
     "algorithm",
     "runtime",
   )
-  let none-or-invalid-color(env-colors, color-name) = {
-    let env-color = env-colors.at(color-name, default: none)
-    return env-color == none or not is-hex-color(env-color)
+
+  let valid-color(env-colors, color-name) = {
+    let color = env-colors.at(color-name, default: none)
+    if type(color) != str or not color.starts-with("#") {
+      return false
+    }
+    let hex-part = color.slice(1)
+    let len = hex-part.len()
+    if not (3, 4, 6, 8).contains(len) {
+      return false
+    }
+    for c in hex-part {
+      if not "0123456789abcdefABCDEF".contains(c) {
+        return false
+      }
+    }
+    return true
+  }
+  let valid-proof-colors(proof-colors) = {
+    if type(proof-colors) != dictionary { return false }
+    if (not valid-color(proof-colors, "bgcolor1") or
+        not valid-color(proof-colors, "bgcolor2") or
+        not valid-color(proof-colors, "strokecolor1") or
+        not valid-color(proof-colors, "strokecolor2")) {
+      return false
+    }
+    return true
+  }
+  let valid-statement-colors(statement-colors) = {
+    if type(statement-colors) != dictionary { return false }
+    if (not valid-color(statement-colors, "bgcolor") or
+        not valid-color(statement-colors, "strokecolor")) {
+      return false
+    }
+    return true
   }
 
+  // Proof environments
   for proof-env in proof-envs {
-    let proof-colors = colors.at(proof-env, default: none)
-    if proof-colors == none { return false }
-    if (none-or-invalid-color(proof-colors, "bgcolor1") or
-        none-or-invalid-color(proof-colors, "bgcolor2") or
-        none-or-invalid-color(proof-colors, "strokecolor1") or
-        none-or-invalid-color(proof-colors, "strokecolor2")) {
+    if not valid-proof-colors(colors.remove(proof-env, default: none)) {
       return false
     }
   }
 
+  // Statement environments
   for statement-env in statement-envs {
-    let statement-colors = colors.at(statement-env, default: none)
-    if statement-colors == none { return false }
-    if (none-or-invalid-color(statement-colors, "bgcolor") or
-        none-or-invalid-color(statement-colors, "strokecolor")) {
+    if not valid-statement-colors(colors.remove(statement-env, default: none)) {
       return false
     }
   }
 
-  let bookmark-colors = colors.at("bookmark", default: none)
-  if bookmark-colors == none { return false }
-  if (none-or-invalid-color(bookmark-colors, "bgcolor") or
-      none-or-invalid-color(bookmark-colors, "strokecolor")) {
+  // Bookmark (technically statement struct)
+  if not valid-statement-colors(colors.remove("bookmark", default: none)) {
     return false
   }
 
   // TODO: Raw
+  let raw-setting = colors.remove("raw", default: none)
+  if type(raw-setting) != dictionary { return false }
 
-  // Optional arguments
-  let opts-colors = colors.at("opts", default: none)
-  if opts-colors == none { return true }
-  if not is-hex-color(opts-colors.at("fill")) { return false }
-  if not is-hex-color(opts-colors.at("text1")) { return false }
-  if not is-hex-color(opts-colors.at("text2")) { return false }
-  if not is-hex-color(opts-colors.at("h1")) { return false }
-  if not is-hex-color(opts-colors.at("h2")) { return false }
+  // Verify optional arguments
+  let opts-colors = colors.remove("opts", default: none)
+  if type(opts-colors) == dictionary { 
+    for color-name in ("fill", "text1", "text2", "h1", "h2") {
+      if opts-colors.at(color-name, default: none) == none { continue }
+      if not valid-color(opts-colors, color-name) { return false }
+    }
+  }
+
+  // Verify custom ids
+  for (custom-name, custom-color) in colors {
+    let custom-colors = colors.remove(custom-name, default: none)
+    if type(custom-colors) != dictionary { return false }
+    let custom-type = custom-colors.remove("type", default: none)
+
+    if not ((custom-type == "proof" and
+             valid-proof-colors(custom-colors)) or
+            (custom-type == "statement" and
+             valid-statement-colors(custom-colors))) {
+      return false
+    }
+  }
 
   return true
 }

@@ -2,9 +2,17 @@
   ergo-init,
   ergo-title-selector,
   ergo-colors,
+
+  // Misc.
   correction,
   bookmark,
   equation-box,
+
+  // Custom
+  proof-env,
+  statement-env,
+
+  // Preset
   theorem,
   lemma,
   corollary,
