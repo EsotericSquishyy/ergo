@@ -2,12 +2,50 @@ from pathlib import Path
 from dataclasses import asdict
 import json
 
-from models import ErgoColorScheme, StatementEnv, ProofEnv, EnvOpts, RawOpts, Base16ColorScheme
+from models import ErgoColorScheme, StatementEnv, ProofEnv, EnvOpts, RawOpts, Base16ColorScheme, Color
 
 
 COLORSCHEME_DIR = Path("../src/color")
+DARKEN_PCT = 0.7
+
 
 def create_ergo_scheme(color_scheme: Base16ColorScheme) -> ErgoColorScheme:
+    def base_statement_env(base_color: Color):
+        return StatementEnv(
+            bgcolor=color_scheme.PRIMARY2,
+            strokecolor=base_color.darken(DARKEN_PCT),
+        )
+
+    def base_proof_env(base_color: Color):
+        return ProofEnv(
+            bgcolor1=color_scheme.PRIMARY2,
+            bgcolor2=color_scheme.PRIMARY3,
+            strokecolor1=base_color.darken(DARKEN_PCT),
+            strokecolor2=base_color,
+        )
+
+    statement_env_groups: dict[tuple[str, ...], Color] = {
+        ("note", "remark", "notation", "runtime"):          color_scheme.BLUE2,
+        ("definition", "concept", "computational_problem"): color_scheme.BLUE1,
+        ("example",):                                       color_scheme.GREEN,
+        ("algorithm",):                                     color_scheme.RED,
+    }
+
+    statement_envs = {
+        name: base_statement_env(base_color)
+        for names, base_color in statement_env_groups.items()
+        for name in names
+    }
+
+    proof_envs = {
+        "theorem":     base_proof_env(color_scheme.PURPLE),
+        "lemma":       base_proof_env(color_scheme.YELLOW),
+        "corollary":   base_proof_env(color_scheme.PURPLE),
+        "proposition": base_proof_env(color_scheme.RED),
+        "problem":     base_proof_env(color_scheme.GREEN),
+        "exercise":    base_proof_env(color_scheme.ORANGE),
+    }
+
     return ErgoColorScheme(
         opts=EnvOpts(
             fill=color_scheme.PRIMARY1,
@@ -19,83 +57,13 @@ def create_ergo_scheme(color_scheme: Base16ColorScheme) -> ErgoColorScheme:
         ),
         bookmark=StatementEnv(
             bgcolor=color_scheme.PRIMARY1,
-            strokecolor=color_scheme.RED
-        ),
-        theorem=ProofEnv(
-            bgcolor1=color_scheme.PRIMARY2,
-            bgcolor2=color_scheme.PRIMARY3,
-            strokecolor1=color_scheme.PURPLE,
-            strokecolor2=color_scheme.PURPLE
-        ),
-        lemma=ProofEnv(
-            bgcolor1=color_scheme.PRIMARY2,
-            bgcolor2=color_scheme.PRIMARY3,
-            strokecolor1=color_scheme.YELLOW,
-            strokecolor2=color_scheme.YELLOW
-        ),
-        corollary=ProofEnv(
-            bgcolor1=color_scheme.PRIMARY2,
-            bgcolor2=color_scheme.PRIMARY3,
-            strokecolor1=color_scheme.PURPLE,
-            strokecolor2=color_scheme.PURPLE
-        ),
-        proposition=ProofEnv(
-            bgcolor1=color_scheme.PRIMARY2,
-            bgcolor2=color_scheme.PRIMARY3,
-            strokecolor1=color_scheme.RED,
-            strokecolor2=color_scheme.RED
-        ),
-        note=StatementEnv(
-            bgcolor=color_scheme.PRIMARY2,
-            strokecolor=color_scheme.BLUE2
-        ),
-        definition=StatementEnv(
-            bgcolor=color_scheme.PRIMARY2,
-            strokecolor=color_scheme.BLUE1
-        ),
-        remark=StatementEnv(
-            bgcolor=color_scheme.PRIMARY2,
-            strokecolor=color_scheme.BLUE2
-        ),
-        notation=StatementEnv(
-            bgcolor=color_scheme.PRIMARY2,
-            strokecolor=color_scheme.BLUE2
-        ),
-        example=StatementEnv(
-            bgcolor=color_scheme.PRIMARY2,
-            strokecolor=color_scheme.GREEN
-        ),
-        concept=StatementEnv(
-            bgcolor=color_scheme.PRIMARY2,
-            strokecolor=color_scheme.BLUE1
-        ),
-        computational_problem=StatementEnv(
-            bgcolor=color_scheme.PRIMARY2,
-            strokecolor=color_scheme.BLUE1
-        ),
-        algorithm=StatementEnv(
-            bgcolor=color_scheme.PRIMARY2,
-            strokecolor=color_scheme.RED
-        ),
-        runtime=StatementEnv(
-            bgcolor=color_scheme.PRIMARY2,
-            strokecolor=color_scheme.BLUE2
-        ),
-        problem=ProofEnv(
-            bgcolor1=color_scheme.PRIMARY2,
-            bgcolor2=color_scheme.PRIMARY3,
-            strokecolor1=color_scheme.GREEN,
-            strokecolor2=color_scheme.GREEN
-        ),
-        exercise=ProofEnv(
-            bgcolor1=color_scheme.PRIMARY2,
-            bgcolor2=color_scheme.PRIMARY3,
-            strokecolor1=color_scheme.ORANGE,
-            strokecolor2=color_scheme.ORANGE
+            strokecolor=color_scheme.RED.darken(DARKEN_PCT)
         ),
         raw=RawOpts(
             saturation="0.25"
-        )
+        ),
+        **statement_envs,  # type: ignore
+        **proof_envs
     )
 
 def write_scheme_json(ergo_scheme: ErgoColorScheme, scheme_name: str) -> None:
@@ -103,7 +71,7 @@ def write_scheme_json(ergo_scheme: ErgoColorScheme, scheme_name: str) -> None:
         f.write(json.dumps(asdict(ergo_scheme), indent=2, default=str).replace("_", "-"))
 
 if __name__ == "__main__":
-    for color_scheme_file in Path("base16_schemes").rglob("*.yaml"):
+    for color_scheme_file in Path("base16_schemes").rglob("**/*.yaml"):
         color_scheme = Base16ColorScheme.from_yaml(color_scheme_file)
         ergo_scheme = create_ergo_scheme(color_scheme)
         write_scheme_json(ergo_scheme, color_scheme_file.stem)
