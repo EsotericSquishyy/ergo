@@ -10,7 +10,6 @@
   "gruvbox-dark-medium",
   "lime",
   "measured-light",
-  "primer-light",
   "selenized-white",
   "terracotta",
   "woodland"
