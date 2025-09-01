@@ -18,8 +18,8 @@ To get started, add the following to your `.typ` file:
 
 ### Example
 
-<a href="gallery/bootstrap_tab_orbit.typ">
-    <img src="gallery/bootstrap_tab_orbit.svg" width="100%">
+<a href="gallery/examples-typ/bootstrap-tab-orbit.typ">
+    <img src="gallery/examples-svg/bootstrap-tab-orbit.svg" width="100%">
 </a>
 
 ```typ
@@ -56,31 +56,31 @@ To get started, add the following to your `.typ` file:
 ### Gallery
 
 **Real Analysis Notes using the `bootstrap` color scheme with `sidebar` header style**
-<a href="gallery/bootstrap_sidebar_taylor.typ">
-    <img src="gallery/bootstrap_sidebar_taylor.svg" width="100%">
+<a href="gallery/examples-typ/bootstrap-sidebar-taylor.typ">
+    <img src="gallery/examples-svg/bootstrap-sidebar-taylor.svg" width="100%">
 </a>
 
 #### Cryptography Problem Set using the `bw` color scheme with `tab` header style
-<a href="gallery/bw_tab_crypto.typ">
-    <img src="gallery/bw_tab_crypto.svg" width="100%">
+<a href="gallery/examples-typ/bw-tab-crypto.typ">
+    <img src="gallery/examples-svg/bw-tab-crypto.svg" width="100%">
 </a>
 
 #### Classical Mechanics Notes using the `gruvbox-dark` color scheme with `sidebar` header style (with [Physica](https://github.com/Leedehai/typst-physics))
 
-<a href="gallery/gruvbox_sidebar_lagrangian.typ">
-    <img src="gallery/gruvbox_sidebar_lagrangian.svg" width="100%">
+<a href="gallery/examples-typ/gruvbox-sidebar-lagrangian.typ">
+    <img src="gallery/examples-svg/gruvbox-sidebar-lagrangian.svg" width="100%">
 </a>
 
 #### Abstract Algebra Notes using the `ayu-light` color scheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))
 
-<a href="gallery/ayu_classic_galoisextensions.typ">
-    <img src="gallery/ayu_classic_galoisextensions.svg" width="100%">
+<a href="gallery/examples-typ/ayu-classic-galoisextensions.typ">
+    <img src="gallery/examples-svg/ayu-classic-galoisextensions.svg" width="100%">
 </a>
 
 #### **Data Structures and Algorithms Notes using the `gruvbox-dark` color scheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [Lovelace](https://github.com/andreasKroepelin/lovelace))**
 
-<a href="gallery/gruvbox_classic_huffman.typ">
-    <img src="gallery/gruvbox_classic_huffman.svg" width="100%">
+<a href="gallery/examples-typ/gruvbox-classic-huffman.typ">
+    <img src="gallery/examples-svg/gruvbox-classic-huffman.svg" width="100%">
 </a>
 
 Refer to `gallery/` for more examples.
@@ -205,7 +205,7 @@ The modifiable parameters are:
             Color scheme adapted from the CSS framework <a href="https://getbootstrap.com/">Bootstrap</a>
             <!--
             <a href="src/color/bootstrap.json">
-                <img src="gallery/docs/bootstrap_palette.svg" width="500px">
+                <img src="gallery/docs/bootstrap-palette.svg" width="500px">
             </a>
             -->
         </td>
@@ -217,7 +217,7 @@ The modifiable parameters are:
             Black and white color scheme
             <!--
             <a href="src/color/bw.json">
-                <img src="gallery/docs/bw_palette.svg" width="500px">
+                <img src="gallery/docs/bw-palette.svg" width="500px">
             </a>
             -->
         </td>
@@ -228,7 +228,7 @@ The modifiable parameters are:
             Adapted from the dark version of the <code>neovim</code> color scheme <a href="https://github.com/morhetz/gruvbox">gruvbox</a>
             <!--
             <a href="src/color/gruvbox-dark.json">
-                <img src="gallery/docs/gruvbox_palette.svg" width="500px">
+                <img src="gallery/docs/gruvbox-palette.svg" width="500px">
             </a>
             -->
         </td>
@@ -312,4 +312,4 @@ $ typst compile test.typ
 ```
 
 The installation is successful if the file compiled without errors and `test.pdf` looks like this:
-<img src="gallery/docs/test_output.svg" width="100%">
+<img src="gallery/test-output.svg" width="100%">
