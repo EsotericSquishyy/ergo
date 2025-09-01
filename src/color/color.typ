@@ -1,7 +1,7 @@
 #let ergo-colors-list = (
-  "bootstrap", 
-  "bw", 
-  "gruvbox-dark", 
+  "bootstrap",
+  "bw",
+  "gruvbox-dark",
   "ayu-light",
   "dracula",
   "eighties",
@@ -39,35 +39,35 @@
   let valid-color(env-colors, color-name) = {
     let color = env-colors.at(color-name, default: none)
     if type(color) != str or not color.starts-with("#") {
-      return false
+      panic("Colors are not in correct format (use Hex colors beginning with #)")
     }
     let hex-part = color.slice(1)
     let len = hex-part.len()
     if not (3, 4, 6, 8).contains(len) {
-      return false
+      panic("Wrong number of characters in hex color")
     }
     for c in hex-part {
       if not "0123456789abcdefABCDEF".contains(c) {
-        return false
+        panic("Color used non-hex character")
       }
     }
     return true
   }
   let valid-proof-colors(proof-colors) = {
-    if type(proof-colors) != dictionary { return false }
+    if type(proof-colors) != dictionary { panic("At least one proof environment is not a dictionary") }
     if (not valid-color(proof-colors, "bgcolor1") or
         not valid-color(proof-colors, "bgcolor2") or
         not valid-color(proof-colors, "strokecolor1") or
         not valid-color(proof-colors, "strokecolor2")) {
-      return false
+      panic("At least one color in a proof environment is not valid")
     }
     return true
   }
   let valid-statement-colors(statement-colors) = {
-    if type(statement-colors) != dictionary { return false }
+    if type(statement-colors) != dictionary { panic("At least one statement environment is not a dictionary") }
     if (not valid-color(statement-colors, "bgcolor") or
         not valid-color(statement-colors, "strokecolor")) {
-      return false
+      panic("At least one color in a statement environment is not valid")
     }
     return true
   }
@@ -97,7 +97,7 @@
 
   // Verify optional arguments
   let opts-colors = colors.remove("opts", default: none)
-  if type(opts-colors) == dictionary { 
+  if type(opts-colors) == dictionary {
     for color-name in ("fill", "text1", "text2", "h1", "h2") {
       if opts-colors.at(color-name, default: none) == none { continue }
       if not valid-color(opts-colors, color-name) { return false }

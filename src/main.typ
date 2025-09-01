@@ -36,11 +36,12 @@
   inline-qed:     false,
   prob-nums:      true,
 ) = context {
-  if type(colors) == dictionary and valid-colors(colors) {
-    env-colors.update(colors)
-  } else {
-    panic("Unrecognized or invalid color")
-  }
+  env-colors.update(colors)
+  // if type(colors) == dictionary and valid-colors(colors) {
+  //   env-colors.update(colors)
+  // } else {
+  //   panic("Unrecognized or invalid color")
+  // }
   if type(headers) == str and valid-headers(headers) {
     env-headers.update(headers)
   } else {

@@ -100,7 +100,7 @@ def create_ergo_scheme(color_scheme: Base16ColorScheme) -> ErgoColorScheme:
 
 def write_scheme_json(ergo_scheme: ErgoColorScheme, scheme_name: str) -> None:
     with open(COLORSCHEME_DIR / f"{scheme_name}.json", "w") as f:
-        f.write(json.dumps(asdict(ergo_scheme), indent=2, default=str))
+        f.write(json.dumps(asdict(ergo_scheme), indent=2, default=str).replace("_", "-"))
 
 if __name__ == "__main__":
     for color_scheme_file in Path("base16_schemes").rglob("*.yaml"):

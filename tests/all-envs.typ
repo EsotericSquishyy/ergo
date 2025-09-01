@@ -1,33 +1,5 @@
 #import "@local/ergo:0.2.0": *
 #show: ergo-init.with(colors: ergo-colors.dracula)
-// #show: ergo-init.with(colors: json("custom.json"), headers: "sidebar")
-
-= Custom Environments
-
-#let custom-proof = proof-env.with(
-  [Custom Proof],
-  "custom-proof",
-  false
-)
-
-#custom-proof[
-  Custom Proof name
-][
-  #lorem(100)
-][
-  #lorem(100)
-]
-
-#let custom-statement = statement-env.with(
-  [Custom Statement],
-  "custom-statement"
-)
-
-#custom-statement[
-  Custom Statement name
-][
-  #lorem(100)
-]
 
 = Proof Environments
 
