@@ -1,11 +1,25 @@
 #let ergo-colors-list = (
-  "bootstrap",
-  "bw",
-  "gruvbox-dark",
   "ayu-light",
+  "bootstrap",
+  "brewer",
+  "brushtrees",
+  "bw",
+  "catppuccin-latte",
+  "chicago-day",
   "dracula",
   "eighties",
-  "solarized-dark"
+  "eva",
+  "everforest",
+  "gotham",
+  "gruvbox-dark-medium",
+  "lime",
+  "measured-light",
+  "phd",
+  "primer-light",
+  "selenized-white",
+  "solarized-dark",
+  "terracotta",
+  "woodland"
 )
 #let ergo-colors      = (:)
 

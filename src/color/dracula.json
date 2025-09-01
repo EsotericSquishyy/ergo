@@ -9,78 +9,78 @@
   },
   "bookmark": {
     "bgcolor": "#282a36",
-    "strokecolor": "#ff5555"
+    "strokecolor": "#943131"
   },
   "theorem": {
     "bgcolor1": "#363447",
     "bgcolor2": "#44475a",
-    "strokecolor1": "#ff79c6",
+    "strokecolor1": "#944673",
     "strokecolor2": "#ff79c6"
   },
   "lemma": {
     "bgcolor1": "#363447",
     "bgcolor2": "#44475a",
-    "strokecolor1": "#f1fa8c",
+    "strokecolor1": "#8b9151",
     "strokecolor2": "#f1fa8c"
   },
   "corollary": {
     "bgcolor1": "#363447",
     "bgcolor2": "#44475a",
-    "strokecolor1": "#ff79c6",
+    "strokecolor1": "#944673",
     "strokecolor2": "#ff79c6"
   },
   "proposition": {
     "bgcolor1": "#363447",
     "bgcolor2": "#44475a",
-    "strokecolor1": "#ff5555",
+    "strokecolor1": "#943131",
     "strokecolor2": "#ff5555"
   },
   "note": {
     "bgcolor": "#363447",
-    "strokecolor": "#80bfff"
+    "strokecolor": "#4a6e94"
   },
   "definition": {
     "bgcolor": "#363447",
-    "strokecolor": "#8be9fd"
+    "strokecolor": "#508792"
   },
   "remark": {
     "bgcolor": "#363447",
-    "strokecolor": "#80bfff"
+    "strokecolor": "#4a6e94"
   },
   "notation": {
     "bgcolor": "#363447",
-    "strokecolor": "#80bfff"
+    "strokecolor": "#4a6e94"
   },
   "example": {
     "bgcolor": "#363447",
-    "strokecolor": "#50fa7b"
+    "strokecolor": "#2e9147"
   },
   "concept": {
     "bgcolor": "#363447",
-    "strokecolor": "#8be9fd"
+    "strokecolor": "#508792"
   },
   "computational-problem": {
     "bgcolor": "#363447",
-    "strokecolor": "#8be9fd"
+    "strokecolor": "#508792"
   },
   "algorithm": {
     "bgcolor": "#363447",
-    "strokecolor": "#ff5555"
+    "strokecolor": "#943131"
   },
   "runtime": {
     "bgcolor": "#363447",
-    "strokecolor": "#80bfff"
+    "strokecolor": "#4a6e94"
   },
   "problem": {
     "bgcolor1": "#363447",
     "bgcolor2": "#44475a",
-    "strokecolor1": "#50fa7b",
+    "strokecolor1": "#2e9147",
     "strokecolor2": "#50fa7b"
   },
   "exercise": {
     "bgcolor1": "#363447",
     "bgcolor2": "#44475a",
-    "strokecolor1": "#ffb86c",
+    "strokecolor1": "#946a3e",
     "strokecolor2": "#ffb86c"
   },
   "raw": {
