@@ -1,86 +1,86 @@
 {
   "opts": {
-    "fill": "#231e18",
+    "fill": "#211c16",
     "text1": "#d7c8bc",
     "text2": "#e4d4c8",
     "h1": "#e4d4c8",
     "h2": "#cabcb1",
-    "strong": "#b49368"
+    "strong": "#ded2c7"
   },
   "bookmark": {
-    "bgcolor": "#231e18",
-    "strokecolor": "#7a3535"
+    "bgcolor": "#211c16",
+    "strokecolor": "#7a3232"
   },
   "theorem": {
-    "bgcolor1": "#302b25",
-    "bgcolor2": "#48413a",
-    "strokecolor1": "#6c5383",
+    "bgcolor1": "#2d2923",
+    "bgcolor2": "#443e37",
+    "strokecolor1": "#6c5283",
     "strokecolor2": "#bb90e2"
   },
   "lemma": {
-    "bgcolor1": "#302b25",
-    "bgcolor2": "#48413a",
-    "strokecolor1": "#82640d",
+    "bgcolor1": "#2d2923",
+    "bgcolor2": "#443e37",
+    "strokecolor1": "#826308",
     "strokecolor2": "#e0ac16"
   },
   "corollary": {
-    "bgcolor1": "#302b25",
-    "bgcolor2": "#48413a",
-    "strokecolor1": "#6c5383",
+    "bgcolor1": "#2d2923",
+    "bgcolor2": "#443e37",
+    "strokecolor1": "#6c5283",
     "strokecolor2": "#bb90e2"
   },
   "proposition": {
-    "bgcolor1": "#302b25",
-    "bgcolor2": "#48413a",
-    "strokecolor1": "#7a3535",
+    "bgcolor1": "#2d2923",
+    "bgcolor2": "#443e37",
+    "strokecolor1": "#7a3232",
     "strokecolor2": "#d35c5c"
   },
   "note": {
-    "bgcolor": "#302b25",
-    "strokecolor": "#4f5f7a"
+    "bgcolor": "#2d2923",
+    "strokecolor": "#4d5e7a"
   },
   "definition": {
-    "bgcolor": "#302b25",
-    "strokecolor": "#406b33"
+    "bgcolor": "#2d2923",
+    "strokecolor": "#3d6a30"
   },
   "remark": {
-    "bgcolor": "#302b25",
-    "strokecolor": "#4f5f7a"
+    "bgcolor": "#2d2923",
+    "strokecolor": "#4d5e7a"
   },
   "notation": {
-    "bgcolor": "#302b25",
-    "strokecolor": "#4f5f7a"
+    "bgcolor": "#2d2923",
+    "strokecolor": "#4d5e7a"
   },
   "example": {
-    "bgcolor": "#302b25",
-    "strokecolor": "#6a6c30"
+    "bgcolor": "#2d2923",
+    "strokecolor": "#696b2d"
   },
   "concept": {
-    "bgcolor": "#302b25",
-    "strokecolor": "#406b33"
+    "bgcolor": "#2d2923",
+    "strokecolor": "#3d6a30"
   },
   "computational-problem": {
-    "bgcolor": "#302b25",
-    "strokecolor": "#406b33"
+    "bgcolor": "#2d2923",
+    "strokecolor": "#3d6a30"
   },
   "algorithm": {
-    "bgcolor": "#302b25",
-    "strokecolor": "#7a3535"
+    "bgcolor": "#2d2923",
+    "strokecolor": "#7a3232"
   },
   "runtime": {
-    "bgcolor": "#302b25",
-    "strokecolor": "#4f5f7a"
+    "bgcolor": "#2d2923",
+    "strokecolor": "#4d5e7a"
   },
   "problem": {
-    "bgcolor1": "#302b25",
-    "bgcolor2": "#48413a",
-    "strokecolor1": "#6a6c30",
+    "bgcolor1": "#2d2923",
+    "bgcolor2": "#443e37",
+    "strokecolor1": "#696b2d",
     "strokecolor2": "#b7ba53"
   },
   "exercise": {
-    "bgcolor1": "#302b25",
-    "bgcolor2": "#48413a",
-    "strokecolor1": "#75491d",
+    "bgcolor1": "#2d2923",
+    "bgcolor2": "#443e37",
+    "strokecolor1": "#754719",
     "strokecolor2": "#ca7f32"
   },
   "raw": {

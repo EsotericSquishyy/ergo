@@ -3,11 +3,7 @@ from pathlib import Path
 
 LIGHT_SCHEMES = [
     'ayu-light',
-    'brushtrees',
-    'catppuccin-latte',
-    'chicago-day',
     'measured-light',
-    'primer-light',
     'selenized-white',
     'terracotta'
 ]
@@ -15,14 +11,10 @@ LIGHT_SCHEMES = [
 DARK_SCHEMES = [
     'eighties',
     'dracula',
-    'solarized-dark',
     'gruvbox-dark-medium',
     'brewer',
-    'eva',
-    'everforest',
     'gotham',
     'lime',
-    'phd',
     'woodland'
 ]
 

@@ -5,82 +5,82 @@
     "text2": "#282828",
     "h1": "#282828",
     "h2": "#474747",
-    "strong": "#dd0f9d"
+    "strong": "#a20872"
   },
   "bookmark": {
     "bgcolor": "#ffffff",
     "strokecolor": "#6e0000"
   },
   "theorem": {
-    "bgcolor1": "#ebebeb",
-    "bgcolor2": "#cdcdcd",
-    "strokecolor1": "#3e2571",
+    "bgcolor1": "#ededed",
+    "bgcolor2": "#d3d3d3",
+    "strokecolor1": "#3b2171",
     "strokecolor2": "#6b40c3"
   },
   "lemma": {
-    "bgcolor1": "#ebebeb",
-    "bgcolor2": "#cdcdcd",
-    "strokecolor1": "#654d00",
+    "bgcolor1": "#ededed",
+    "bgcolor2": "#d3d3d3",
+    "strokecolor1": "#644b00",
     "strokecolor2": "#af8500"
   },
   "corollary": {
-    "bgcolor1": "#ebebeb",
-    "bgcolor2": "#cdcdcd",
-    "strokecolor1": "#3e2571",
+    "bgcolor1": "#ededed",
+    "bgcolor2": "#d3d3d3",
+    "strokecolor1": "#3b2171",
     "strokecolor2": "#6b40c3"
   },
   "proposition": {
-    "bgcolor1": "#ebebeb",
-    "bgcolor2": "#cdcdcd",
+    "bgcolor1": "#ededed",
+    "bgcolor2": "#d3d3d3",
     "strokecolor1": "#6e0000",
     "strokecolor2": "#bf0000"
   },
   "note": {
-    "bgcolor": "#ebebeb",
-    "strokecolor": "#003178"
+    "bgcolor": "#ededed",
+    "strokecolor": "#002d78"
   },
   "definition": {
-    "bgcolor": "#ebebeb",
-    "strokecolor": "#005950"
+    "bgcolor": "#ededed",
+    "strokecolor": "#00584e"
   },
   "remark": {
-    "bgcolor": "#ebebeb",
-    "strokecolor": "#003178"
+    "bgcolor": "#ededed",
+    "strokecolor": "#002d78"
   },
   "notation": {
-    "bgcolor": "#ebebeb",
-    "strokecolor": "#003178"
+    "bgcolor": "#ededed",
+    "strokecolor": "#002d78"
   },
   "example": {
-    "bgcolor": "#ebebeb",
-    "strokecolor": "#004c00"
+    "bgcolor": "#ededed",
+    "strokecolor": "#004a00"
   },
   "concept": {
-    "bgcolor": "#ebebeb",
-    "strokecolor": "#005950"
+    "bgcolor": "#ededed",
+    "strokecolor": "#00584e"
   },
   "computational-problem": {
-    "bgcolor": "#ebebeb",
-    "strokecolor": "#005950"
+    "bgcolor": "#ededed",
+    "strokecolor": "#00584e"
   },
   "algorithm": {
-    "bgcolor": "#ebebeb",
+    "bgcolor": "#ededed",
     "strokecolor": "#6e0000"
   },
   "runtime": {
-    "bgcolor": "#ebebeb",
-    "strokecolor": "#003178"
+    "bgcolor": "#ededed",
+    "strokecolor": "#002d78"
   },
   "problem": {
-    "bgcolor1": "#ebebeb",
-    "bgcolor2": "#cdcdcd",
-    "strokecolor1": "#004c00",
+    "bgcolor1": "#ededed",
+    "bgcolor2": "#d3d3d3",
+    "strokecolor1": "#004a00",
     "strokecolor2": "#008400"
   },
   "exercise": {
-    "bgcolor1": "#ebebeb",
-    "bgcolor2": "#cdcdcd",
-    "strokecolor1": "#6c2000",
+    "bgcolor1": "#ededed",
+    "bgcolor2": "#d3d3d3",
+    "strokecolor1": "#6b1c00",
     "strokecolor2": "#ba3700"
   },
   "raw": {

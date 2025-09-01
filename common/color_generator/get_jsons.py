@@ -5,21 +5,36 @@ import json
 from models import ErgoColorScheme, StatementEnv, ProofEnv, EnvOpts, RawOpts, Base16ColorScheme, Color
 
 
-COLORSCHEME_DIR = Path("../src/color")
+COLORSCHEME_DIR = Path("../../src/color")
 DARKEN_PCT = 0.7
 
 
 def create_ergo_scheme(color_scheme: Base16ColorScheme) -> ErgoColorScheme:
-    def base_statement_env(base_color: Color):
+    def base_statement_env(base_color: Color) -> StatementEnv:
+        bgcolor = color_scheme.PRIMARY2
+        if color_scheme.is_light:
+            bgcolor = bgcolor.lighten(0.1)
+        else:
+            bgcolor = bgcolor.darken(0.1)
+
         return StatementEnv(
-            bgcolor=color_scheme.PRIMARY2,
+            bgcolor=bgcolor,
             strokecolor=base_color.darken(DARKEN_PCT),
         )
 
-    def base_proof_env(base_color: Color):
+    def base_proof_env(base_color: Color) -> ProofEnv:
+        bgcolor1 = color_scheme.PRIMARY2
+        bgcolor2 = color_scheme.PRIMARY3
+        if color_scheme.is_light:
+            bgcolor1 = bgcolor1.lighten(0.1)
+            bgcolor2 = bgcolor2.lighten(0.1)
+        else:
+            bgcolor1 = bgcolor1.darken(0.1)
+            bgcolor2 = bgcolor2.darken(0.1)
+
         return ProofEnv(
-            bgcolor1=color_scheme.PRIMARY2,
-            bgcolor2=color_scheme.PRIMARY3,
+            bgcolor1=bgcolor1,
+            bgcolor2=bgcolor2,
             strokecolor1=base_color.darken(DARKEN_PCT),
             strokecolor2=base_color,
         )
@@ -46,17 +61,29 @@ def create_ergo_scheme(color_scheme: Base16ColorScheme) -> ErgoColorScheme:
         "exercise":    base_proof_env(color_scheme.ORANGE),
     }
 
+    fill_color = color_scheme.PRIMARY1
+    if color_scheme.is_light:
+        fill_color = fill_color.lighten(0.1)
+    else:
+        fill_color = fill_color.darken(0.1)
+
+    strong_color = color_scheme.HIGHLIGHT
+    if color_scheme.is_light:
+        strong_color = strong_color.darken(0.5)
+    else:
+        strong_color = strong_color.lighten(0.5)
+
     return ErgoColorScheme(
         opts=EnvOpts(
-            fill=color_scheme.PRIMARY1,
+            fill=fill_color,
             text1=color_scheme.SECONDARY2,
             text2=color_scheme.SECONDARY3,
             h1=color_scheme.SECONDARY3,
             h2=color_scheme.SECONDARY1,
-            strong=color_scheme.HIGHLIGHT
+            strong=strong_color
         ),
         bookmark=StatementEnv(
-            bgcolor=color_scheme.PRIMARY1,
+            bgcolor=fill_color,
             strokecolor=color_scheme.RED.darken(DARKEN_PCT)
         ),
         raw=RawOpts(
