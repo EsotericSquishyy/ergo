@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/env bash
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "$0")" && pwd)"
 VERSION=$(grep '^version = ' "$SCRIPT_DIR/typst.toml" | sed -E 's/^version = "([^"]+)"/\1/')
@@ -11,10 +11,10 @@ cp "$SCRIPT_DIR/LICENSE" "$SCRIPT_DIR/.gitignore" "$SCRIPT_DIR/README.md" \
    "$SCRIPT_DIR/lib.typ" "$SCRIPT_DIR/typst.toml" "$TARGET_DIR"
 
 # MacOS and Linux sed behavior differ
-UNAME="$(uname)"
-if [[ "$UNAME" == "Darwin" ]]; then
+OS="$(uname -s)"
+if [[ "$OS" == "Darwin" ]]; then
     SED_INPLACE=(-i '')
-elif [[ "$(expr substr "$UNAME" 1 5)" == "Linux" ]]; then
+elif [[ "$OS" == "Linux" ]]; then
     SED_INPLACE=(-i)
 else
     echo "Unsupported platform: $UNAME" >&2
