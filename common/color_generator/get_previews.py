@@ -3,7 +3,7 @@ from pathlib import Path
 from models import Base16ColorScheme
 
 
-PREVIEWS_PATH = Path("./scheme_previews")
+PREVIEWS_PATH = Path("../../gallery/scheme_previews")
 PREVIEWS_PATH.mkdir(exist_ok=True)
 (PREVIEWS_PATH / "light").mkdir(exist_ok=True)
 (PREVIEWS_PATH / "dark").mkdir(exist_ok=True)

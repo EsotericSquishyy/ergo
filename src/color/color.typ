@@ -11,6 +11,7 @@
   "eva",
   "everforest",
   "gotham",
+  "gruvbox-dark",
   "gruvbox-dark-medium",
   "lime",
   "measured-light",

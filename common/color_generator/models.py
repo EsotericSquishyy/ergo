@@ -18,34 +18,36 @@ class Color(str):
         return str.__new__(cls, hex_rep)
 
     @staticmethod
-    def _clamp_rgb(rgb_value: int) -> int:
-        return min(255, max(0, rgb_value))
-
-    @staticmethod
     def _srgb_to_linear(rgb_value: int) -> float:
-        return (rgb_value / 255.0) ** Color.gamma
+        c = rgb_value / 255.0
+        if c <= 0.04045:
+            return c / 12.92
+        return ((c + 0.055) / 1.055) ** 2.4
 
     @staticmethod
     def _linear_to_srgb(linear_value: float) -> int:
-        return round(255.0 * (linear_value ** (1.0 / Color.gamma)))
+        x = max(0.0, min(1.0, linear_value))
+        if x <= 0.0031308:
+            c = 12.92 * x
+        else:
+            c = 1.055 * (x ** (1.0 / 2.4)) - 0.055
+        return int(round(c * 255.0))
 
     def _adjust_linear(self, percent: float, *, toward_white: bool) -> Self:
         assert 0.0 <= percent <= 1.0, "Percent must be in [0, 1]"
 
-        r = int(self[1:3], 16)
-        g = int(self[3:5], 16)
-        b = int(self[5:7], 16)
+        r, g, b = (int(self[i:i+2], 16) for i in (1, 3, 5))
 
-        def adjust_channel(rgb_value: int) -> int:
-            linear_value = self._srgb_to_linear(rgb_value)
+        def adjust_channel(srgb_channel: int) -> int:
+            linear_value = self._srgb_to_linear(srgb_channel)
             if toward_white:
                 linear_value = linear_value + (1.0 - linear_value) * percent
             else:
                 linear_value = linear_value * (1.0 - percent)
-            return self._clamp_rgb(self._linear_to_srgb(linear_value))
+            return self._linear_to_srgb(linear_value)
 
         converted_channels = [adjust_channel(rgb_value) for rgb_value in (r, g, b)]
-        return type(self)("#{:02x}{:02x}{:02x}".format(*converted_channels))
+        return type(self)(f"#{converted_channels[0]:02x}{converted_channels[1]:02x}{converted_channels[2]:02x}")
 
     def darken(self, percent: float) -> Self:
         return self._adjust_linear(percent, toward_white=False)
