@@ -39,35 +39,35 @@
   let valid-color(env-colors, color-name) = {
     let color = env-colors.at(color-name, default: none)
     if type(color) != str or not color.starts-with("#") {
-      panic("Colors are not in correct format (use Hex colors beginning with #)")
+      return false
     }
     let hex-part = color.slice(1)
     let len = hex-part.len()
     if not (3, 4, 6, 8).contains(len) {
-      panic("Wrong number of characters in hex color")
+      return false
     }
     for c in hex-part {
       if not "0123456789abcdefABCDEF".contains(c) {
-        panic("Color used non-hex character")
+        return false
       }
     }
     return true
   }
   let valid-proof-colors(proof-colors) = {
-    if type(proof-colors) != dictionary { panic("At least one proof environment is not a dictionary") }
+    if type(proof-colors) != dictionary { return false }
     if (not valid-color(proof-colors, "bgcolor1") or
         not valid-color(proof-colors, "bgcolor2") or
         not valid-color(proof-colors, "strokecolor1") or
         not valid-color(proof-colors, "strokecolor2")) {
-      panic("At least one color in a proof environment is not valid")
+      return false
     }
     return true
   }
   let valid-statement-colors(statement-colors) = {
-    if type(statement-colors) != dictionary { panic("At least one statement environment is not a dictionary") }
+    if type(statement-colors) != dictionary { return false }
     if (not valid-color(statement-colors, "bgcolor") or
         not valid-color(statement-colors, "strokecolor")) {
-      panic("At least one color in a statement environment is not valid")
+      return false
     }
     return true
   }
