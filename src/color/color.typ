@@ -1,4 +1,12 @@
-#let ergo-colors-list = ("bootstrap", "bw", "gruvbox-dark", "ayu-light")
+#let ergo-colors-list = (
+  "bootstrap", 
+  "bw", 
+  "gruvbox-dark", 
+  "ayu-light",
+  "dracula",
+  "eighties",
+  "solarized-dark"
+)
 #let ergo-colors      = (:)
 
 // Initialize colors
