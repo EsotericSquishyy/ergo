@@ -1,5 +1,6 @@
 #import "@local/ergo:0.2.0": *
-#show: ergo-init.with(colors: json("custom.json"), headers: "sidebar")
+#import "custom-styles.typ": custom-styles
+#show: ergo-init.with(colors: json("custom.json"), styles: custom-styles)
 
 = Custom Environments
 

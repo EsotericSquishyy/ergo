@@ -1,5 +1,5 @@
 #import "@local/ergo:0.2.0": *
-#show: ergo-init.with(colors: ergo-colors.bw)
+#show: ergo-init.with(colors: ergo-colors.bootstrap, styles: ergo-styles.classic)
 
 = Proof Environments
 

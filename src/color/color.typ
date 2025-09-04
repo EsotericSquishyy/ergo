@@ -14,7 +14,7 @@
   "terracotta",
   "woodland"
 )
-#let ergo-colors      = (:)
+#let ergo-colors = (:)
 
 // Initialize colors
 #for colors-name in ergo-colors-list {

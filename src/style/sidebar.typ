@@ -8,7 +8,7 @@
 )
 
 
-#let sidebar-proof-env(
+#let proof-env(
   name,
   statement,
   proof-statement,
@@ -41,7 +41,7 @@
   )
 }
 
-#let sidebar-statement-env(
+#let statement-env(
   name,
   statement,
   colors,

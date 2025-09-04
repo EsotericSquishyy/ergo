@@ -8,7 +8,7 @@
 )
 
 
-#let tab-proof-env(
+#let proof-env(
   name,
   statement,
   proof-statement,
@@ -61,7 +61,7 @@
   )
 }
 
-#let tab-statement-env(
+#let statement-env(
   name,
   statement,
   colors,

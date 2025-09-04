@@ -1,3 +1,4 @@
+#import "style/helpers.typ": ergo-title-selector
 #import "color/color.typ": (
   ergo-colors,
   valid-colors,
@@ -5,16 +6,9 @@
   get-colors,
   get-opts-colors,
 )
-#import "theme/helpers.typ": ergo-title-selector
-#import "theme/theme.typ": (
-  env-headers,
-  valid-headers,
-  tab-proof-env,
-  tab-statement-env,
-  classic-proof-env,
-  classic-statement-env,
-  sidebar-proof-env,
-  sidebar-statement-env,
+#import "style/style.typ": (
+  ergo-styles,
+  valid-styles,
 )
 
 
@@ -23,7 +17,8 @@
 
 
 //-----Setup-----//
-#let env-colors           = state("theme", ergo-colors.bootstrap)
+#let env-colors           = state("colors", ergo-colors.bootstrap)
+#let env-styles           = state("styles", ergo-styles.tab)
 #let all-breakable-toggle = state("all-breakable-toggle", false)
 #let inline-qed-toggle    = state("inline-qed-toggle", false)
 #let prob-nums-toggle     = state("prob-nums-toggle", false)
@@ -31,7 +26,7 @@
 #let ergo-init(
   body,
   colors:         ergo-colors.bootstrap,
-  headers:        "tab",
+  styles:         ergo-styles.tab,
   all-breakable:  false,
   inline-qed:     false,
   prob-nums:      true,
@@ -41,10 +36,10 @@
   } else {
     panic("Unrecognized or invalid color")
   }
-  if type(headers) == str and valid-headers(headers) {
-    env-headers.update(headers)
+  if type(styles) == dictionary and valid-styles(styles) {
+    env-styles.update(styles)
   } else {
-    panic("Unrecognized or invalid header style")
+    panic("Unrecognized or invalid styles")
   }
   if type(all-breakable) == bool {
     all-breakable-toggle.update(all-breakable)
@@ -158,12 +153,12 @@
   let statement       = if argc == 2 {args.at(0)} else {args.at(1)}
   let proof-statement = if argc == 2 {args.at(1)} else {args.at(2)}
 
-  let theme-name  = env-headers.get()
-  let color-name  = env-colors.get()
+  let styles-dict = env-styles.get()
+  let colors-dict = env-colors.get()
   let colors      = (
-    "env": get-colors(color-name, id),
-    "opt": get-opts-colors(color-name),
-    "raw": get-ratio(color-name, "raw", "saturation")
+    "env": get-colors(colors-dict, id),
+    "opt": get-opts-colors(colors-dict),
+    "raw": get-ratio(colors-dict, "raw", "saturation")
   )
 
   let new-breakable  = if type(breakable) == bool { breakable } else { all-breakable-toggle.get() }
@@ -181,31 +176,13 @@
     ..kwargs
   )
 
-  if (theme-name == "tab") {
-    return tab-proof-env(
+  return (styles-dict.proof)(
       name,
       statement,
       proof-statement,
       colors,
       ..child-argv
-    )
-  } else if (theme-name == "classic") {
-    return classic-proof-env(
-      name,
-      statement,
-      proof-statement,
-      colors,
-      ..child-argv
-    )
-  } else if (theme-name == "sidebar") {
-    return sidebar-proof-env(
-      name,
-      statement,
-      proof-statement,
-      colors,
-      ..child-argv
-    )
-  }
+  )
 }
 
 #let theorem = proof-env.with(
@@ -271,12 +248,12 @@
   let name      = if argc == 2 {args.at(0)} else {[]}
   let statement = if argc == 1 {args.at(0)} else {args.at(1)}
 
-  let theme-name  = env-headers.get()
-  let color-name  = env-colors.get()
+  let styles-dict = env-styles.get()
+  let colors-dict = env-colors.get()
   let colors      = (
-    "env": get-colors(color-name, id),
-    "opt": get-opts-colors(color-name),
-    "raw": get-ratio(color-name, "raw", "saturation")
+    "env": get-colors(colors-dict, id),
+    "opt": get-opts-colors(colors-dict),
+    "raw": get-ratio(colors-dict, "raw", "saturation")
   )
 
   let new-breakable = if type(breakable) == bool { breakable } else { all-breakable-toggle.get() }
@@ -290,28 +267,12 @@
     ..kwargs
   )
 
-  if (theme-name == "tab") {
-    return tab-statement-env(
-      name,
-      statement,
-      colors,
-      ..child-argv
-    )
-  } else if (theme-name == "classic") {
-    return classic-statement-env(
-      name,
-      statement,
-      colors,
-      ..child-argv
-    )
-  } else if (theme-name == "sidebar") {
-    return sidebar-statement-env(
-      name,
-      statement,
-      colors,
-      ..child-argv
-    )
-  }
+  return (styles-dict.statement)(
+    name,
+    statement,
+    colors,
+    ..child-argv
+  )
 }
 
 #let note = statement-env.with(

@@ -2,6 +2,7 @@
   ergo-init,
   ergo-title-selector,
   ergo-colors,
+  ergo-styles,
 
   // Misc.
   correction,

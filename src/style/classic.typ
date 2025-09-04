@@ -8,7 +8,7 @@
 )
 
 
-#let classic-proof-env(
+#let proof-env(
   name,
   statement,
   proof-statement,
@@ -55,7 +55,7 @@
   )
 }
 
-#let classic-statement-env(
+#let statement-env(
   name,
   statement,
   colors,
