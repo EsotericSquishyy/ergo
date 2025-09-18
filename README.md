@@ -175,6 +175,8 @@ Also, the `problem` environment includes an automatic counter if no title is pas
 
 ### Themes and Colors
 
+See https://tinted-theming.github.io/tinted-gallery/
+
 To modify themes and colors, use the `ergo-init` function:
 
 ```typ

@@ -6,16 +6,16 @@ from models import ErgoColorScheme, StatementEnv, ProofEnv, EnvOpts, RawOpts, Ba
 
 
 COLORSCHEME_DIR = Path("../../src/color")
-DARKEN_PCT = 0.7
+DARKEN_PCT = 0.5
 
 
 def create_ergo_scheme(color_scheme: Base16ColorScheme) -> ErgoColorScheme:
     def base_statement_env(base_color: Color) -> StatementEnv:
         bgcolor = color_scheme.PRIMARY2
         if color_scheme.is_light:
-            bgcolor = bgcolor.lighten(0.1)
-        else:
-            bgcolor = bgcolor.darken(0.1)
+            bgcolor = bgcolor.lighten(0.2)
+        # else:
+        #   bgcolor = bgcolor.lighten(0.02)
 
         return StatementEnv(
             bgcolor=bgcolor,
@@ -26,11 +26,11 @@ def create_ergo_scheme(color_scheme: Base16ColorScheme) -> ErgoColorScheme:
         bgcolor1 = color_scheme.PRIMARY2
         bgcolor2 = color_scheme.PRIMARY3
         if color_scheme.is_light:
-            bgcolor1 = bgcolor1.lighten(0.1)
-            bgcolor2 = bgcolor2.lighten(0.1)
-        else:
-            bgcolor1 = bgcolor1.darken(0.1)
-            bgcolor2 = bgcolor2.darken(0.1)
+            bgcolor1 = bgcolor1.lighten(0.2)
+            bgcolor2 = bgcolor2.lighten(0.2)
+        # else:
+        #   bgcolor1 = bgcolor1.lighten(0.02)
+        #   bgcolor2 = bgcolor2.lighten(0.02)
 
         return ProofEnv(
             bgcolor1=bgcolor1,
@@ -63,15 +63,15 @@ def create_ergo_scheme(color_scheme: Base16ColorScheme) -> ErgoColorScheme:
 
     fill_color = color_scheme.PRIMARY1
     if color_scheme.is_light:
-        fill_color = fill_color.lighten(0.1)
+        fill_color = fill_color.lighten(0.15)
     else:
-        fill_color = fill_color.darken(0.1)
+        fill_color = fill_color.darken(0.15)
 
     strong_color = color_scheme.HIGHLIGHT
     if color_scheme.is_light:
-        strong_color = strong_color.darken(0.5)
+        strong_color = strong_color.darken(0.6)
     else:
-        strong_color = strong_color.lighten(0.5)
+        strong_color = strong_color.lighten(0.6)
 
     return ErgoColorScheme(
         opts=EnvOpts(

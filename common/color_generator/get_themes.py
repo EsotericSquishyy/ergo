@@ -2,9 +2,10 @@ import requests
 from pathlib import Path
 
 LIGHT_SCHEMES = [
-    'ayu-light',
+    'primer-light',
+    'equilibrium-gray-light',
     'measured-light',
-    'selenized-white',
+    'penumbra-light',
     'terracotta'
 ]
 
@@ -12,8 +13,6 @@ DARK_SCHEMES = [
     'eighties',
     'dracula',
     'gruvbox-dark-medium',
-    'brewer',
-    'gotham',
     'lime',
     'woodland'
 ]

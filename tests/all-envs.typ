@@ -1,5 +1,5 @@
 #import "@local/ergo:0.2.0": *
-#show: ergo-init.with(colors: ergo-colors.bootstrap, styles: ergo-styles.sidebar)
+#show: ergo-init.with(colors: ergo-colors.penumbra-light , styles: ergo-styles.sidebar)
 
 = Misc
 
@@ -59,7 +59,7 @@
   #lorem(100)
 ]
 
-= Statment Environments
+= Statement Environments
 
 #note[
   Note name
