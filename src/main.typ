@@ -81,10 +81,13 @@
 
 
 
-//-----Misc-----//
+//-----Environments-----//
 #let correction(body) = {
   text(fill: rgb("#ea4120"), weight: "semibold", body)
 }
+
+
+
 
 #let bookmark(
   title,
@@ -109,6 +112,9 @@
   )
 }
 
+
+
+
 #let equation-box(
   equation,
 ) = context {
@@ -126,8 +132,6 @@
 
 
 
-
-//-----Theorem Environments-----//
 #let ergo-solution(
   preheader,
   id,
@@ -138,9 +142,9 @@
   height:     auto,
   ..argv
 ) = context {
-  let args    = argv.pos()
-  let argc    = args.len()
-  let kwargs  = argv.named() // passed to child function
+  let args   = argv.pos()
+  let argc   = args.len()
+  let kwargs = argv.named()  // passed to child function
 
   if argc < 2 {
     panic("Must pass in at least two positional arguments")
@@ -161,8 +165,8 @@
   )
 
   let new-inline-qed = if type(inline-qed) == bool { inline-qed } else { inline-qed-state.get() }
-  let new-breakable = if type(breakable) == bool { breakable } else { breakable-state.get() }
-  let new-prob-nums = not is-proof and prob-nums-state.get() // condition will change in future
+  let new-breakable  = if type(breakable)  == bool { breakable }  else { breakable-state.get()  }
+  let new-prob-nums  = not is-proof and prob-nums-state.get()  // condition will change in future
 
   let child-argv = arguments(
     preheader:  preheader,
@@ -185,48 +189,9 @@
   )
 }
 
-#let theorem = ergo-solution.with(
-  [Theorem],
-  "theorem",
-  true
-)
-
-#let lemma = ergo-solution.with(
-  [Lemma],
-  "lemma",
-  true
-)
-
-#let corollary = ergo-solution.with(
-  [Corollary],
-  "corollary",
-  true
-)
-
-#let proposition = ergo-solution.with(
-  [Proposition],
-  "proposition",
-  true
-)
-
-#let problem = ergo-solution.with(
-  [Problem],
-  "problem",
-  false
-)
-
-#let exercise = ergo-solution.with(
-  [Exercise],
-  "exercise",
-  false
-)
 
 
 
-
-
-
-//-----Definition Environments-----//
 #let ergo-statement(
   preheader,
   id,
@@ -274,48 +239,3 @@
     ..child-argv
   )
 }
-
-#let note = ergo-statement.with(
-  [Note],
-  "note"
-)
-
-#let definition = ergo-statement.with(
-  [Definition],
-  "definition"
-)
-
-#let remark = ergo-statement.with(
-  [Remark],
-  "remark"
-)
-
-#let notation = ergo-statement.with(
-  [Notation],
-  "notation"
-)
-
-#let example = ergo-statement.with(
-  [Example],
-  "example"
-)
-
-#let concept = ergo-statement.with(
-  [Concept],
-  "concept"
-)
-
-#let computational-problem = ergo-statement.with(
-  [Computational Problem],
-  "computational-problem"
-)
-
-#let algorithm = ergo-statement.with(
-  [Algorithm],
-  "algorithm"
-)
-
-#let runtime = ergo-statement.with(
-  [Runtime Analysis],
-  "runtime"
-)

@@ -12,8 +12,9 @@
   // Custom
   ergo-solution,
   ergo-statement,
+)
 
-  // Preset
+#import "src/presets.typ": (
   theorem,
   lemma,
   corollary,
