@@ -10,8 +10,8 @@
   equation-box,
 
   // Custom
-  proof-env,
-  statement-env,
+  ergo-solution,
+  ergo-statement,
 
   // Preset
   theorem,

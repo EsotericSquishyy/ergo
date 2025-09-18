@@ -1,17 +1,16 @@
 #import "helpers.typ": (
   problem-counter,
   highlight-raw,
-  get-proofname-content,
-  get-statementname-content,
-  get-proof-content,
+  get-title-content,
+  get-solution-content,
   get-statement-content,
 )
 
 
-#let proof-env(
-  name,
-  statement,
-  proof-statement,
+#let custom-solution(
+  title,
+  statement-body,
+  solution-body,
   colors,
   ..argv
 ) = {
@@ -23,7 +22,7 @@
 
   show raw.where(block: false): r => highlight-raw(r, bgcolor1.saturate(colors.raw))
 
-  let name-content = get-proofname-content(kwargs.kind, name, problem: kwargs.problem, prob-nums: kwargs.prob-nums)
+  let title-content = get-title-content(kwargs.preheader, title, is-proof: kwargs.is-proof, prob-nums: kwargs.prob-nums)
 
   let statement-content = get-statement-content(
     block(
@@ -32,11 +31,11 @@
       radius: 2pt,
       width:  100%,
       stroke: (left: strokecolor2 + 6pt),
-      statement
+      statement-body
     )
   )
 
-  let proof-content = get-proof-content(proof-statement, kwargs.problem, kwargs.inline-qed)
+  let solution-content = get-solution-content(solution-body, kwargs.is-proof, kwargs.inline-qed)
 
   block(
     stroke:     strokecolor1,
@@ -48,16 +47,16 @@
     radius:     6pt,
     clip:       true,
     stack(
-      name-content,
+      title-content,
       statement-content,
-      proof-content,
+      solution-content,
     )
   )
 }
 
-#let statement-env(
-  name,
-  statement,
+#let custom-statement(
+  title,
+  statement-body,
   colors,
   ..argv
 ) = {
@@ -67,8 +66,8 @@
 
   show raw.where(block: false): r => highlight-raw(r, bgcolor.saturate(colors.raw))
 
-  let name-content      = get-statementname-content(kwargs.kind, name)
-  let statement-content = get-statement-content(statement)
+  let title-content     = get-title-content(kwargs.preheader, title)
+  let statement-content = get-statement-content(statement-body)
 
   block(
     stroke:     strokecolor,
@@ -80,7 +79,7 @@
     radius:     6pt,
     clip:       true,
     stack(
-      name-content,
+      title-content,
       statement-content
     )
   )

@@ -27,55 +27,41 @@
   )
 }
 
-#let get-proofname-content(kind, name, problem: false, prob-nums: true) = {
+#let get-title-content(preheader, title, is-proof: false, prob-nums: false) = {
   let xpad = 12pt
   let ypad = 6pt
-  let name-content = none
+  let title-content = none
 
-  if problem {
-    let count = if prob-nums [ #{problem-counter.step(); context problem-counter.display()}] else []
+  let count = if prob-nums [ #{problem-counter.step(); context problem-counter.display()}] else []
 
-    if name == [] {
-      name-content = ergo-title[#kind#count]
+  if title == [] {
+    if is-proof {
+      title-content = ergo-title[#emph[#preheader#count]]
     } else {
-      name-content = ergo-title[#kind#count: #name]
+      title-content = ergo-title[#preheader#count]
     }
   } else {
-    if name == [] {
-      name-content =  ergo-title[_#kind _]
+    if is-proof {
+      title-content = ergo-title[#emph[#preheader#count: ]#title]
     } else {
-      name-content = ergo-title[_#kind: _ #name]
+      title-content = ergo-title[#preheader#count: #title]
     }
   }
 
-  return pad(x: xpad, y: ypad, name-content)
+  return pad(x: xpad, y: ypad, title-content)
 }
 
-#let get-statementname-content(kind, name) = {
-  let xpad = 12pt
-  let ypad = 6pt
-  let name-content = none
-
-  if name == [] {
-    name-content =  ergo-title[#kind]
-  } else {
-    name-content = ergo-title[#kind: #name]
-  }
-
-  return pad(x: xpad, y: ypad, name-content)
-}
-
-#let get-proof-content(statement, problem, inline-qed) = {
+#let get-solution-content(solution-body, is-proof, inline-qed) = {
   let xpad = 12pt
   let ypad = 6pt
 
-  if statement == [] {
+  if solution-body == [] {
     return none
   } else {
-    if problem {
-      return pad(x: xpad, y: ypad, solution(statement))
+    if is-proof {
+      return pad(x: xpad, y: ypad, proof(solution-body, inline-qed))
     } else {
-      return pad(x: xpad, y: ypad, proof(statement, inline-qed))
+      return pad(x: xpad, y: ypad, solution(solution-body))
     }
   }
 }

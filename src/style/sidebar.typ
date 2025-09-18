@@ -1,17 +1,16 @@
 #import "helpers.typ": (
   problem-counter,
   highlight-raw,
-  get-proofname-content,
-  get-statementname-content,
-  get-proof-content,
+  get-title-content,
+  get-solution-content,
   get-statement-content,
 )
 
 
-#let proof-env(
-  name,
-  statement,
-  proof-statement,
+#let custom-solution(
+  title,
+  statement-body,
+  solution-body,
   colors,
   ..argv
 ) = {
@@ -21,9 +20,9 @@
 
   show raw.where(block: false): r => highlight-raw(r, bgcolor.saturate(colors.raw))
 
-  let name-content      = get-proofname-content(kwargs.kind, name, problem: kwargs.problem, prob-nums: kwargs.prob-nums)
-  let statement-content = get-statement-content(statement)
-  let proof-content     = get-proof-content(proof-statement, kwargs.problem, kwargs.inline-qed)
+  let title-content     = get-title-content(kwargs.preheader, title, is-proof: kwargs.is-proof, prob-nums: kwargs.prob-nums)
+  let statement-content = get-statement-content(statement-body)
+  let solution-content  = get-solution-content(solution-body, kwargs.is-proof, kwargs.inline-qed)
 
   block(
     stroke:     (left: strokecolor + 3pt),
@@ -34,16 +33,16 @@
     breakable:  kwargs.breakable,
     clip:       true,
     stack(
-      text(strokecolor)[#name-content],
+      text(strokecolor)[#title-content],
       statement-content,
-      proof-content,
+      solution-content,
     ),
   )
 }
 
-#let statement-env(
-  name,
-  statement,
+#let custom-statement(
+  title,
+  statement-body,
   colors,
   ..argv
 ) = {
@@ -53,8 +52,8 @@
 
   show raw.where(block: false): r => highlight-raw(r, bgcolor.saturate(colors.raw))
 
-  let name-content      = get-statementname-content(kwargs.kind, name)
-  let statement-content = get-statement-content(statement)
+  let title-content     = get-title-content(kwargs.preheader, title)
+  let statement-content = get-statement-content(statement-body)
 
   block(
     stroke:     (left: strokecolor + 3pt),
@@ -65,7 +64,7 @@
     breakable:  kwargs.breakable,
     clip:       true,
     stack(
-      text(fill: strokecolor)[#name-content],
+      text(fill: strokecolor)[#title-content],
       statement-content,
     ),
   )

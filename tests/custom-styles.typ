@@ -1,5 +1,5 @@
-#let custom-proof-env(
-  name,
+#let custom-solution(
+  title,
   statement,
   proof-statement,
   colors,
@@ -10,12 +10,12 @@
     stroke: rgb(colors.env.strokecolor1) + 5pt,
     fill:   rgb(colors.env.bgcolor1),
     inset:  5pt,
-    kwargs.kind + name + statement + proof-statement,
+    kwargs.preheader + title + statement + proof-statement,
   )
 }
 
-#let custom-statement-env(
-  name,
+#let custom-statement(
+  title,
   statement,
   colors,
   ..argv
@@ -25,11 +25,11 @@
     stroke: rgb(colors.env.strokecolor) + 5pt,
     fill:   rgb(colors.env.bgcolor),
     inset:  5pt,
-    kwargs.kind + name + statement
+    kwargs.preheader + title + statement
   )
 }
 
 #let custom-styles = (
-  "proof": custom-proof-env,
-  "statement": custom-statement-env,
+  "solution": custom-solution,
+  "statement": custom-statement,
 )

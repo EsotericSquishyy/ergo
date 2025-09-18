@@ -1,4 +1,4 @@
-#let ergo-colors-list = (
+#let ergo-colors-names = (
   "ayu-light",
   "bootstrap",
   "brewer",
@@ -17,7 +17,7 @@
 #let ergo-colors = (:)
 
 // Initialize colors
-#for colors-name in ergo-colors-list {
+#for colors-name in ergo-colors-names {
   ergo-colors.insert(colors-name, json(colors-name + ".json"))
 }
 

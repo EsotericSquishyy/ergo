@@ -17,51 +17,51 @@
 
 
 //-----Setup-----//
-#let env-colors           = state("colors", ergo-colors.bootstrap)
-#let env-styles           = state("styles", ergo-styles.tab)
-#let all-breakable-toggle = state("all-breakable-toggle", false)
-#let inline-qed-toggle    = state("inline-qed-toggle", false)
-#let prob-nums-toggle     = state("prob-nums-toggle", false)
+#let colors-state     = state("colors-state",     ergo-colors.bootstrap)
+#let styles-state     = state("styles-state",     ergo-styles.tab)
+#let breakable-state  = state("breakable-state",  false)
+#let inline-qed-state = state("inline-qed-state", false)
+#let prob-nums-state  = state("prob-nums-state",  true)
 
 #let ergo-init(
   body,
-  colors:         ergo-colors.bootstrap,
-  styles:         ergo-styles.tab,
-  all-breakable:  false,
-  inline-qed:     false,
-  prob-nums:      true,
+  colors:     ergo-colors.bootstrap,
+  styles:     ergo-styles.tab,
+  breakable:  false,
+  inline-qed: false,
+  prob-nums:  true,
 ) = context {
   if type(colors) == dictionary and valid-colors(colors) {
-    env-colors.update(colors)
+    colors-state.update(colors)
   } else {
     panic("Unrecognized or invalid color")
   }
   if type(styles) == dictionary and valid-styles(styles) {
-    env-styles.update(styles)
+    styles-state.update(styles)
   } else {
     panic("Unrecognized or invalid styles")
   }
-  if type(all-breakable) == bool {
-    all-breakable-toggle.update(all-breakable)
+  if type(breakable) == bool {
+    breakable-state.update(breakable)
   } else {
     panic("Non boolean passed to boolean")
   }
   if type(inline-qed) == bool {
-    inline-qed-toggle.update(inline-qed)
+    inline-qed-state.update(inline-qed)
   } else {
     panic("Non boolean passed to boolean")
   }
   if type(prob-nums) == bool {
-    prob-nums-toggle.update(prob-nums)
+    prob-nums-state.update(prob-nums)
   } else {
     panic("Non boolean passed to boolean")
   }
 
-  let opts-colors  = get-opts-colors(env-colors.get())
+  let opts-colors  = get-opts-colors(colors-state.get())
 
-  let bg-color     = rgb(opts-colors.at("fill"))
-  let t1-color     = rgb(opts-colors.at("text1"))
-  let t2-color     = rgb(opts-colors.at("text2"))
+  let fill-color   = rgb(opts-colors.at("fill"))
+  let text1-color  = rgb(opts-colors.at("text1"))
+  let text2-color  = rgb(opts-colors.at("text2"))
   let h1-color     = rgb(opts-colors.at("h1"))
   let h2-color     = rgb(opts-colors.at("h2"))
   let strong-color = rgb(opts-colors.at("strong"))
@@ -70,8 +70,8 @@
   show heading.where(level: 1): set text(fill: h1-color)
   show heading.where(level: 2): set text(fill: h2-color)
 
-  set text(t1-color)
-  set page(fill: bg-color)
+  set text(text1-color)
+  set page(fill: fill-color)
 
   body
 }
@@ -90,11 +90,10 @@
   title,
   info,
 ) = context {
-  let theme       = env-colors.get()
-  let colors      = get-colors(theme, "bookmark")
-
-  let bgcolor     = rgb(colors.at("bgcolor"))
-  let strokecolor = rgb(colors.at("strokecolor"))
+  let colors          = colors-state.get()
+  let bookmark-colors = get-colors(colors, "bookmark")
+  let bgcolor         = rgb(bookmark-colors.at("bgcolor"))
+  let strokecolor     = rgb(bookmark-colors.at("strokecolor"))
 
   block(
     fill: bgcolor,
@@ -113,9 +112,9 @@
 #let equation-box(
   equation,
 ) = context {
-  let theme   = env-colors.get()
-  let colors  = get-opts-colors(theme)
-  let text1   = rgb(colors.at("text1"))
+  let colors      = colors-state.get()
+  let opts-colors = get-opts-colors(colors)
+  let text1       = rgb(opts-colors.at("text1"))
 
   align(center)[
     #rect(stroke: text1)[
@@ -129,10 +128,10 @@
 
 
 //-----Theorem Environments-----//
-#let proof-env(
-  kind,
+#let ergo-solution(
+  preheader,
   id,
-  problem,
+  is-proof,
   inline-qed: none,
   breakable:  none,
   width:      100%,
@@ -149,76 +148,77 @@
     panic("Must pass in at most 3 positional arguments")
   }
 
-  let name            = if argc == 3 {args.at(0)} else {[]}
-  let statement       = if argc == 2 {args.at(0)} else {args.at(1)}
-  let proof-statement = if argc == 2 {args.at(1)} else {args.at(2)}
+  let title          = if argc == 3 {args.at(0)} else {[]}
+  let statement-body = if argc == 2 {args.at(0)} else {args.at(1)}
+  let solution-body  = if argc == 2 {args.at(1)} else {args.at(2)}
 
-  let styles-dict = env-styles.get()
-  let colors-dict = env-colors.get()
-  let colors      = (
-    "env": get-colors(colors-dict, id),
-    "opt": get-opts-colors(colors-dict),
-    "raw": get-ratio(colors-dict, "raw", "saturation")
+  let styles = styles-state.get()
+  let colors = colors-state.get()
+  let colors-dict = (
+    "env": get-colors(colors, id),
+    "opt": get-opts-colors(colors),
+    "raw": get-ratio(colors, "raw", "saturation")
   )
 
-  let new-breakable  = if type(breakable) == bool { breakable } else { all-breakable-toggle.get() }
-  let new-qed = if type(inline-qed) == bool { inline-qed } else { inline-qed-toggle.get() }
+  let new-inline-qed = if type(inline-qed) == bool { inline-qed } else { inline-qed-state.get() }
+  let new-breakable = if type(breakable) == bool { breakable } else { breakable-state.get() }
+  let new-prob-nums = not is-proof and prob-nums-state.get() // condition will change in future
 
   let child-argv = arguments(
-    kind:       kind,
+    preheader:  preheader,
     id:         id,
-    inline-qed: new-qed,
+    inline-qed: new-inline-qed,
     breakable:  new-breakable,
-    prob-nums:  prob-nums-toggle.get(),
+    prob-nums:  new-prob-nums,
     width:      width,
     height:     height,
-    problem:    problem,
+    is-proof:   is-proof,
     ..kwargs
   )
 
-  return (styles-dict.proof)(
-      name,
-      statement,
-      proof-statement,
-      colors,
+  return (styles.solution)(
+      title,
+      statement-body,
+      solution-body,
+      colors-dict,
       ..child-argv
   )
 }
 
-#let theorem = proof-env.with(
+#let theorem = ergo-solution.with(
   [Theorem],
   "theorem",
-  false
+  true
 )
 
-#let lemma = proof-env.with(
+#let lemma = ergo-solution.with(
   [Lemma],
   "lemma",
-  false
+  true
 )
 
-#let corollary = proof-env.with(
+#let corollary = ergo-solution.with(
   [Corollary],
   "corollary",
-  false
+  true
 )
 
-#let proposition = proof-env.with(
+#let proposition = ergo-solution.with(
   [Proposition],
   "proposition",
+  true
+)
+
+#let problem = ergo-solution.with(
+  [Problem],
+  "problem",
   false
 )
 
-#let problem = proof-env.with(
-  [Problem],
-  "problem",
-  true
-)
-
-#let exercise = proof-env.with(
+#let exercise = ergo-solution.with(
   [Exercise],
   "exercise",
-  true
+  false
 )
 
 
@@ -227,8 +227,8 @@
 
 
 //-----Definition Environments-----//
-#let statement-env(
-  kind,
+#let ergo-statement(
+  preheader,
   id,
   breakable:  none,
   width:      100%,
@@ -245,21 +245,21 @@
     panic("Muss pass in at most 2 positional arguments")
   }
 
-  let name      = if argc == 2 {args.at(0)} else {[]}
-  let statement = if argc == 1 {args.at(0)} else {args.at(1)}
+  let title          = if argc == 2 {args.at(0)} else {[]}
+  let statement-body = if argc == 1 {args.at(0)} else {args.at(1)}
 
-  let styles-dict = env-styles.get()
-  let colors-dict = env-colors.get()
-  let colors      = (
-    "env": get-colors(colors-dict, id),
-    "opt": get-opts-colors(colors-dict),
-    "raw": get-ratio(colors-dict, "raw", "saturation")
+  let styles = styles-state.get()
+  let colors = colors-state.get()
+  let colors-dict = (
+    "env": get-colors(colors, id),
+    "opt": get-opts-colors(colors),
+    "raw": get-ratio(colors, "raw", "saturation")
   )
 
-  let new-breakable = if type(breakable) == bool { breakable } else { all-breakable-toggle.get() }
+  let new-breakable = if type(breakable) == bool { breakable } else { breakable-state.get() }
 
   let child-argv = arguments(
-    kind:      kind,
+    preheader: preheader,
     id:        id,
     breakable: new-breakable,
     width:     width,
@@ -267,55 +267,55 @@
     ..kwargs
   )
 
-  return (styles-dict.statement)(
-    name,
-    statement,
-    colors,
+  return (styles.statement)(
+    title,
+    statement-body,
+    colors-dict,
     ..child-argv
   )
 }
 
-#let note = statement-env.with(
+#let note = ergo-statement.with(
   [Note],
   "note"
 )
 
-#let definition = statement-env.with(
+#let definition = ergo-statement.with(
   [Definition],
   "definition"
 )
 
-#let remark = statement-env.with(
+#let remark = ergo-statement.with(
   [Remark],
   "remark"
 )
 
-#let notation = statement-env.with(
+#let notation = ergo-statement.with(
   [Notation],
   "notation"
 )
 
-#let example = statement-env.with(
+#let example = ergo-statement.with(
   [Example],
   "example"
 )
 
-#let concept = statement-env.with(
+#let concept = ergo-statement.with(
   [Concept],
   "concept"
 )
 
-#let computational-problem = statement-env.with(
+#let computational-problem = ergo-statement.with(
   [Computational Problem],
   "computational-problem"
 )
 
-#let algorithm = statement-env.with(
+#let algorithm = ergo-statement.with(
   [Algorithm],
   "algorithm"
 )
 
-#let runtime = statement-env.with(
+#let runtime = ergo-statement.with(
   [Runtime Analysis],
   "runtime"
 )

@@ -1,5 +1,13 @@
 #import "@local/ergo:0.2.0": *
-#show: ergo-init.with(colors: ergo-colors.bootstrap, styles: ergo-styles.classic)
+#show: ergo-init.with(colors: ergo-colors.bootstrap, styles: ergo-styles.sidebar)
+
+= Misc
+
+#bookmark[ Bookmark name ][ #lorem(10) ]
+
+#equation-box[
+  $1 * 1 = 2$
+]
 
 = Proof Environments
 

@@ -4,13 +4,13 @@
 
 = Custom Environments
 
-#let custom-proof = proof-env.with(
+#let custom-solution = ergo-solution.with(
   [Custom Proof],
   "custom-proof",
   false
 )
 
-#custom-proof[
+#custom-solution[
   Custom Proof name
 ][
   #lorem(100)
@@ -18,7 +18,7 @@
   #lorem(100)
 ]
 
-#let custom-statement = statement-env.with(
+#let custom-statement = ergo-statement.with(
   [Custom Statement],
   "custom-statement"
 )
@@ -27,6 +27,14 @@
   Custom Statement name
 ][
   #lorem(100)
+]
+
+= Misc
+
+#bookmark[ Bookmark name ][ #lorem(10) ]
+
+#equation-box[
+  $1 * 1 = 2$
 ]
 
 = Proof Environments
