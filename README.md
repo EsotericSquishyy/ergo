@@ -352,8 +352,8 @@ This function should be called before any content is rendered to enforce consist
 #### Custom Color Schemes
 
 You can also define your own color scheme.
-To do this, define a Typst `dictionary` with the valid fields and pass it in to the `ergo-init` function
-The best way to do this is to define your scheme in `json`:
+To do this, define a Typst `dictionary` with the valid fields and pass it in to the `ergo-init` function.
+One way to do this is to define your scheme with `json`:
 
 ```typ
 #import "@preview/ergo:0.2.0": *
@@ -385,8 +385,8 @@ There are a few extra functions and macros that may be of interest:
 ```console
 $ git clone https://github.com/EsotericSquishyy/ergo
 $ cd ergo
-$ chmod +x setup.sh
-$ ./setup.sh
+$ chmod +x common/scripts/setup.sh
+$ ./common/scripts/setup.sh
 ```
 
 ### Testing
