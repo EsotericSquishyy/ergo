@@ -2,7 +2,7 @@
 
 rm -rf base16_schemes
 rm -rf ../../gallery/scheme_previews
-ls ../../src/color/*.json | grep -v -E "(bw|gruvbox-dark|bootstrap)" | xargs rm
+ls ../../src/color/*.json | grep -v -E "(bw|bootstrap)" | xargs rm
 
 python get_themes.py
 python get_previews.py

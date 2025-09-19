@@ -11,7 +11,6 @@ class Color(str):
     """See https://en.wikipedia.org/wiki/SRGB#Definition for sRGB manipulations"""
 
     hex_regex = re.compile(r"^#([0-9A-Fa-f]{6})$")
-    gamma = 2.2
 
     def __new__(cls: type[Self], hex_rep: str) -> Self:
         assert cls.hex_regex.fullmatch(hex_rep), "Must be a valid hex string"
@@ -36,7 +35,7 @@ class Color(str):
     def _adjust_linear(self, percent: float, *, toward_white: bool) -> Self:
         assert 0.0 <= percent <= 1.0, "Percent must be in [0, 1]"
 
-        r, g, b = (int(self[i:i+2], 16) for i in (1, 3, 5))
+        r, g, b = (int(self[i:i + 2], 16) for i in (1, 3, 5))
 
         def adjust_channel(srgb_channel: int) -> int:
             linear_value = self._srgb_to_linear(srgb_channel)
@@ -76,8 +75,8 @@ class Base16ColorScheme:
             self.ORANGE,
             self.YELLOW,
             self.GREEN,
-            self.BLUE1,
-            self.BLUE2,
+            self.BLUE,
+            self.INDIGO,
             self.PURPLE,
             self.HIGHLIGHT,
         ) = self.colors
@@ -87,7 +86,7 @@ class Base16ColorScheme:
         with open(yaml_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f)
         palette = data.get("palette")
-        assert palette and isinstance(palette, dict) and palette, "Could not find palette"
+        assert palette and isinstance(palette, dict), "Could not find palette"
 
         is_light = "light" in yaml_path.parent.name
         return cls(list(map(Color, palette.values())), is_light)

@@ -1,6 +1,6 @@
 # Ergo
 
-**Ergo** is a [Typst](https://typst.app/) suite of environments for taking notes and doing problem sets, especially for Mathematics, Computer Science, and Physics.
+**Ergo** is a [Typst](https://typst.app/) suite of customizable environments for notetaking and homework assignments, designed for students in math, CS and physics.
 It is available on Typst Universe [here](https://typst.app/universe/package/ergo).
 
 > **Typst** is required to use this package (refer to Typst's installation page [here](https://github.com/typst/typst?tab=readme-ov-file#installation)).
@@ -171,11 +171,10 @@ All of these environments (regardless of type) share a set of (optional) keyword
 - `width` (default: `100%`) — width of the current environment in its scope
 - `height` (default: `auto`) — height of the current environment in its scope
 
-Also, the `problem` environment includes an automatic counter if no title is passed in, which can be helpful when working on problem sets.
+Also, the `problem` environment includes an automatic counter if no title is passed in, which can be helpful when working on homework assignments.
 
 ### Themes and Colors
 
-See https://tinted-theming.github.io/tinted-gallery/
 
 To modify themes and colors, use the `ergo-init` function:
 
@@ -184,7 +183,7 @@ To modify themes and colors, use the `ergo-init` function:
 
 #show: ergo-init.with(
     colors: ergo-colors.gruvbox-dark,
-    headers: "sidebar",
+    headers: ergo-colors.sidebar,
     all-breakable: true,
     inline-qed: true,
     prob-nums: false,
@@ -197,48 +196,136 @@ The modifiable parameters are:
 - `headers` (default: `"tab"`) — header style of theme (refer to **Header Styles** table for valid arguments)
 - `all-breakable` (default: `false`) — the default value for `breakable` environment parameter
 - `inline-qed` (default: `false`) — whether the Q.E.D square is inline or right aligned in proof environments
-- `prob-nums` (default: `true`) — should excercise/problems environments have a numbering system
+- `prob-nums` (default: `true`) — whether excercise and problem environments have a numbering system
 
 <table>
     <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>
     <tr>
-        <td><code>ergo-colors.bootstrap</code></td>
+        <td><code>ergo-colors.bootstrap</code> (light)</td>
         <td>
             Color scheme adapted from the CSS framework <a href="https://getbootstrap.com/">Bootstrap</a>
-            <!--
-            <a href="src/color/bootstrap.json">
-                <img src="gallery/docs/bootstrap-palette.svg" width="500px">
-            </a>
-            -->
         </td>
-    </tr>
-    </tr>
-    <tr>
-        <td><code>ergo-colors.bw</code></td>
         <td>
-            Black and white color scheme
-            <!--
-            <a href="src/color/bw.json">
-                <img src="gallery/docs/bw-palette.svg" width="500px">
-            </a>
-            -->
+            No preview available
         </td>
     </tr>
     <tr>
-        <td><code>ergo-colors.gruvbox-dark</code></td>
+        <td><code>ergo-colors.bw</code> (light)</td>
         <td>
-            Adapted from the dark version of the <code>neovim</code> color scheme <a href="https://github.com/morhetz/gruvbox">gruvbox</a>
-            <!--
-            <a href="src/color/gruvbox-dark.json">
-                <img src="gallery/docs/gruvbox-palette.svg" width="500px">
-            </a>
-            -->
+            Monochrome black and white scheme
+        </td>
+        <td>
+            No preview available
         </td>
     </tr>
     <tr>
-        <td><code>ergo-colors.ayu-light</code></td>
+        <td><code>ergo-colors.equilibrium-gray-light</code> (light)</td>
         <td>
-            Adapated from <a href="https://github.com/dempfi/ayu">ayu</a>
+            From the Equilibrium Gray Light <code>vim</code> color scheme by Carlo Abelli
+        </td>
+        <td>
+            <a href="src/color/equilibrium-gray-light.json">
+                <img src="gallery/scheme-previews/light/equilibrium-gray-light.svg" width="500px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td><code>ergo-colors.penumbra-light</code> (light)</td>
+        <td>
+            From the Penumbra Light <code>vim</code> color scheme by Zachary Weiss
+        </td>
+        <td>
+            <a href="src/color/penumbra-light.json">
+                <img src="gallery/scheme-previews/light/penumbra-light.svg" width="500px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td><code>ergo-colors.primer-light</code> (light)</td>
+        <td>
+            From the Primer Light <code>vim</code> color scheme by Jimmy Lin
+        </td>
+        <td>
+            <a href="src/color/primer-light.json">
+                <img src="gallery/scheme-previews/light/primer-light.svg" width="500px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td><code>ergo-colors.measured-light</code> (light)</td>
+        <td>
+            From the Measured Light <code>vim</code> color scheme by Measured
+        </td>
+        <td>
+            <a href="src/color/measured-light.json">
+                <img src="gallery/scheme-previews/light/measured-light.svg" width="500px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td><code>ergo-colors.terracotta</code> (light)</td>
+        <td>
+            From the Terracotta <code>vim</code> color scheme by Alexander Rossell Hayes
+        </td>
+        <td>
+            <a href="src/color/terracotta.json">
+                <img src="gallery/scheme-previews/light/terracotta.svg" width="500px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td><code>ergo-colors.dracula</code> (dark)</td>
+        <td>
+            Adapted from <a href="https://draculatheme.com/">dracula</a>
+        </td>
+        <td>
+            <a href="src/color/dracula.json">
+                <img src="gallery/scheme-previews/dark/dracula.svg" width="500px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td><code>ergo-colors.gruvbox-dark-medium</code> (dark)</td>
+        <td>
+            Adapted from the dark version of the famous <code>vim</code> color scheme <a href="https://github.com/morhetz/gruvbox">gruvbox</a>
+        </td>
+        <td>
+            <a href="src/color/gruvbox-dark-medium.json">
+                <img src="gallery/scheme-previews/dark/gruvbox-dark-medium.svg" width="500px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td><code>ergo-colors.eighties</code> (dark)</td>
+        <td>
+            From the Eighties <code>vim</code> color scheme by Chris Kempson
+        </td>
+        <td>
+            <a href="src/color/eighties.json">
+                <img src="gallery/scheme-previews/dark/eighties.svg" width="500px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td><code>ergo-colors.lime</code> (dark)</td>
+        <td>
+            From the Lime <code>vim</code> color scheme by limelier
+        </td>
+        <td>
+            <a href="src/color/lime.json">
+                <img src="gallery/scheme-previews/dark/lime.svg" width="500px">
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td><code>ergo-colors.woodland</code> (dark)</td>
+        <td>
+            From the Woodland <code>vim</code> color scheme by Jay Cornwall
+        </td>
+        <td>
+            <a href="src/color/woodland.json">
+                <img src="gallery/scheme-previews/dark/woodland.svg" width="500px">
+            </a>
         </td>
     </tr>
 </table>
@@ -264,7 +351,9 @@ This function should be called before any content is rendered to enforce consist
 
 #### Custom Color Schemes
 
-We now support custom color schemes so you can write your own theme as a Typst `dictionary` with the valid fields and pass it in to the `ergo-init` function as you would with any other color scheme (you can also define your schemes in json):
+You can also define your own color scheme.
+To do this, define a Typst `dictionary` with the valid fields and pass it in to the `ergo-init` function
+The best way to do this is to define your scheme in `json`:
 
 ```typ
 #import "@preview/ergo:0.2.0": *
@@ -274,7 +363,8 @@ We now support custom color schemes so you can write your own theme as a Typst `
 ```
 
 Refer to existing color schemes in `src/color/` for information on valid fields.
-At the moment we only support RGB and RGBA in hex format (i.e. `"#ffffff"` or `"#ffffffff"`).
+We support RGB and RGBA in hex format (i.e. `"#ffffff"` or `"#ffffffff"`).
+Note that you can use our Python project to automatically generate ergo themes from arbitrary Base 16 color schemes like those found on [Tinted Gallery](https://tinted-theming.github.io/tinted-gallery/).
 
 #### Extras
 

@@ -40,8 +40,8 @@ def create_ergo_scheme(color_scheme: Base16ColorScheme) -> ErgoColorScheme:
         )
 
     statement_env_groups: dict[tuple[str, ...], Color] = {
-        ("note", "remark", "notation", "runtime"):          color_scheme.BLUE2,
-        ("definition", "concept", "computational_problem"): color_scheme.BLUE1,
+        ("note", "remark", "notation", "runtime"):          color_scheme.INDIGO,
+        ("definition", "concept", "computational_problem"): color_scheme.BLUE,
         ("example",):                                       color_scheme.GREEN,
         ("algorithm",):                                     color_scheme.RED,
     }
