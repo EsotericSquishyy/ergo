@@ -3,7 +3,6 @@ bw
 dracula
 eighties
 equilibrium-gray-light
-gruvbox-dark
 gruvbox-dark-medium
 lime
 measured-light
