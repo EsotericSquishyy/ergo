@@ -14,7 +14,16 @@
   ))
 }
 
-#let valid-styles(colors) = {
-  // TODO
+#let valid-styles(styles) = {
+  if type(styles) != dictionary { return false }
+
+  let solution-env = styles.remove("solution", default: none)
+  if type(solution-env) != function { return false }
+
+  let statement-env = styles.remove("statement", default: none)
+  if type(statement-env) != function { return false }
+
+  if styles.len() != 0 { return false }
+
   return true
 }
