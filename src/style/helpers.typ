@@ -45,7 +45,7 @@
   return pad(x: xpad, y: ypad, title-content)
 }
 
-#let get-solution-content(solution-body, is-proof, inline-qed, sol-color) = {
+#let get-solution-content(solution-body, is-proof, inline-qed, sol-color: none) = {
   let xpad = 12pt
   let ypad = 6pt
 

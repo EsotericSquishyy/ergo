@@ -41,7 +41,7 @@
     solution-body,
     kwargs.is-proof,
     kwargs.inline-qed,
-    strokecolor2
+    sol-color: strokecolor2,
   )
 
   stack(

@@ -31,7 +31,6 @@
     solution-body,
     kwargs.is-proof,
     kwargs.inline-qed,
-    strokecolor2
   )
 
   block(
