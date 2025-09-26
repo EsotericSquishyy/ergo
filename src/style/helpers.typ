@@ -21,7 +21,7 @@
   )
 }
 
-#let get-title-content(preheader, title, is-proof: false, prob-nums: false) = {
+#let get-title-content(preheader, title, is-proof: false, prob-nums: false, pad-env: true) = {
   let xpad = 12pt
   let ypad = 6pt
   let title-content = none
@@ -42,21 +42,32 @@
     }
   }
 
-  return pad(x: xpad, y: ypad, title-content)
+  if pad-env {
+    return pad(x: xpad, y: ypad, title-content)
+  } else {
+    return title-content
+  }
 }
 
-#let get-solution-content(solution-body, is-proof, inline-qed, sol-color: none) = {
+#let get-solution-content(solution-body, is-proof, inline-qed, sol-color: none, pad-env: true) = {
   let xpad = 12pt
   let ypad = 6pt
+  let solution-content
 
   if solution-body == [] {
     return none
   } else {
     if is-proof {
-      return pad(x: xpad, y: ypad, proof(solution-body, inline-qed: inline-qed, color: sol-color))
+      solution-content = proof(solution-body, inline-qed: inline-qed, color: sol-color)
     } else {
-      return pad(x: xpad, y: ypad, solution(solution-body, color: sol-color))
+      solution-content = proof(solution-body, color: sol-color)
     }
+  }
+
+  if pad-env {
+    return pad(x: xpad, y: ypad, solution-content)
+  } else {
+    return solution-content
   }
 }
 

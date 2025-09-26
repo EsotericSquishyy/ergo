@@ -4,6 +4,7 @@
   "sidebar1",
   "sidebar2",
   "classic",
+  "basic",
 )
 #let ergo-styles = (:)
 
