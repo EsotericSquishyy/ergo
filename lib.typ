@@ -1,17 +1,25 @@
 #import "src/main.typ": (
   ergo-init,
-  ergo-title-selector,
   ergo-colors,
   ergo-styles,
 
   // Misc.
-  correction,
   bookmark,
   equation-box,
 
   // Custom
   ergo-solution,
   ergo-statement,
+)
+
+#import "src/style/helpers.typ": (
+  ergo-title-selector,
+)
+
+#import "src/style/cosmetic-envs.typ": (
+  correction,
+  proof,
+  solution
 )
 
 #import "src/presets.typ": (
@@ -32,23 +40,24 @@
   exercise,
 )
 
-#let eqbox  = equation-box
+#let eqbox     = equation-box
 
-#let thm    = theorem
-#let lem    = lemma
-#let cor    = corollary
-#let prop   = proposition
+#let thm       = theorem
+#let lem       = lemma
+#let cor       = corollary
+#let prop      = proposition
 
-#let defn   = definition
-#let rem    = remark
-#let rmk    = remark
-#let notn   = notation
-#let ex     = example
-#let conc   = concept
+#let defn      = definition
+#let rem       = remark
+#let rmk       = remark
+#let notn      = notation
+#let ex        = example
+#let conc      = concept
 #let comp-prob = computational-problem
-#let algo   = algorithm
+#let algo      = algorithm
 
-#let prob   = problem
-#let excs   = exercise
+#let prob      = problem
+#let excs      = exercise
 
-
+#let pf        = proof
+#let sol       = solution

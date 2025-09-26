@@ -9,6 +9,18 @@
   $1 * 1 = 2$
 ]
 
+#pf[
+  Example Proof
+]
+
+#sol[
+  Example solution
+]
+
+#correction[
+  Example correction
+]
+
 = Proof Environments
 
 #theorem[

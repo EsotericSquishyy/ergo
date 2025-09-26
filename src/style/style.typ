@@ -9,7 +9,7 @@
 #for styles-name in ergo-styles-names {
   import styles-name + ".typ": custom-solution, custom-statement
   ergo-styles.insert(styles-name, (
-    "solution": custom-solution,
+    "solution":  custom-solution,
     "statement": custom-statement,
   ))
 }

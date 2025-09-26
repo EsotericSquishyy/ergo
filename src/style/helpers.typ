@@ -1,18 +1,12 @@
+#import "cosmetic-envs.typ": (
+  proof,
+  solution
+)
+
 #let ergo-title-selector = <__ergo_title>
 #let ergo-title(content) = {
   set text(weight: "bold")
   [#content#ergo-title-selector]
-}
-
-#let proof(body, inline-qed) = {
-  if inline-qed {
-    [*Proof:* ]; body; [$square.big$]
-  } else {
-    [*Proof:* ]; body; [#v(0.2em) #h(90%) $square.big$]
-  }
-}
-#let solution(body) = {
-  [*Solution:* ]; body
 }
 
 #let problem-counter = counter("problem")
@@ -59,7 +53,7 @@
     return none
   } else {
     if is-proof {
-      return pad(x: xpad, y: ypad, proof(solution-body, inline-qed))
+      return pad(x: xpad, y: ypad, proof(solution-body, inline-qed: inline-qed))
     } else {
       return pad(x: xpad, y: ypad, solution(solution-body))
     }
