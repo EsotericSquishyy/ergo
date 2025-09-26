@@ -2,6 +2,7 @@
   "tab1",
   "tab2",
   "sidebar",
+  "classic",
 )
 #let ergo-styles = (:)
 
