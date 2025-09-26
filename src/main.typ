@@ -17,7 +17,7 @@
 
 //-----Setup-----//
 #let colors-state     = state("colors-state",     ergo-colors.bootstrap)
-#let styles-state     = state("styles-state",     ergo-styles.tab)
+#let styles-state     = state("styles-state",     ergo-styles.tab2)
 #let breakable-state  = state("breakable-state",  false)
 #let inline-qed-state = state("inline-qed-state", false)
 #let prob-nums-state  = state("prob-nums-state",  true)
@@ -25,7 +25,7 @@
 #let ergo-init(
   body,
   colors:     ergo-colors.bootstrap,
-  styles:     ergo-styles.tab,
+  styles:     ergo-styles.tab2,
   breakable:  false,
   inline-qed: false,
   prob-nums:  true,
@@ -81,13 +81,6 @@
 
 
 //-----Environments-----//
-#let correction(body) = {
-  text(fill: rgb("#ea4120"), weight: "semibold", body)
-}
-
-
-
-
 #let bookmark(
   title,
   info,
@@ -126,24 +119,6 @@
       #equation
     ]
   ]
-}
-
-
-
-
-#let proof(body, inline-qed: false) = {
-  if inline-qed {
-    [*Proof:* ]; body; [$square.big$]
-  } else {
-    [*Proof:* ]; body; [#v(0.2em) #h(90%) $square.big$]
-  }
-}
-
-
-
-
-#let solution(body) = {
-  [*Solution:* ]; body
 }
 
 

@@ -1,6 +1,6 @@
 #let ergo-styles-names = (
-  "tab",
-  "classic",
+  "tab1",
+  "tab2",
   "sidebar",
 )
 #let ergo-styles = (:)
@@ -15,8 +15,6 @@
 }
 
 #let valid-styles(styles) = {
-  if type(styles) != dictionary { return false }
-
   let solution-env = styles.remove("solution", default: none)
   if type(solution-env) != function { return false }
 
