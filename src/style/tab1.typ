@@ -41,7 +41,12 @@
     )
   )
 
-  let solution-content = get-solution-content(solution-body, kwargs.is-proof, kwargs.inline-qed)
+  let solution-content = get-solution-content(
+    solution-body,
+    kwargs.is-proof,
+    kwargs.inline-qed,
+    strokecolor2
+  )
 
   block(
     stroke:     strokecolor1,

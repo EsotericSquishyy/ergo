@@ -45,7 +45,7 @@
   return pad(x: xpad, y: ypad, title-content)
 }
 
-#let get-solution-content(solution-body, is-proof, inline-qed) = {
+#let get-solution-content(solution-body, is-proof, inline-qed, sol-color) = {
   let xpad = 12pt
   let ypad = 6pt
 
@@ -53,9 +53,9 @@
     return none
   } else {
     if is-proof {
-      return pad(x: xpad, y: ypad, proof(solution-body, inline-qed: inline-qed))
+      return pad(x: xpad, y: ypad, proof(solution-body, inline-qed: inline-qed, color: sol-color))
     } else {
-      return pad(x: xpad, y: ypad, solution(solution-body))
+      return pad(x: xpad, y: ypad, solution(solution-body, color: sol-color))
     }
   }
 }

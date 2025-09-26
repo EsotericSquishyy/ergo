@@ -1,5 +1,5 @@
 #import "@local/ergo:0.2.0": *
-#show: ergo-init.with(colors: ergo-colors.penumbra-light , styles: ergo-styles.sidebar)
+#show: ergo-init.with(colors: ergo-colors.dracula , styles: ergo-styles.tab1)
 
 = Misc
 
@@ -11,6 +11,14 @@
 
 #pf[
   Example Proof
+]
+
+#pf(inline-qed: true)[
+  Example Proof with inline QED
+]
+
+#pf(color: blue)[
+  Example Proof with blue text
 ]
 
 #sol[

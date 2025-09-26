@@ -20,9 +20,19 @@
 
   show raw.where(block: false): r => highlight-raw(r, bgcolor.saturate(colors.raw))
 
-  let title-content     = get-title-content(kwargs.preheader, title, is-proof: kwargs.is-proof, prob-nums: kwargs.prob-nums)
+  let title-content     = get-title-content(
+    kwargs.preheader,
+    title,
+    is-proof: kwargs.is-proof,
+    prob-nums: kwargs.prob-nums
+  )
   let statement-content = get-statement-content(statement-body)
-  let solution-content  = get-solution-content(solution-body, kwargs.is-proof, kwargs.inline-qed)
+  let solution-content  = get-solution-content(
+    solution-body,
+    kwargs.is-proof,
+    kwargs.inline-qed,
+    strokecolor2
+  )
 
   block(
     stroke:     (left: strokecolor + 3pt),

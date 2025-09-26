@@ -40,7 +40,8 @@
   let solution-content  = get-solution-content(
     solution-body,
     kwargs.is-proof,
-    kwargs.inline-qed
+    kwargs.inline-qed,
+    strokecolor2
   )
 
   stack(
@@ -60,12 +61,13 @@
     ),
     block(
       stroke:     (left: strokecolor2 + 4pt),
+      inset:      -3pt,
       width:      kwargs.width,
-      below:      20pt,
       height:     kwargs.height,
       breakable:  kwargs.breakable,
       solution-content
-    )
+    ),
+    spacing: 13pt,
   )
 }
 
