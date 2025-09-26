@@ -1,7 +1,8 @@
 #let ergo-styles-names = (
   "tab1",
   "tab2",
-  "sidebar",
+  "sidebar1",
+  "sidebar2",
   "classic",
 )
 #let ergo-styles = (:)
