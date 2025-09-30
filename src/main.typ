@@ -16,19 +16,19 @@
 
 
 //-----Setup-----//
-#let colors-state     = state("colors-state",     ergo-colors.bootstrap)
-#let styles-state     = state("styles-state",     ergo-styles.tab2)
-#let breakable-state  = state("breakable-state",  false)
-#let inline-qed-state = state("inline-qed-state", false)
-#let prob-nums-state  = state("prob-nums-state",  true)
+#let colors-state        = state("colors-state",        ergo-colors.bootstrap)
+#let styles-state        = state("styles-state",        ergo-styles.tab2)
+#let all-breakable-state = state("all-breakable-state", false)
+#let inline-qed-state    = state("inline-qed-state",    false)
+#let prob-nums-state     = state("prob-nums-state",     true)
 
 #let ergo-init(
   body,
-  colors:     ergo-colors.bootstrap,
-  styles:     ergo-styles.tab2,
-  breakable:  false,
-  inline-qed: false,
-  prob-nums:  true,
+  colors:         ergo-colors.bootstrap,
+  styles:         ergo-styles.tab2,
+  all-breakable:  false,
+  inline-qed:     false,
+  prob-nums:      true,
 ) = context {
   if type(colors) == dictionary and valid-colors(colors) {
     colors-state.update(colors)
@@ -40,8 +40,8 @@
   } else {
     panic("Unrecognized or invalid styles")
   }
-  if type(breakable) == bool {
-    breakable-state.update(breakable)
+  if type(all-breakable) == bool {
+    all-breakable-state.update(all-breakable)
   } else {
     panic("Non boolean passed to boolean")
   }
@@ -157,7 +157,7 @@
   )
 
   let new-inline-qed = if type(inline-qed) == bool { inline-qed } else { inline-qed-state.get() }
-  let new-breakable  = if type(breakable)  == bool { breakable }  else { breakable-state.get()  }
+  let new-breakable  = if type(breakable)  == bool { breakable }  else { all-breakable-state.get()  }
   let new-prob-nums  = not is-proof and prob-nums-state.get()  // condition will change in future
 
   let child-argv = arguments(
@@ -213,7 +213,7 @@
     "raw": get-ratio(colors, "raw", "saturation")
   )
 
-  let new-breakable = if type(breakable) == bool { breakable } else { breakable-state.get() }
+  let new-breakable = if type(breakable) == bool { breakable } else { all-breakable-state.get() }
 
   let child-argv = arguments(
     preheader: preheader,
