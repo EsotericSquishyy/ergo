@@ -15,19 +15,13 @@
   ..argv
 ) = {
   let kwargs        = argv.named()
-  let bgcolor1      = rgb(colors.env.bgcolor1)
-  let bgcolor2      = rgb(colors.env.bgcolor2)
-  let strokecolor1  = rgb(colors.env.strokecolor1)
-  let strokecolor2  = rgb(colors.env.strokecolor2)
-
-  show raw.where(block: false): r => highlight-raw(r, bgcolor1.saturate(colors.raw))
 
   let title-content = get-title-content(
     kwargs.preheader,
     title,
-    is-proof: kwargs.is-proof,
+    is-proof:  kwargs.is-proof,
     prob-nums: kwargs.prob-nums,
-    pad-env: false
+    pad-env:   false
   )
 
   let solution-content = get-solution-content(
@@ -47,26 +41,9 @@
   ..argv
 ) = {
   let kwargs       = argv.named()
-  let bgcolor      = rgb(colors.env.bgcolor)
-  let strokecolor  = rgb(colors.env.strokecolor)
 
-  show raw.where(block: false): r => highlight-raw(r, bgcolor.saturate(colors.raw))
+  let title-content     = get-title-content(kwargs.preheader, title, pad-env: false)
+  let statement-content = get-statement-content(statement-body, pad-env: false)
 
-  let title-content     = get-title-content(kwargs.preheader, title)
-  let statement-content = get-statement-content(statement-body)
-
-  block(
-    stroke:     strokecolor,
-    fill:       bgcolor,
-    inset:      (y: 4pt),
-    width:      kwargs.width,
-    height:     kwargs.height,
-    breakable:  kwargs.breakable,
-    radius:     6pt,
-    clip:       true,
-    stack(
-      title-content,
-      statement-content
-    )
-  )
+  title-content; statement-content
 }
