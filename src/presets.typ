@@ -42,7 +42,7 @@
 #let exercise    = ergo-solution.with(
   [Exercise],
   "exercise",
-  false
+  true
 )
 
 
