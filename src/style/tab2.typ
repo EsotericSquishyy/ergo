@@ -37,12 +37,25 @@
 
   let statement-content = get-statement-content(statement-body)
 
-  let solution-content  = get-solution-content(
-    solution-body,
-    kwargs.is-proof,
-    kwargs.inline-qed,
-    sol-color: strokecolor2,
-  )
+  let solution-block = if solution-body == [] {
+    []
+  } else {
+    let solution-content  = get-solution-content(
+      solution-body,
+      kwargs.is-proof,
+      kwargs.inline-qed,
+      sol-color: strokecolor2,
+    )
+
+    block(
+      stroke:     (left: strokecolor2 + 4pt),
+      inset:      -3pt,
+      width:      kwargs.width,
+      height:     kwargs.height,
+      breakable:  kwargs.breakable,
+      solution-content
+    )
+  }
 
   stack(
     block(
@@ -59,15 +72,8 @@
         statement-content,
       )
     ),
-    block(
-      stroke:     (left: strokecolor2 + 4pt),
-      inset:      -3pt,
-      width:      kwargs.width,
-      height:     kwargs.height,
-      breakable:  kwargs.breakable,
-      solution-content
-    ),
-    spacing: 13pt,
+    solution-block,
+    spacing: if solution-body == [] {none} else {13pt},
   )
 }
 
