@@ -4,11 +4,6 @@
 )
 
 #let ergo-title-selector = <__ergo_title>
-#let ergo-title(content) = {
-  set text(weight: "bold")
-  [#content#ergo-title-selector]
-}
-
 #let problem-counter = counter("problem")
 
 #let highlight-raw(content, raw-color) = {
@@ -21,26 +16,43 @@
   )
 }
 
-#let get-title-content(preheader, title, is-proof: false, prob-nums: false, pad-env: true) = {
+#let get-title-content(
+  preheader,
+  title,
+  is-proof:    false,
+  prob-nums:   false,
+  pad-env:     true,
+  title-style: "colon",
+) = {
   let xpad = 12pt
   let ypad = 6pt
-  let title-content = none
 
   let count = if prob-nums [ #{problem-counter.step(); context problem-counter.display()}] else []
 
-  if title == [] {
-    if is-proof {
-      title-content = ergo-title[#emph[#preheader#count]]
+  let title-content = if title-style == "parens" {
+    if title == [] {
+      strong[#preheader#count.]
     } else {
-      title-content = ergo-title[#preheader#count]
+      strong[#preheader#count] + [ (#title).]
     }
+
+  } else if title-style == "colon" {
+    if title == [] {
+      strong[#preheader#count]
+    } else {
+      strong[#preheader#count: #title]
+    }
+
   } else {
-    if is-proof {
-      title-content = ergo-title[#emph[#preheader#count: ]#title]
-    } else {
-      title-content = ergo-title[#preheader#count: #title]
-    }
+    panic("Unrecognized title style")
   }
+
+  if title-style == "colon" and is-proof {
+    title-content = [#emph[#title-content]]
+  }
+
+
+  title-content = [#title-content#ergo-title-selector]
 
   if pad-env {
     return pad(x: xpad, y: ypad, title-content)
@@ -49,7 +61,14 @@
   }
 }
 
-#let get-solution-content(solution-body, is-proof, inline-qed, sol-color: none, pad-env: true) = {
+#let get-solution-content(
+  solution-body,
+  is-proof,
+  inline-qed,
+  sol-color: none,
+  pad-env: true,
+  title-style: "colon",
+) = {
   let xpad = 12pt
   let ypad = 6pt
   let solution-content
@@ -58,9 +77,18 @@
     return none
   } else {
     if is-proof {
-      solution-content = proof(solution-body, inline-qed: inline-qed, color: sol-color)
+      solution-content = proof(
+        solution-body,
+        inline-qed: inline-qed,
+        color: sol-color,
+        title-style: title-style
+      )
     } else {
-      solution-content = proof(solution-body, color: sol-color)
+      solution-content = solution(
+        solution-body,
+        color: sol-color,
+        title-style: title-style
+      )
     }
   }
 
@@ -71,13 +99,21 @@
   }
 }
 
-#let get-statement-content(statement) = {
+#let get-statement-content(
+  statement,
+  pad-env: true,
+) = {
   let xpad = 12pt
   let ypad = 6pt
 
   if statement == [] {
     return none
   } else {
-    return pad(x: xpad, y: ypad, statement)
+
+    if pad-env {
+      return pad(x: xpad, y: ypad, statement)
+    } else {
+      return statement
+    }
   }
 }

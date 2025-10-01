@@ -19,9 +19,10 @@
   let title-content = get-title-content(
     kwargs.preheader,
     title,
-    is-proof:  kwargs.is-proof,
-    prob-nums: kwargs.prob-nums,
-    pad-env:   false
+    is-proof:    kwargs.is-proof,
+    prob-nums:   kwargs.prob-nums,
+    pad-env:     false,
+    title-style: "parens",
   )
 
   let solution-content = get-solution-content(
@@ -29,9 +30,14 @@
     kwargs.is-proof,
     kwargs.inline-qed,
     pad-env: false,
+    title-style: "parens",
   )
 
-  title-content; statement-body; linebreak(); solution-content
+  if kwargs.is-proof {
+    title-content; emph[#statement-body]; v(0.3em); solution-content
+  } else {
+    title-content; statement-body; v(0.3em); solution-content
+  }
 }
 
 #let custom-statement(
@@ -42,7 +48,12 @@
 ) = {
   let kwargs       = argv.named()
 
-  let title-content     = get-title-content(kwargs.preheader, title, pad-env: false)
+  let title-content     = get-title-content(
+    kwargs.preheader,
+    title,
+    pad-env: false,
+    title-style: "parens",
+  )
   let statement-content = get-statement-content(statement-body, pad-env: false)
 
   title-content; statement-content
