@@ -4,15 +4,16 @@
 
 #let proof(body, inline-qed: false, color: none, title-style: "colon") = {
   let content = if title-style == "colon" {
-    strong[Proof: ]
+    if (color == none) {
+      strong[Proof: ]
+    } else {
+      text(fill: color, weight: "bold")[Proof: ]
+    }
+
   } else if title-style == "parens" {
     emph[Proof. ]
   } else {
     panic("Unrecognized title style")
-  }
-
-  if (color != none) {
-    content = text(fill: color)[#content]
   }
 
   if inline-qed {
@@ -24,15 +25,16 @@
 
 #let solution(body, color: none, title-style: "colon") = {
   let content = if title-style == "colon" {
-    strong[Solution: ]
+    if (color == none) {
+      strong[Solution: ]
+    } else {
+      text(fill: color)[Solution: ]
+    }
+
   } else if title-style == "parens" {
     emph[Solution. ]
   } else {
     panic("Unrecognized title style")
-  }
-
-  if (color != none) {
-    content = text(fill: color)[#content]
   }
 
   content; body
