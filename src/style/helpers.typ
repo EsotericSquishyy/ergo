@@ -31,16 +31,16 @@
 
   let title-content = if title-style == "parens" {
     if title == [] {
-      strong[#preheader#count.]
+      text(weight: "bold")[#preheader#count.]
     } else {
-      strong[#preheader#count] + [ (#title).]
+      text(weight: "bold")[#preheader#count] + [ (#title).]
     }
 
   } else if title-style == "colon" {
     if title == [] {
-      strong[#preheader#count]
+      text(weight: "bold")[#preheader#count]
     } else {
-      strong[#preheader#count: #title]
+      text(weight: "bold")[#preheader#count: #title]
     }
 
   } else {
