@@ -28,7 +28,7 @@
     if (color == none) {
       strong[Solution: ]
     } else {
-      text(fill: color)[Solution: ]
+      text(fill: color, weight: "bold")[Solution: ]
     }
 
   } else if title-style == "parens" {
