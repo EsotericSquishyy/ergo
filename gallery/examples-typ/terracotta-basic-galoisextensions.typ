@@ -1,13 +1,13 @@
 #import "@local/ergo:0.2.0": *
 #import "@preview/fletcher:0.5.4" as fletcher: diagram, node, edge
 #show: ergo-init.with(
-  colors: ergo-colors.ayu-light,
-  headers: "classic",
+  colors: ergo-colors.terracotta,
+  styles: ergo-styles.basic,
   inline-qed: true,
 )
 #set page(
   width: 18cm,
-  height: 15.8cm,
+  height: 13.1cm,
   margin: 1em
 )
 

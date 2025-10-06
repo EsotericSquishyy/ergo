@@ -1,6 +1,9 @@
 #import "@preview/physica:0.9.5": *
 #import "@local/ergo:0.2.0": *
-#show: ergo-init.with(colors: ergo-colors.gruvbox-dark, headers: "sidebar")
+#show: ergo-init.with(
+  colors: ergo-colors.woodland,
+  styles: ergo-styles.sidebar1
+)
 
 #set page(
   width: 18cm,

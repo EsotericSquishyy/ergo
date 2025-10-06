@@ -25,7 +25,7 @@
 #let ergo-init(
   body,
   colors:       ergo-colors.bootstrap,
-  styles:       ergo-styles.tab2,
+  styles:       ergo-styles.tab1,
   breakable:    false,
   inline-qed:   false,
   prob-nums:    true,

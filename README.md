@@ -18,8 +18,8 @@ To get started, add the following to your `.typ` file:
 
 ### Example
 
-<a href="gallery/examples-typ/bootstrap-tab-orbit.typ">
-    <img src="gallery/examples-svg/bootstrap-tab-orbit.svg" width="100%">
+<a href="gallery/examples-typ/bootstrap-tab1-orbit.typ">
+    <img src="gallery/examples-svg/bootstrap-tab1-orbit.svg" width="100%">
 </a>
 
 ```typ
@@ -55,32 +55,32 @@ To get started, add the following to your `.typ` file:
 
 ### Gallery
 
-**Real Analysis Notes using the `bootstrap` color scheme with `sidebar` header style**
-<a href="gallery/examples-typ/bootstrap-sidebar-taylor.typ">
-    <img src="gallery/examples-svg/bootstrap-sidebar-taylor.svg" width="100%">
+#### Real Analysis Notes using the `bootstrap` color scheme with the `sidebar1` style
+<a href="gallery/examples-typ/bootstrap-sidebar1-taylor.typ">
+    <img src="gallery/examples-svg/bootstrap-sidebar1-taylor.svg" width="100%">
 </a>
 
-#### Cryptography Problem Set using the `bw` color scheme with `tab` header style
-<a href="gallery/examples-typ/bw-tab-crypto.typ">
-    <img src="gallery/examples-svg/bw-tab-crypto.svg" width="100%">
+#### Cryptography Problem Set using the `primer-light` color scheme with the `tab2` style
+<a href="gallery/examples-typ/primerlight-tab2-crypto.typ">
+    <img src="gallery/examples-svg/primerlight-tab2-crypto.svg" width="100%">
 </a>
 
-#### Classical Mechanics Notes using the `gruvbox-dark` color scheme with `sidebar` header style (with [Physica](https://github.com/Leedehai/typst-physics))
+#### Classical Mechanics Notes using the `woodland` color scheme with the `sidebar1` style (with [Physica](https://github.com/Leedehai/typst-physics))
 
-<a href="gallery/examples-typ/gruvbox-sidebar-lagrangian.typ">
-    <img src="gallery/examples-svg/gruvbox-sidebar-lagrangian.svg" width="100%">
+<a href="gallery/examples-typ/woodland-sidebar1-lagrangian.typ">
+    <img src="gallery/examples-svg/woodland-sidebar1-lagrangian.svg" width="100%">
 </a>
 
-#### Abstract Algebra Notes using the `ayu-light` color scheme with `classic` header style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))
+#### Abstract Algebra Notes using the `terracotta` color scheme with the `basic` style (with [Fletcher](https://github.com/Jollywatt/typst-fletcher))
 
-<a href="gallery/examples-typ/ayu-classic-galoisextensions.typ">
-    <img src="gallery/examples-svg/ayu-classic-galoisextensions.svg" width="100%">
+<a href="gallery/examples-typ/terracotta-basic-galoisextensions.typ">
+    <img src="gallery/examples-svg/terracotta-basic-galoisextensions.svg" width="100%">
 </a>
 
-#### **Data Structures and Algorithms Notes using the `gruvbox-dark` color scheme with `classic` header style (with [CeTZ](https://github.com/cetz-package/cetz) and [Lovelace](https://github.com/andreasKroepelin/lovelace))**
+#### **Data Structures and Algorithms Notes using the `dracula` color scheme with the `classic` style (with [CeTZ](https://github.com/cetz-package/cetz) and [Lovelace](https://github.com/andreasKroepelin/lovelace))**
 
-<a href="gallery/examples-typ/gruvbox-classic-huffman.typ">
-    <img src="gallery/examples-svg/gruvbox-classic-huffman.svg" width="100%">
+<a href="gallery/examples-typ/dracula-classic-huffman.typ">
+    <img src="gallery/examples-svg/dracula-classic-huffman.svg" width="100%">
 </a>
 
 Refer to `gallery/` for more examples.
@@ -175,16 +175,15 @@ Also, the `problem` environment includes an automatic counter if no title is pas
 
 ### Themes and Colors
 
-
 To modify themes and colors, use the `ergo-init` function:
 
 ```typ
 #import "@preview/ergo:0.2.0": *
 
 #show: ergo-init.with(
-    colors: ergo-colors.gruvbox-dark,
-    headers: ergo-colors.sidebar,
-    all-breakable: true,
+    colors: ergo-colors.lime,
+    styles: ergo-colors.sidebar2,
+    breakable: true,
     inline-qed: true,
     prob-nums: false,
 )
@@ -193,10 +192,10 @@ To modify themes and colors, use the `ergo-init` function:
 The modifiable parameters are:
 
 - `colors` (default: `ergo-colors.bootstrap`) — colors of theme (refer to **Color Palettes** table for valid arguments)
-- `headers` (default: `"tab"`) — header style of theme (refer to **Header Styles** table for valid arguments)
-- `all-breakable` (default: `false`) — the default value for `breakable` environment parameter
+- `headers` (default: `ergo-styles.tab1`) — style of theme (refer to **Styles** table for valid arguments)
+- `breakable` (default: `false`) — the default value for `breakable` environment parameter
 - `inline-qed` (default: `false`) — whether the Q.E.D square is inline or right aligned in proof environments
-- `prob-nums` (default: `true`) — whether excercise and problem environments have a numbering system
+- `prob-nums` (default: `true`) — whether problem environments have a numbering system
 
 <table>
     <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>
@@ -333,17 +332,28 @@ The modifiable parameters are:
 <table>
     <caption><strong>Header Styles (values for <code>headers</code>)</strong></caption>
     <tr>
-        <td><code>tab</code></td>
+        <td><code>tab1</code></td>
         <td>Default header style, rounded</td>
     </tr>
+    <tr>
+        <td><code>sidebar1</code></td>
+        <td>Less padding, not rounded</td>
+    </tr>
+    <tr>
+        <td><code>tab2</code></td>
+        <td>Same as tab1, but with sidebar style proofs in a separate block</td>
+    </tr>
+    <tr>
+        <td><code>sidebar2</code></td>
+        <td>Same as sidebar1, but with sidebar style proofs in a separate block</td>
+    </tr>
+    <tr>
+        <td><code>basic</code></td>
+        <td>Keeps it simple - the classic look of a math textbook</td>
     </tr>
     <tr>
         <td><code>classic</code></td>
         <td>Original header style, rounded</td>
-    </tr>
-    <tr>
-        <td><code>sidebar</code></td>
-        <td>Less padding, not rounded</td>
     </tr>
 </table>
 
@@ -365,6 +375,10 @@ One way to do this is to define your scheme with `json`:
 Refer to existing color schemes in `src/color/` for information on valid fields.
 We support RGB and RGBA in hex format (i.e. `"#ffffff"` or `"#ffffffff"`).
 Note that you can use our Python project to automatically generate ergo themes from arbitrary Base 16 color schemes like those found on [Tinted Gallery](https://tinted-theming.github.io/tinted-gallery/).
+
+#### Custom Styles
+
+TODO
 
 #### Extras
 

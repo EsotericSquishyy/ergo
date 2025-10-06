@@ -1,7 +1,7 @@
 #import "@local/ergo:0.2.0": *
 #show: ergo-init.with(
-  colors: ergo-colors.bootstrap,
-  headers: "sidebar",
+  colors:  ergo-colors.bootstrap,
+  styles: ergo-styles.sidebar1,
 )
 
 #set page(

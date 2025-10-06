@@ -1,5 +1,8 @@
 #import "@local/ergo:0.2.0": *
-#show: ergo-init.with(colors: ergo-colors.bw)
+#show: ergo-init.with(
+  colors: ergo-colors.primer-light,
+  styles: ergo-styles.tab2,
+)
 
 #set page(
   width: 18cm,
