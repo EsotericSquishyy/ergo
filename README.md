@@ -151,37 +151,47 @@ The arguments are all positional, but `name` is optional, meaning either of thes
 
 If you wish to state a result without giving a proof, you can leave proof as an empty content block `[]`.
 
-All of these environments (regardless of type) share a set of (optional) keyword arguments:
+All of these environments (regardless of type) share a set of (optional) keyword arguments including `width` (default: `100%`) and `height` (default: `auto`) along with several other settings listed below.
 
-- `breakable` (default: `false`) — whether the current environment is breakable across multiple pages
-- `width` (default: `100%`) — width of the current environment in its scope
-- `height` (default: `auto`) — height of the current environment in its scope
+Also, the `problem` environment includes an automatic counter if no title is passed in, which can be helpful when working on homework assignments.
 
-Also, the `problem` and `exercise` environments includes an automatic counter if no title is passed in, which can be helpful when working on homework assignments.
+> If these environments aren't enough `ergo-solution` and `ergo-statement` are used to define all of these presets in `src/presets.typ` and are exposed functions so you can define your own presets.
+>
+> Note you will have to define a colors for these new environments which is details below in the **Custom Color Schemes** section.
 
 ### Themes and Colors
 
-To modify themes and colors, use the `ergo-init` function:
+A list of environment settings to customize your environments exists globally (resp. locally) which can be accessed by passing in keyword arguments to `ergo-init` (resp. the environment called).
+The valid arguments are the following:
+
+- `colors` (default: `ergo-colors.bootstrap`) — colors of theme (refer to **Color Palettes** table for valid arguments)
+- `styles` (default: `ergo-styles.tab1`) — style of theme (refer to **Styles** table for valid arguments)
+- `breakable` (default: `false`) — whether the environments are breakable across page boundaries
+- `inline-qed` (default: `false`) — whether the Q.E.D square is inline or right aligned in proof environments (only affects _solution_ type environments)
+- `prob-nums` (default: `true`) — whether problem environments have a numbering system (only affects `problem` at the moment)
+
 
 ```typ
 #import "@preview/ergo:0.2.0": *
 
+// global example
 #show: ergo-init.with(
-    colors: ergo-colors.lime,
-    styles: ergo-colors.sidebar2,
-    breakable: true,
+    colors:     ergo-colors.lime,
+    styles:     ergo-styles.sidebar2,
+    breakable:  true,
     inline-qed: true,
-    prob-nums: false,
+    prob-nums:  false,
 )
+
+// local example (takes precedence over global)
+#prob(
+    colors:     ergo-colors.bootstrap,
+    styles:     ergo-colors.tab1,
+    breakable:  false,
+    inline-qed: false,
+    prob-nums:  true,
+)[ #lorem(5) ][ #lorem(10) ][ #lorem(10) ]
 ```
-
-The modifiable parameters are:
-
-- `colors` (default: `ergo-colors.bootstrap`) — colors of theme (refer to **Color Palettes** table for valid arguments)
-- `headers` (default: `ergo-styles.tab1`) — style of theme (refer to **Styles** table for valid arguments)
-- `breakable` (default: `false`) — the default value for `breakable` environment parameter
-- `inline-qed` (default: `false`) — whether the Q.E.D square is inline or right aligned in proof environments
-- `prob-nums` (default: `true`) — whether problem environments have a numbering system
 
 <table>
     <caption><strong>Color Palettes (values for <code>colors</code>)</strong></caption>
@@ -316,10 +326,10 @@ The modifiable parameters are:
 </table>
 
 <table>
-    <caption><strong>Header Styles (values for <code>headers</code>)</strong></caption>
+    <caption><strong>Header Styles (values for <code>styles</code>)</strong></caption>
     <tr>
         <td><code>tab1</code></td>
-        <td>Default header style, rounded</td>
+        <td>Default style, rounded</td>
     </tr>
     <tr>
         <td><code>sidebar1</code></td>
@@ -339,7 +349,7 @@ The modifiable parameters are:
     </tr>
     <tr>
         <td><code>classic</code></td>
-        <td>Original header style, rounded</td>
+        <td>Original style, rounded</td>
     </tr>
 </table>
 
@@ -362,11 +372,68 @@ Refer to existing color schemes in `src/color/` for information on valid fields.
 We support RGB and RGBA in hex format (i.e. `"#ffffff"` or `"#ffffffff"`).
 Note that you can use our Python project to automatically generate ergo themes from arbitrary Base 16 color schemes like those found on [Tinted Gallery](https://tinted-theming.github.io/tinted-gallery/).
 
-TODO (Add syntax for adding colors to custom envs)
+If you want to define your own enviroments mentioned in the **Environments** you must add information for how to color it.
+This is done through the `id` positional argument on `ergo-solution` and `ergo-statement`.
+The id is used to match the value in the `json` file.
+If you want to add your own id you will have to format it in the following way:
+
+```json
+{
+  ...,
+  "custom-proof": {
+    "type": "proof",
+    "bgcolor1": "#ffffff",
+    "bgcolor2": "#bbbbbb",
+    "strokecolor1": "#000000",
+    "strokecolor2": "#000000"
+  },
+  "custom-statement": {
+    "type": "statement",
+    "bgcolor": "#bbbbbb",
+    "strokecolor": "#000000"
+  },
+  ...
+}
+```
+
+Note the `type` is important here as it determines which color values you will have to supply for this package to view your dictionary as a valid color scheme.
+If you want examples check out `tests/custom.json`.
 
 #### Custom Styles
 
-TODO
+Although more complicated, we do support your own styles.
+```typ
+#import "@preview/ergo:0.2.0": *
+
+#show: ergo-init.with(styles: my-custom-styles)
+```
+
+You must pass in a dictionary with **only** keys `solution` and `statement`.
+Their values should be functions with the following structure (return value should be content):
+
+```typ
+#let custom-solution(
+  title,
+  statement,
+  proof-statement,
+  colors,
+  ..argv
+) = { ... }
+
+#let custom-statement(
+  title,
+  statement,
+  colors,
+  ..argv
+) = { ... }
+
+#let custom-styles = (
+  "solution": custom-solution,
+  "statement": custom-statement,
+)
+```
+
+Refer to `src/style/` for examples in our presets.
 
 #### Extras
 
@@ -375,7 +442,7 @@ There are a few extra functions and macros that may be of interest:
 - `correction(body)` — Content with red text, useful for correcting a previous assignment
 - `bookmark(title, info)` — Add additional information with small box. Particularly useful for recording dates and times
 - `equation-box(equation)` (`eqbox(equation)`) — Box an equation
-- `ergo-title-selector` — A selector controlling the style of the headers in the blocks
+- `ergo-title-selector` — A selector controlling the style of the blocks
 
 ## Local Installation (MacOS / Linux)
 
