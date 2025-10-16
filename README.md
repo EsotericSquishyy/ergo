@@ -151,13 +151,13 @@ The arguments are all positional, but `name` is optional, meaning either of thes
 
 If you wish to state a result without giving a proof, you can leave proof as an empty content block `[]`.
 
-All of these environments (regardless of type) share a set of (optional) keyword arguments including `width` (default: `100%`) and `height` (default: `auto`) along with several other settings listed below.
+All of these environments (regardless of type) share a set of (optional) keyword arguments, including `width` (default: `100%`) and `height` (default: `auto`), along with several other settings listed below.
 
 Also, the `problem` environment includes an automatic counter if no title is passed in, which can be helpful when working on homework assignments.
 
-> If these environments aren't enough `ergo-solution` and `ergo-statement` are used to define all of these presets in `src/presets.typ` and are exposed functions so you can define your own presets.
+> If these environments aren't enough, `ergo-solution` and `ergo-statement` are used to define all of these presets in `src/presets.typ`, and are exposed functions, so you can define your own presets.
 >
-> Note you will have to define a colors for these new environments which is details below in the **Custom Color Schemes** section.
+> Note that you will have to define colors for these new environments, which is detailed below in the **Custom Color Schemes** section.
 
 ### Themes and Colors
 
@@ -168,7 +168,7 @@ The valid arguments are the following:
 - `styles` (default: `ergo-styles.tab1`) — style of theme (refer to **Styles** table for valid arguments)
 - `breakable` (default: `false`) — whether the environments are breakable across page boundaries
 - `inline-qed` (default: `false`) — whether the Q.E.D square is inline or right aligned in proof environments (only affects _solution_ type environments)
-- `prob-nums` (default: `true`) — whether problem environments have a numbering system (only affects `problem` at the moment)
+- `prob-nums` (default: `true`) — whether problem environments have a numbering system (only affects `problem`)
 
 
 ```typ
@@ -326,7 +326,7 @@ The valid arguments are the following:
 </table>
 
 <table>
-    <caption><strong>Header Styles (values for <code>styles</code>)</strong></caption>
+    <caption><strong>Styles (values for <code>styles</code>)</strong></caption>
     <tr>
         <td><code>tab1</code></td>
         <td>Default style, rounded</td>
@@ -372,10 +372,10 @@ Refer to existing color schemes in `src/color/` for information on valid fields.
 We support RGB and RGBA in hex format (i.e. `"#ffffff"` or `"#ffffffff"`).
 Note that you can use our Python project to automatically generate ergo themes from arbitrary Base 16 color schemes like those found on [Tinted Gallery](https://tinted-theming.github.io/tinted-gallery/).
 
-If you want to define your own enviroments mentioned in the **Environments** you must add information for how to color it.
-This is done through the `id` positional argument on `ergo-solution` and `ergo-statement`.
-The id is used to match the value in the `json` file.
-If you want to add your own id you will have to format it in the following way:
+If you want to define your own environments, you must add information for how to color it.
+This is done through the `id` positional argument in `ergo-solution` and `ergo-statement`.
+The `id` is used to match the value in the `json` file.
+If you want to add your own `id`, you will have to format it in the following way:
 
 ```json
 {
@@ -396,19 +396,19 @@ If you want to add your own id you will have to format it in the following way:
 }
 ```
 
-Note the `type` is important here as it determines which color values you will have to supply for this package to view your dictionary as a valid color scheme.
-If you want examples check out `tests/custom.json`.
+Note the `type` is important here, as it determines which color values you will have to supply for this package to view your dictionary as a valid color scheme.
+If you want examples, check out `tests/custom.json`.
 
 #### Custom Styles
 
-Although more complicated, we do support your own styles.
+Although more complicated, we do support custom styles.
 ```typ
 #import "@preview/ergo:0.2.0": *
 
 #show: ergo-init.with(styles: my-custom-styles)
 ```
 
-You must pass in a dictionary with **only** keys `solution` and `statement`.
+You must pass in a dictionary with **only** the keys `solution` and `statement`.
 Their values should be functions with the following structure (return value should be content):
 
 ```typ

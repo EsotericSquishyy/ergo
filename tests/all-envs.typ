@@ -39,7 +39,7 @@
   #lorem(100)
 ]
 
-#lemma[
+#lemma(colors: ergo-colors.gruvbox-dark-medium)[
   Lemma name
 ][
   #lorem(100)
