@@ -9,4 +9,4 @@ repository = "https://github.com/EsotericSquishyy/ergo"
 description = "Customizable environments for note taking and homework assignments, designed for students in math, CS and physics."
 disciplines = ["mathematics", "computer-science", "physics"]
 license = "MIT-0"
-exclude = [ "gallery/*", "common/*" ]
+exclude = [ "gallery/*", "common/*", "tests/*" ]

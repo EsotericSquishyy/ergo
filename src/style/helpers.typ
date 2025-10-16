@@ -51,7 +51,6 @@
     title-content = [#emph[#title-content]]
   }
 
-
   title-content = [#title-content#ergo-title-selector]
 
   if pad-env {

@@ -9,7 +9,6 @@
     } else {
       text(fill: color, weight: "bold")[Proof: ]
     }
-
   } else if title-style == "parens" {
     emph[Proof. ]
   } else {
@@ -30,7 +29,6 @@
     } else {
       text(fill: color, weight: "bold")[Solution: ]
     }
-
   } else if title-style == "parens" {
     emph[Solution. ]
   } else {

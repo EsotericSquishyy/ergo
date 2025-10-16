@@ -1,4 +1,17 @@
-#let ergo-colors-names = read("./valid-schemes.txt").trim().split("\n")
+#let ergo-colors-names = (
+  "bootstrap",
+  "bw",
+  "dracula",
+  "eighties",
+  "equilibrium-gray-light",
+  "gruvbox-dark-medium",
+  "lime",
+  "measured-light",
+  "penumbra-light",
+  "primer-light",
+  "terracotta",
+  "woodland",
+)
 #let ergo-colors = (:)
 
 // Initialize colors
