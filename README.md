@@ -87,7 +87,7 @@ Refer to `gallery/` for more examples.
 
 ### Environments
 
-`Ergo` has three different types of environments: _proofs_, _statements_, and _problems_.
+`Ergo` has two different types of environments: _solutions_ and _statements_.
 
 <table>
     <tr>
@@ -96,7 +96,7 @@ Refer to `gallery/` for more examples.
         <td><b>Environments</b></td>
     </tr>
     <tr>
-        <td>Proof</td>
+        <td>Solution</td>
         <td>
             <ol>
                 <li><code>name</code></li>
@@ -110,6 +110,8 @@ Refer to `gallery/` for more examples.
                 <li><code>lemma</code> (<code>lem</code>)</li>
                 <li><code>corollary</code> (<code>cor</code>)</li>
                 <li><code>proposition</code> (<code>prop</code>)</li>
+                <li><code>problem</code> (<code>prob</code>)</li>
+                <li><code>exercise</code> (<code>excs</code>)</li>
             </ul>
         </td>
     </tr>
@@ -135,22 +137,6 @@ Refer to `gallery/` for more examples.
             </ul>
         </td>
     </tr>
-    <tr>
-        <td>Problem</td>
-        <td>
-            <ol>
-                <li><code>name</code></li>
-                <li><code>statement</code></li>
-                <li><code>solution</code></li>
-            </ol>
-        </td>
-        <td>
-            <ul>
-                <li><code>problem</code> (<code>prob</code>)</li>
-                <li><code>exercise</code> (<code>excs</code>)</li>
-            </ul>
-        </td>
-    </tr>
 </table>
 
 The arguments are all positional, but `name` is optional, meaning either of these work:
@@ -171,7 +157,7 @@ All of these environments (regardless of type) share a set of (optional) keyword
 - `width` (default: `100%`) — width of the current environment in its scope
 - `height` (default: `auto`) — height of the current environment in its scope
 
-Also, the `problem` environment includes an automatic counter if no title is passed in, which can be helpful when working on homework assignments.
+Also, the `problem` and `exercise` environments includes an automatic counter if no title is passed in, which can be helpful when working on homework assignments.
 
 ### Themes and Colors
 
@@ -375,6 +361,8 @@ One way to do this is to define your scheme with `json`:
 Refer to existing color schemes in `src/color/` for information on valid fields.
 We support RGB and RGBA in hex format (i.e. `"#ffffff"` or `"#ffffffff"`).
 Note that you can use our Python project to automatically generate ergo themes from arbitrary Base 16 color schemes like those found on [Tinted Gallery](https://tinted-theming.github.io/tinted-gallery/).
+
+TODO (Add syntax for adding colors to custom envs)
 
 #### Custom Styles
 

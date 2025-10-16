@@ -30,12 +30,12 @@
   inline-qed:   false,
   prob-nums:    true,
 ) = context {
-  if type(colors) == dictionary and valid-colors(colors) {
+  if valid-colors(colors) {
     colors-state.update(colors)
   } else {
     panic("Unrecognized or invalid color")
   }
-  if type(styles) == dictionary and valid-styles(styles) {
+  if valid-styles(styles) {
     styles-state.update(styles)
   } else {
     panic("Unrecognized or invalid styles")
@@ -128,8 +128,11 @@
   preheader,
   id,
   is-proof,
-  inline-qed: none,
+  colors:     none,
+  styles:     none,
   breakable:  none,
+  inline-qed: none,
+  prob-nums:  none,
   width:      100%,
   height:     auto,
   ..argv
@@ -148,17 +151,18 @@
   let statement-body = if argc == 2 {args.at(0)} else {args.at(1)}
   let solution-body  = if argc == 2 {args.at(1)} else {args.at(2)}
 
-  let styles = styles-state.get()
-  let colors = colors-state.get()
+  let new-styles  = if valid-styles(styles) { styles } else { styles-state.get() }
+  let new-colors  = if valid-colors(colors) { colors } else { colors-state.get() }
   let colors-dict = (
-    "env": get-colors(colors, id),
-    "opt": get-opts-colors(colors),
-    "raw": get-ratio(colors, "raw", "saturation")
+    "env": get-colors(new-colors, id),
+    "opt": get-opts-colors(new-colors),
+    "raw": get-ratio(new-colors, "raw", "saturation")
   )
 
-  let new-inline-qed = if type(inline-qed) == bool { inline-qed } else { inline-qed-state.get() }
   let new-breakable  = if type(breakable)  == bool { breakable }  else { breakable-state.get()  }
-  let new-prob-nums  = not is-proof and prob-nums-state.get()  // condition will change in future
+  let new-inline-qed = if type(inline-qed) == bool { inline-qed } else { inline-qed-state.get() }
+  let new-prob-nums  = if type(prob-nums)  == bool { prob-nums }  else { prob-nums-state.get() }
+  new-prob-nums  = not is-proof and new-prob-nums
 
   let child-argv = arguments(
     preheader:  preheader,
@@ -172,7 +176,7 @@
     ..kwargs
   )
 
-  return (styles.solution)(
+  return (new-styles.solution)(
       title,
       statement-body,
       solution-body,
@@ -187,6 +191,8 @@
 #let ergo-statement(
   preheader,
   id,
+  colors:     none,
+  styles:     none,
   breakable:  none,
   width:      100%,
   height:     auto,
@@ -205,12 +211,12 @@
   let title          = if argc == 2 {args.at(0)} else {[]}
   let statement-body = if argc == 1 {args.at(0)} else {args.at(1)}
 
-  let styles = styles-state.get()
-  let colors = colors-state.get()
+  let new-styles  = if valid-styles(styles) { styles } else { styles-state.get() }
+  let new-colors  = if valid-colors(colors) { colors } else { colors-state.get() }
   let colors-dict = (
-    "env": get-colors(colors, id),
-    "opt": get-opts-colors(colors),
-    "raw": get-ratio(colors, "raw", "saturation")
+    "env": get-colors(new-colors, id),
+    "opt": get-opts-colors(new-colors),
+    "raw": get-ratio(new-colors, "raw", "saturation")
   )
 
   let new-breakable = if type(breakable) == bool { breakable } else { breakable-state.get() }
@@ -224,7 +230,7 @@
     ..kwargs
   )
 
-  return (styles.statement)(
+  return (new-styles.statement)(
     title,
     statement-body,
     colors-dict,

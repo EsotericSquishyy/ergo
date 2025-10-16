@@ -8,6 +8,8 @@
 
 // Checks if dict is valid colorscheme
 #let valid-colors(colors) = {
+  if type(colors) != dictionary { return false }
+
   let proof-envs = (
     "theorem",
     "lemma",
