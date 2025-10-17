@@ -1,4 +1,4 @@
-#import "helpers.typ": (
+#import "../helpers.typ": (
   problem-counter,
   highlight-raw,
   get-title-content,
@@ -14,10 +14,9 @@
   colors,
   ..argv
 ) = {
-  let kwargs       = argv.named()
-  let bgcolor      = rgb(colors.env.bgcolor1)
-  let strokecolor1 = rgb(colors.env.strokecolor1)
-  let strokecolor2 = rgb(colors.env.strokecolor2)
+  let kwargs      = argv.named()
+  let bgcolor     = rgb(colors.env.bgcolor1)
+  let strokecolor = rgb(colors.env.strokecolor1)
 
   show raw.where(block: false): r => highlight-raw(r, bgcolor.saturate(colors.raw))
 
@@ -25,47 +24,28 @@
     kwargs.preheader,
     title,
     is-proof: kwargs.is-proof,
-    prob-nums: kwargs.prob-nums,
+    prob-nums: kwargs.prob-nums
   )
   let statement-content = get-statement-content(statement-body)
+  let solution-content  = get-solution-content(
+    solution-body,
+    kwargs.is-proof,
+    kwargs.inline-qed,
+  )
 
-  let solution-block = if solution-body == [] {
-    []
-  } else {
-    let solution-content  = get-solution-content(
-      solution-body,
-      kwargs.is-proof,
-      kwargs.inline-qed,
-      sol-color: strokecolor2,
-    )
-
-    block(
-      stroke:     (left: strokecolor2 + 4pt),
-      inset:      -3pt,
-      width:      kwargs.width,
-      height:     kwargs.height,
-      breakable:  kwargs.breakable,
-      solution-content
-    )
-  }
-
-
-  stack(
-    block(
-      stroke:     (left: strokecolor1 + 3pt),
-      fill:       bgcolor,
-      inset:      (y: 4pt),
-      width:      kwargs.width,
-      height:     kwargs.height,
-      breakable:  kwargs.breakable,
-      clip:       true,
-      stack(
-        text(strokecolor1)[#title-content],
-        statement-content,
-      ),
+  block(
+    stroke:     (left: strokecolor + 3pt),
+    fill:       bgcolor,
+    inset:      (y: 4pt),
+    width:      kwargs.width,
+    height:     kwargs.height,
+    breakable:  kwargs.breakable,
+    clip:       true,
+    stack(
+      text(strokecolor)[#title-content],
+      statement-content,
+      solution-content,
     ),
-    solution-block,
-    spacing: if solution-body == [] {none} else {13pt},
   )
 }
 

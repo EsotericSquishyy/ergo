@@ -13,7 +13,8 @@ def make_stripe_svg(
         color_scheme: Base16ColorScheme,
         file_stem:    str,
         width:        int = 1200,
-        height:       int = 160) -> None:
+        height:       int = 160
+) -> None:
     color_count = len(color_scheme.colors)
     parts = [
         '<svg xmlns="http://www.w3.org/2000/svg" '

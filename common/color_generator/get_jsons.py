@@ -5,7 +5,7 @@ import json
 from models import ErgoColorScheme, StatementEnv, ProofEnv, EnvOpts, RawOpts, Base16ColorScheme, Color
 
 
-COLORSCHEME_DIR = Path("../../src/color")
+COLORSCHEME_DIR = Path("../../src/color/templates")
 DARKEN_PCT = 0.5
 
 
@@ -13,7 +13,8 @@ def create_ergo_scheme(color_scheme: Base16ColorScheme) -> ErgoColorScheme:
     def base_statement_env(base_color: Color) -> StatementEnv:
         bgcolor = color_scheme.PRIMARY2
         if color_scheme.is_light:
-            bgcolor = bgcolor.lighten(0.2)
+            bgcolor = base_color.lighten(0.5)
+            # bgcolor = bgcolor.lighten(0.2)
         # else:
         #   bgcolor = bgcolor.lighten(0.02)
 
@@ -26,8 +27,10 @@ def create_ergo_scheme(color_scheme: Base16ColorScheme) -> ErgoColorScheme:
         bgcolor1 = color_scheme.PRIMARY2
         bgcolor2 = color_scheme.PRIMARY3
         if color_scheme.is_light:
-            bgcolor1 = bgcolor1.lighten(0.2)
-            bgcolor2 = bgcolor2.lighten(0.2)
+            bgcolor1 = base_color.lighten(0.5)
+            bgcolor2 = base_color.lighten(0.3)
+            # bgcolor1 = bgcolor1.lighten(0.2)
+            # bgcolor2 = bgcolor2.lighten(0.2)
         # else:
         #   bgcolor1 = bgcolor1.lighten(0.02)
         #   bgcolor2 = bgcolor2.lighten(0.02)

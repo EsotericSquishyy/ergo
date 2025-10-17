@@ -10,7 +10,7 @@
 
 // Initialize default styles
 #for styles-name in ergo-styles-names {
-  import styles-name + ".typ": custom-solution, custom-statement
+  import "templates/" + styles-name + ".typ": custom-solution, custom-statement
   ergo-styles.insert(styles-name, (
     "solution":  custom-solution,
     "statement": custom-statement,

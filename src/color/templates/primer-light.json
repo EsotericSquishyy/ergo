@@ -12,74 +12,74 @@
     "strokecolor": "#9e2833"
   },
   "theorem": {
-    "bgcolor1": "#e7eaed",
-    "bgcolor2": "#dbdee2",
+    "bgcolor1": "#f5c1da",
+    "bgcolor2": "#f19fc9",
     "strokecolor1": "#ac347c",
     "strokecolor2": "#ea4aaa"
   },
   "lemma": {
-    "bgcolor1": "#e7eaed",
-    "bgcolor2": "#dbdee2",
+    "bgcolor1": "#ffeabf",
+    "bgcolor2": "#ffe19c",
     "strokecolor1": "#bc9b2a",
     "strokecolor2": "#ffd33d"
   },
   "corollary": {
-    "bgcolor1": "#e7eaed",
-    "bgcolor2": "#dbdee2",
+    "bgcolor1": "#f5c1da",
+    "bgcolor2": "#f19fc9",
     "strokecolor1": "#ac347c",
     "strokecolor2": "#ea4aaa"
   },
   "proposition": {
-    "bgcolor1": "#e7eaed",
-    "bgcolor2": "#dbdee2",
+    "bgcolor1": "#ecbfc1",
+    "bgcolor2": "#e49b9f",
     "strokecolor1": "#9e2833",
     "strokecolor2": "#d73a49"
   },
   "note": {
-    "bgcolor": "#e7eaed",
+    "bgcolor": "#bcc6ec",
     "strokecolor": "#02499d"
   },
   "definition": {
-    "bgcolor": "#e7eaed",
+    "bgcolor": "#cbdfff",
     "strokecolor": "#5786bc"
   },
   "remark": {
-    "bgcolor": "#e7eaed",
+    "bgcolor": "#bcc6ec",
     "strokecolor": "#02499d"
   },
   "notation": {
-    "bgcolor": "#e7eaed",
+    "bgcolor": "#bcc6ec",
     "strokecolor": "#02499d"
   },
   "example": {
-    "bgcolor": "#e7eaed",
+    "bgcolor": "#bdd9c0",
     "strokecolor": "#1a7a30"
   },
   "concept": {
-    "bgcolor": "#e7eaed",
+    "bgcolor": "#cbdfff",
     "strokecolor": "#5786bc"
   },
   "computational-problem": {
-    "bgcolor": "#e7eaed",
+    "bgcolor": "#cbdfff",
     "strokecolor": "#5786bc"
   },
   "algorithm": {
-    "bgcolor": "#e7eaed",
+    "bgcolor": "#ecbfc1",
     "strokecolor": "#9e2833"
   },
   "runtime": {
-    "bgcolor": "#e7eaed",
+    "bgcolor": "#bcc6ec",
     "strokecolor": "#02499d"
   },
   "problem": {
-    "bgcolor1": "#e7eaed",
-    "bgcolor2": "#dbdee2",
+    "bgcolor1": "#bdd9c0",
+    "bgcolor2": "#98c79e",
     "strokecolor1": "#1a7a30",
     "strokecolor2": "#28a745"
   },
   "exercise": {
-    "bgcolor1": "#e7eaed",
-    "bgcolor2": "#dbdee2",
+    "bgcolor1": "#fbc7bc",
+    "bgcolor2": "#f9aa95",
     "strokecolor1": "#b54c05",
     "strokecolor2": "#f66a0a"
   },

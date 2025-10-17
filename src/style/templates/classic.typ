@@ -1,4 +1,4 @@
-#import "helpers.typ": (
+#import "../helpers.typ": (
   problem-counter,
   highlight-raw,
   get-title-content,

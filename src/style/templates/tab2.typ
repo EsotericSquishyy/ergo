@@ -1,4 +1,4 @@
-#import "helpers.typ": (
+#import "../helpers.typ": (
   problem-counter,
   highlight-raw,
   get-title-content,
@@ -22,7 +22,12 @@
 
   show raw.where(block: false): r => highlight-raw(r, bgcolor1.saturate(colors.raw))
 
-  let title-content = get-title-content(kwargs.preheader, title, is-proof: kwargs.is-proof, prob-nums: kwargs.prob-nums)
+  let title-content = get-title-content(
+    kwargs.preheader,
+    title,
+    is-proof: kwargs.is-proof,
+    prob-nums: kwargs.prob-nums
+  )
 
   title-content = block(
     fill:   strokecolor1,
@@ -30,37 +35,45 @@
     text(rgb(colors.opt.text2))[#title-content]
   )
 
-  let statement-content = get-statement-content(
+  let statement-content = get-statement-content(statement-body)
+
+  let solution-block = if solution-body == [] {
+    []
+  } else {
+    let solution-content  = get-solution-content(
+      solution-body,
+      kwargs.is-proof,
+      kwargs.inline-qed,
+      sol-color: strokecolor2,
+    )
+
     block(
-      fill:   bgcolor2,
-      inset:  8pt,
-      radius: 2pt,
-      width:  100%,
-      stroke: (left: strokecolor2 + 6pt),
-      statement-body
+      stroke:     (left: strokecolor2 + 4pt),
+      inset:      -3pt,
+      width:      kwargs.width,
+      height:     kwargs.height,
+      breakable:  kwargs.breakable,
+      solution-content
     )
-  )
+  }
 
-  let solution-content = get-solution-content(
-    solution-body,
-    kwargs.is-proof,
-    kwargs.inline-qed,
-  )
-
-  block(
-    stroke:     strokecolor1,
-    fill:       bgcolor1,
-    inset:      (bottom: 4pt),
-    width:      kwargs.width,
-    height:     kwargs.height,
-    breakable:  kwargs.breakable,
-    radius:     6pt,
-    clip:       true,
-    stack(
-      title-content,
-      statement-content,
-      solution-content,
-    )
+  stack(
+    block(
+      stroke:     strokecolor1,
+      fill:       bgcolor1,
+      inset:      (bottom: 4pt),
+      width:      kwargs.width,
+      height:     kwargs.height,
+      breakable:  kwargs.breakable,
+      radius:     6pt,
+      clip:       true,
+      stack(
+        title-content,
+        statement-content,
+      )
+    ),
+    solution-block,
+    spacing: if solution-body == [] {none} else {13pt},
   )
 }
 
