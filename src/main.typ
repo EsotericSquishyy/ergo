@@ -1,20 +1,13 @@
 #import "color/color.typ": (
-  env-colors,
+  ergo-colors,
   valid-colors,
   get-ratio,
   get-colors,
   get-opts-colors,
 )
-#import "theme/helpers.typ": ergo-title-selector
-#import "theme/theme.typ": (
-  env-headers,
-  valid-headers,
-  tab-proof-env,
-  tab-statement-env,
-  classic-proof-env,
-  classic-statement-env,
-  sidebar-proof-env,
-  sidebar-statement-env,
+#import "style/style.typ": (
+  ergo-styles,
+  valid-styles,
 )
 
 
@@ -23,49 +16,51 @@
 
 
 //-----Setup-----//
-#let all-breakable-toggle = state("all-breakable-toggle", false)
-#let inline-qed-toggle    = state("inline-qed-toggle", false)
-#let prob-nums-toggle     = state("prob-nums-toggle", false)
+#let colors-state        = state("colors-state",      ergo-colors.bootstrap)
+#let styles-state        = state("styles-state",      ergo-styles.tab2)
+#let breakable-state     = state("breakable-state",   false)
+#let inline-qed-state    = state("inline-qed-state",  false)
+#let prob-nums-state     = state("prob-nums-state",   true)
 
 #let ergo-init(
   body,
-  colors:         "bootstrap",
-  headers:        "tab",
-  all-breakable:  false,
-  inline-qed:     false,
-  prob-nums:      true,
+  colors:       ergo-colors.bootstrap,
+  styles:       ergo-styles.tab1,
+  breakable:    false,
+  inline-qed:   false,
+  prob-nums:    true,
 ) = context {
-  if type(colors) == str and valid-colors(colors) {
-    env-colors.update(colors)
+  if valid-colors(colors) {
+    colors-state.update(colors)
   } else {
     panic("Unrecognized or invalid color")
   }
-  if type(headers) == str and valid-headers(headers) {
-    env-headers.update(headers)
+  if valid-styles(styles) {
+    styles-state.update(styles)
   } else {
-    panic("Unrecognized or invalid header style")
+    panic("Unrecognized or invalid styles")
   }
-  if type(all-breakable) == bool {
-    all-breakable-toggle.update(all-breakable)
+  if type(breakable) == bool {
+    breakable-state.update(breakable)
   } else {
     panic("Non boolean passed to boolean")
   }
   if type(inline-qed) == bool {
-    inline-qed-toggle.update(inline-qed)
+    inline-qed-state.update(inline-qed)
   } else {
     panic("Non boolean passed to boolean")
   }
   if type(prob-nums) == bool {
-    prob-nums-toggle.update(prob-nums)
+    prob-nums-state.update(prob-nums)
   } else {
     panic("Non boolean passed to boolean")
   }
 
-  let opts-colors  = get-opts-colors(env-colors.get())
+  let opts-colors  = get-opts-colors(colors-state.get())
 
-  let bg-color     = rgb(opts-colors.at("fill"))
-  let t1-color     = rgb(opts-colors.at("text1"))
-  let t2-color     = rgb(opts-colors.at("text2"))
+  let fill-color   = rgb(opts-colors.at("fill"))
+  let text1-color  = rgb(opts-colors.at("text1"))
+  let text2-color  = rgb(opts-colors.at("text2"))
   let h1-color     = rgb(opts-colors.at("h1"))
   let h2-color     = rgb(opts-colors.at("h2"))
   let strong-color = rgb(opts-colors.at("strong"))
@@ -74,8 +69,8 @@
   show heading.where(level: 1): set text(fill: h1-color)
   show heading.where(level: 2): set text(fill: h2-color)
 
-  set text(t1-color)
-  set page(fill: bg-color)
+  set text(text1-color)
+  set page(fill: fill-color)
 
   body
 }
@@ -85,20 +80,15 @@
 
 
 
-//-----Misc-----//
-#let correction(body) = {
-  text(fill: rgb("#ea4120"), weight: "semibold", body)
-}
-
+//-----Environments-----//
 #let bookmark(
   title,
   info,
 ) = context {
-  let theme       = env-colors.get()
-  let colors      = get-colors(theme, "bookmark")
-
-  let bgcolor     = rgb(colors.at("bgcolor"))
-  let strokecolor = rgb(colors.at("strokecolor"))
+  let colors          = colors-state.get()
+  let bookmark-colors = get-colors(colors, "bookmark")
+  let bgcolor         = rgb(bookmark-colors.at("bgcolor"))
+  let strokecolor     = rgb(bookmark-colors.at("strokecolor"))
 
   block(
     fill: bgcolor,
@@ -114,12 +104,15 @@
   )
 }
 
+
+
+
 #let equation-box(
   equation,
 ) = context {
-  let theme   = env-colors.get()
-  let colors  = get-opts-colors(theme)
-  let text1   = rgb(colors.at("text1"))
+  let colors      = colors-state.get()
+  let opts-colors = get-opts-colors(colors)
+  let text1       = rgb(opts-colors.at("text1"))
 
   align(center)[
     #rect(stroke: text1)[
@@ -131,21 +124,22 @@
 
 
 
-
-//-----Theorem Environments-----//
-#let proof-env(
-  kind,
+#let ergo-solution(
+  preheader,
   id,
-  problem,
-  inline-qed: none,
+  is-proof,
+  colors:     none,
+  styles:     none,
   breakable:  none,
+  inline-qed: none,
+  prob-nums:  none,
   width:      100%,
   height:     auto,
   ..argv
 ) = context {
-  let args    = argv.pos()
-  let argc    = args.len()
-  let kwargs  = argv.named() // passed to child function
+  let args   = argv.pos()
+  let argc   = args.len()
+  let kwargs = argv.named()  // passed to child function
 
   if argc < 2 {
     panic("Must pass in at least two positional arguments")
@@ -153,105 +147,52 @@
     panic("Must pass in at most 3 positional arguments")
   }
 
-  let name            = if argc == 3 {args.at(0)} else {[]}
-  let statement       = if argc == 2 {args.at(0)} else {args.at(1)}
-  let proof-statement = if argc == 2 {args.at(1)} else {args.at(2)}
+  let title          = if argc == 3 {args.at(0)} else {[]}
+  let statement-body = if argc == 2 {args.at(0)} else {args.at(1)}
+  let solution-body  = if argc == 2 {args.at(1)} else {args.at(2)}
 
-  let theme-name  = env-headers.get()
-  let color-name  = env-colors.get()
-  let colors      = (
-    "env": get-colors(color-name, id),
-    "opt": get-opts-colors(color-name),
-    "raw": get-ratio(color-name, "raw", "saturation")
+  let new-styles  = if valid-styles(styles) { styles } else { styles-state.get() }
+  let new-colors  = if valid-colors(colors) { colors } else { colors-state.get() }
+  let colors-dict = (
+    "env": get-colors(new-colors, id),
+    "opt": get-opts-colors(new-colors),
+    "raw": get-ratio(new-colors, "raw", "saturation")
   )
 
-  let new-breakable  = if type(breakable) == bool { breakable } else { all-breakable-toggle.get() }
-  let new-qed = if type(inline-qed) == bool { inline-qed } else { inline-qed-toggle.get() }
+  let new-breakable  = if type(breakable)  == bool { breakable }  else { breakable-state.get()  }
+  let new-inline-qed = if type(inline-qed) == bool { inline-qed } else { inline-qed-state.get() }
+  let new-prob-nums  = if type(prob-nums)  == bool { prob-nums }  else { prob-nums-state.get() }
+  new-prob-nums  = not is-proof and new-prob-nums
 
   let child-argv = arguments(
-    kind:       kind,
+    preheader:  preheader,
     id:         id,
-    inline-qed: new-qed,
+    inline-qed: new-inline-qed,
     breakable:  new-breakable,
-    prob-nums:  prob-nums-toggle.get(),
+    prob-nums:  new-prob-nums,
     width:      width,
     height:     height,
-    problem:    problem,
+    is-proof:   is-proof,
     ..kwargs
   )
 
-  if (theme-name == "tab") {
-    return tab-proof-env(
-      name,
-      statement,
-      proof-statement,
-      colors,
+  return (new-styles.solution)(
+      title,
+      statement-body,
+      solution-body,
+      colors-dict,
       ..child-argv
-    )
-  } else if (theme-name == "classic") {
-    return classic-proof-env(
-      name,
-      statement,
-      proof-statement,
-      colors,
-      ..child-argv
-    )
-  } else if (theme-name == "sidebar") {
-    return sidebar-proof-env(
-      name,
-      statement,
-      proof-statement,
-      colors,
-      ..child-argv
-    )
-  }
+  )
 }
 
-#let theorem = proof-env.with(
-  [Theorem],
-  "theorem",
-  false
-)
-
-#let lemma = proof-env.with(
-  [Lemma],
-  "lemma",
-  false
-)
-
-#let corollary = proof-env.with(
-  [Corollary],
-  "corollary",
-  false
-)
-
-#let proposition = proof-env.with(
-  [Proposition],
-  "proposition",
-  false
-)
-
-#let problem = proof-env.with(
-  [Problem],
-  "problem",
-  true
-)
-
-#let exercise = proof-env.with(
-  [Exercise],
-  "exercise",
-  true
-)
 
 
 
-
-
-
-//-----Definition Environments-----//
-#let statement-env(
-  kind,
+#let ergo-statement(
+  preheader,
   id,
+  colors:     none,
+  styles:     none,
   breakable:  none,
   width:      100%,
   height:     auto,
@@ -267,21 +208,21 @@
     panic("Muss pass in at most 2 positional arguments")
   }
 
-  let name      = if argc == 2 {args.at(0)} else {[]}
-  let statement = if argc == 1 {args.at(0)} else {args.at(1)}
+  let title          = if argc == 2 {args.at(0)} else {[]}
+  let statement-body = if argc == 1 {args.at(0)} else {args.at(1)}
 
-  let theme-name  = env-headers.get()
-  let color-name  = env-colors.get()
-  let colors      = (
-    "env": get-colors(color-name, id),
-    "opt": get-opts-colors(color-name),
-    "raw": get-ratio(color-name, "raw", "saturation")
+  let new-styles  = if valid-styles(styles) { styles } else { styles-state.get() }
+  let new-colors  = if valid-colors(colors) { colors } else { colors-state.get() }
+  let colors-dict = (
+    "env": get-colors(new-colors, id),
+    "opt": get-opts-colors(new-colors),
+    "raw": get-ratio(new-colors, "raw", "saturation")
   )
 
-  let new-breakable = if type(breakable) == bool { breakable } else { all-breakable-toggle.get() }
+  let new-breakable = if type(breakable) == bool { breakable } else { breakable-state.get() }
 
   let child-argv = arguments(
-    kind:      kind,
+    preheader: preheader,
     id:        id,
     breakable: new-breakable,
     width:     width,
@@ -289,72 +230,10 @@
     ..kwargs
   )
 
-  if (theme-name == "tab") {
-    return tab-statement-env(
-      name,
-      statement,
-      colors,
-      ..child-argv
-    )
-  } else if (theme-name == "classic") {
-    return classic-statement-env(
-      name,
-      statement,
-      colors,
-      ..child-argv
-    )
-  } else if (theme-name == "sidebar") {
-    return sidebar-statement-env(
-      name,
-      statement,
-      colors,
-      ..child-argv
-    )
-  }
+  return (new-styles.statement)(
+    title,
+    statement-body,
+    colors-dict,
+    ..child-argv
+  )
 }
-
-#let note = statement-env.with(
-  [Note],
-  "note"
-)
-
-#let definition = statement-env.with(
-  [Definition],
-  "definition"
-)
-
-#let remark = statement-env.with(
-  [Remark],
-  "remark"
-)
-
-#let notation = statement-env.with(
-  [Notation],
-  "notation"
-)
-
-#let example = statement-env.with(
-  [Example],
-  "example"
-)
-
-#let concept = statement-env.with(
-  [Concept],
-  "concept"
-)
-
-#let computational-problem = statement-env.with(
-  [Computational Problem],
-  "computational-problem"
-)
-
-#let algorithm = statement-env.with(
-  [Algorithm],
-  "algorithm"
-)
-
-#let runtime = statement-env.with(
-  [Runtime Analysis],
-  "runtime"
-)
-

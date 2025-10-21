@@ -5,3 +5,4 @@ TEST/
 */.venv/
 utils/scripts/*.yaml
 utils/scripts/*.json
+__pycache__/
