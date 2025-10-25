@@ -467,7 +467,7 @@ cat <<EOF > test.typ
 #import "@preview/ergo:0.2.0": *
 #show: ergo-init
 #defn[#lorem(5)][#lorem(50)]
-#EOF
+EOF
 
 typst compile test.typ
 ```
