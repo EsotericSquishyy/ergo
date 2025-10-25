@@ -452,10 +452,10 @@ There are a few extra functions and macros that may be of interest:
   Refer to the [Typst Packages](https://github.com/typst/packages) repository for more information.
 
 ```console
-$ git clone https://github.com/EsotericSquishyy/ergo
-$ cd ergo
-$ chmod +x common/scripts/setup.sh
-$ ./common/scripts/setup.sh
+git clone https://github.com/EsotericSquishyy/ergo
+cd ergo
+chmod +x common/scripts/setup.sh
+./common/scripts/setup.sh
 ```
 
 ### Testing
@@ -463,13 +463,13 @@ $ ./common/scripts/setup.sh
 Test whether the installation worked by running the following commands in an empty directory:
 
 ```console
-$ cat <<EOF > test.typ
+cat <<EOF > test.typ
 #import "@preview/ergo:0.2.0": *
 #show: ergo-init
 #defn[#lorem(5)][#lorem(50)]
 EOF
 
-$ typst compile test.typ
+typst compile test.typ
 ```
 
 The installation is successful if the file compiled without errors and `test.pdf` looks like this:
