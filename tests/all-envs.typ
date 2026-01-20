@@ -1,5 +1,17 @@
 #import "@local/ergo:0.2.0": *
-#show: ergo-init.with(colors: ergo-colors.terracotta, styles: ergo-styles.tab1)
+#show: ergo-init.with(colors: ergo-colors.penumbra-light, styles: ergo-styles.tab2)
+
+#prob[
+  statement
+]
+
+#excs[
+  statement
+][]
+
+#sol[
+  sol
+]
 
 = Misc
 

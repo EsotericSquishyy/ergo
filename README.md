@@ -149,7 +149,7 @@ The arguments are all positional, but `name` is optional, meaning either of thes
 #theorem[ name ][ statement ][ proof ]
 ```
 
-If you wish to state a result without giving a proof, you can leave proof as an empty content block `[]`.
+If you wish to state a result without giving a proof, you can leave proof as an empty content block `[]`, or omit it altogether.
 
 All of these environments (regardless of type) share a set of (optional) keyword arguments, including `width` (default: `100%`) and `height` (default: `auto`), along with several other settings listed below.
 

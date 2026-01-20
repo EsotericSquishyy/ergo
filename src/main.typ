@@ -141,15 +141,24 @@
   let argc   = args.len()
   let kwargs = argv.named()  // passed to child function
 
-  if argc < 2 {
-    panic("Must pass in at least two positional arguments")
-  } else if argc > 3 {
+  let title = []
+  let statement-body = []
+  let solution-body = []
+
+  if argc == 0 {
+    panic("Must pass in at least one positional arguments")
+  } else if argc == 1 {
+    statement-body = args.at(0)
+  } else if argc == 2 {
+    statement-body = args.at(0)
+    solution-body  = args.at(1)
+  } else if argc == 3 {
+    title          = args.at(0)
+    statement-body = args.at(1)
+    solution-body  = args.at(2)
+  } else {
     panic("Must pass in at most 3 positional arguments")
   }
-
-  let title          = if argc == 3 {args.at(0)} else {[]}
-  let statement-body = if argc == 2 {args.at(0)} else {args.at(1)}
-  let solution-body  = if argc == 2 {args.at(1)} else {args.at(2)}
 
   let new-styles  = if valid-styles(styles) { styles } else { styles-state.get() }
   let new-colors  = if valid-colors(colors) { colors } else { colors-state.get() }
