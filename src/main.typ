@@ -214,7 +214,7 @@
   if argc < 1 {
     panic("Must pass in at least one positional argument")
   } else if argc > 2 {
-    panic("Muss pass in at most 2 positional arguments")
+    panic("Must pass in at most 2 positional arguments")
   }
 
   let title          = if argc == 2 {args.at(0)} else {[]}
