@@ -28,14 +28,10 @@
   corollary,
   proposition,
   note,
+  warning,
   definition,
   remark,
-  notation,
   example,
-  concept,
-  computational-problem,
-  algorithm,
-  runtime,
   problem,
   exercise,
 )
@@ -50,11 +46,7 @@
 #let defn      = definition
 #let rem       = remark
 #let rmk       = remark
-#let notn      = notation
 #let ex        = example
-#let conc      = concept
-#let comp-prob = computational-problem
-#let algo      = algorithm
 
 #let prob      = problem
 #let excs      = exercise

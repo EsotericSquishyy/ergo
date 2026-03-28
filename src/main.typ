@@ -1,13 +1,15 @@
+#import "@preview/elembic:1.1.1" as e
+#import "@preview/oxifmt:1.0.0": strfmt
+
 #import "color/color.typ": (
-  ergo-colors,
-  valid-colors,
-  get-ratio,
-  get-colors,
-  get-opts-colors,
+  ergo-base-color,
+  ergo-color-scheme,
+  ergo-color-schemes,
+  get-document-theming,
 )
 #import "style/style.typ": (
+  ergo-style,
   ergo-styles,
-  valid-styles,
 )
 
 
@@ -16,63 +18,91 @@
 
 
 //-----Setup-----//
-#let colors-state        = state("colors-state",      ergo-colors.bootstrap)
-#let styles-state        = state("styles-state",      ergo-styles.tab2)
-#let breakable-state     = state("breakable-state",   false)
-#let inline-qed-state    = state("inline-qed-state",  false)
-#let prob-nums-state     = state("prob-nums-state",   true)
+// box-kinds enum construction
+#let box-kinds = (
+  "PROOF",
+  "SOLUTION",
+  "STATEMENT",
+)
+#let ergo-box-kind = e.types.union(..box-kinds)
+#let ergo-box-kinds = (:)
+#for box-kind in box-kinds {
+  ergo-box-kinds.insert(box-kind, box-kind)
+}
+
+#let ergo-config-state = state("ergo-config", (
+  color-scheme: ergo-color-schemes.bootstrap,
+  style:        ergo-styles.tab2,
+  breakable:    true,
+  inline-qed:   false,
+))
+
+// Unset state
+
+// The main reason we need this is that we can't read state while declaring an elembic type
+// so we need to defer identifying default values for particular arguments until actually
+// displaying them. It's also useful for avoiding having to define default values in ergo-init
+// twice.
+#let unset-param = e.types.declare(
+  "unset",
+  prefix: "@preview/ergo:0.3.0",
+  fields: (),
+)
+
+#let validate(value, target-type, name) = {
+  if e.types.is(value, ergo-unset) { return value }
+  let (ok, result) = e.types.cast(value, target-type)
+  if not ok { panic(strfmt("ergo-init: invalid {}: {}", name, result)) }
+
+  result
+}
+
+
+
 
 #let ergo-init(
   body,
-  colors:       ergo-colors.bootstrap,
-  styles:       ergo-styles.tab1,
-  breakable:    false,
-  inline-qed:   false,
-  prob-nums:    true,
+  color-scheme:           unset-param(),
+  style:                  unset-param(),
+  breakable:              unset-param(),
+  inline-qed:             unset-param(),
+  apply-document-theming: false,
 ) = context {
-  if valid-colors(colors) {
-    colors-state.update(colors)
-  } else {
-    panic("Unrecognized or invalid color")
-  }
-  if valid-styles(styles) {
-    styles-state.update(styles)
-  } else {
-    panic("Unrecognized or invalid styles")
-  }
-  if type(breakable) == bool {
-    breakable-state.update(breakable)
-  } else {
-    panic("Non boolean passed to boolean")
-  }
-  if type(inline-qed) == bool {
-    inline-qed-state.update(inline-qed)
-  } else {
-    panic("Non boolean passed to boolean")
-  }
-  if type(prob-nums) == bool {
-    prob-nums-state.update(prob-nums)
-  } else {
-    panic("Non boolean passed to boolean")
-  }
 
-  let opts-colors  = get-opts-colors(colors-state.get())
+  let validated-fields = (
+    color-scheme: validate(color-scheme, ergo-color-scheme, "color-scheme"),
+    style:        validate(style,        ergo-style,        "style"),
+    breakable:    validate(breakable,    bool,              "breakable"),
+    inline-qed:   validate(inline-qed,   bool,              "inline-qed"),
+  )
 
-  let fill-color   = rgb(opts-colors.at("fill"))
-  let text1-color  = rgb(opts-colors.at("text1"))
-  let text2-color  = rgb(opts-colors.at("text2"))
-  let h1-color     = rgb(opts-colors.at("h1"))
-  let h2-color     = rgb(opts-colors.at("h2"))
-  let strong-color = rgb(opts-colors.at("strong"))
+  ergo-config-state.update(old => {
+    let new = old
 
-  show strong: set text(fill: strong-color)
-  show heading.where(level: 1): set text(fill: h1-color)
-  show heading.where(level: 2): set text(fill: h2-color)
+    // note the implicit update here
+    for (key, value) in validated-fields {
+      if not e.types.is(value, unset-param) {
+        new.insert(key, value)
+      }
+    }
 
-  set text(text1-color)
-  set page(fill: fill-color)
+    new
+  })
 
-  body
+  if apply-document-theming {
+    let document-theming = get-document-theming(ergo-config-state.get().at("color-scheme"))
+
+    show strong: set text(fill: document-theming.at("strong"))
+    show heading.where(level: 1): set text(fill: document-theming.at("h1"))
+    show heading.where(level: 2): set text(fill: document-theming.at("h2"))
+
+    set text(fill: document-theming.at("text1"))
+    set page(fill: document-theming.at("fill"))
+
+    body
+  } else {
+    body
+  }
 }
 
 
@@ -124,42 +154,20 @@
 
 
 
-#let ergo-solution(
-  preheader,
+#let display-ergo-box(
   id,
-  is-proof,
-  colors:     none,
-  styles:     none,
-  breakable:  none,
-  inline-qed: none,
-  prob-nums:  none,
-  width:      100%,
-  height:     auto,
-  ..argv
+  base-color,
+  box-kind,
+  title,
+  statement,
+  solution,
+  color-scheme,
+  style,
+  inline-qed,
+  breakable,
+  width,
+  height,
 ) = context {
-  let args   = argv.pos()
-  let argc   = args.len()
-  let kwargs = argv.named()  // passed to child function
-
-  let title = []
-  let statement-body = []
-  let solution-body = []
-
-  if argc == 0 {
-    panic("Must pass in at least one positional arguments")
-  } else if argc == 1 {
-    statement-body = args.at(0)
-  } else if argc == 2 {
-    statement-body = args.at(0)
-    solution-body  = args.at(1)
-  } else if argc == 3 {
-    title          = args.at(0)
-    statement-body = args.at(1)
-    solution-body  = args.at(2)
-  } else {
-    panic("Must pass in at most 3 positional arguments")
-  }
-
   let new-styles  = if valid-styles(styles) { styles } else { styles-state.get() }
   let new-colors  = if valid-colors(colors) { colors } else { colors-state.get() }
   let colors-dict = (
@@ -186,63 +194,127 @@
   )
 
   return (new-styles.solution)(
-      title,
-      statement-body,
-      solution-body,
-      colors-dict,
-      ..child-argv
+    title,
+    statement-body,
+    solution-body,
+    colors-dict,
+    ..child-argv
   )
 }
 
+#let ergo-box(id, base-color, box-kind, ..argv) = context {
+  assert(argv.pos() == (), message: "ergo-box factory only accepts named arguments")
+  let factory-named = argv.named()
 
+  e.element.declare(
+    id,
+    prefix:  "@preview/ergo:0.3.0",
+    doc:     strfmt("Formats a {} statement.", id),
+    display: it => {
+      display-ergo-box(
+        id,
+        base-color,
+        box-kind,
+        it.title,
+        it.statement,
+        it.solution,
+        it.color-scheme,
+        it.style,
+        it.inline-qed,
+        it.breakable,
+        it.width,
+        it.height,
+      )
+    },
+    fields: (
+      e.field(
+        "title",
+        content,
+        doc: "The title of the box.",
+        default: none,
+      ),
+      e.field(
+        "statement",
+        content,
+        doc: "The statement of the box.",
+        required: true,
+      ),
+      e.field(
+        "solution",
+        content,
+        doc: "The proof or solution corresponding to the statement.",
+        default: none,
+      ),
+      e.field(
+        "color-scheme",
+        e.types.union(ergo-color-scheme, ergo-unset),
+        doc: "The box's color scheme.",
+        default: factory-named.at("color-scheme", default: unset-param()),
+      ),
+      e.field(
+        "style",
+        e.types.union(ergo-style, ergo-unset),
+        doc: "The box's style.",
+        default: factory-named.at("style", default: unset-param()),
+      ),
+      e.field(
+        "inline-qed",
+        e.types.union(bool, ergo-unset),
+        doc: "(Only when box-kind is proof) Whether the QED symbol is inline.",
+        default: factory-named.at("inline-qed", default: unset-param()),
+      ),
+      e.field(
+        "breakable",
+        e.types.union(bool, ergo-unset),
+        doc: "Whether the box can be broken and continue onto the next page.",
+        default: factory-named.at("breakable", default: unset-param()),
+      ),
+      e.field(
+        "width",
+        length,
+        doc: "The width of the box.",
+        default: factory-named.at("width", default: 100%),
+      ),
+      e.field(
+        "height",
+        length,
+        doc: "The height of the box.",
+        default: factory-named.at("height", default: auto),
+      ),
+    ),
+    parse-args: (default-parser, fields: none, typecheck: none) => (args, include-required: false) => {
+      if include-required {
+        let pos = args.pos()
+        let named = args.named()
 
+        let new-args = if box-kind == "STATEMENT" {
+          if pos.len() == 1 {
+            arguments(statement: pos.at(0), ..named)
+          } else if pos.len() == 2 {
+            arguments(title: pos.at(0), statement: pos.at(1), ..named)
+          } else {
+            return (false, strfmt("box '{}' of kind {}: expected 1-2 positional arguments, got {}", id, box-kind, str(pos.len())))
+          }
+        } else {
+          if pos.len() == 1 {
+            arguments(statement: pos.at(0), ..named)
+          } else if pos.len() == 2 {
+            arguments(statement: pos.at(0), solution: pos.at(1), ..named)
+          } else if pos.len() == 3 {
+            arguments(title: pos.at(0), statement: pos.at(1), solution: pos.at(2), ..named)
+          } else {
+            return (false, strfmt("box '{}' of kind {}: expected 1-3 positional arguments, got {}", id, box-kind, str(pos.len())))
+          }
+        }
 
-#let ergo-statement(
-  preheader,
-  id,
-  colors:     none,
-  styles:     none,
-  breakable:  none,
-  width:      100%,
-  height:     auto,
-  ..argv
-) = context {
-  let args    = argv.pos()
-  let argc    = args.len()
-  let kwargs  = argv.named() // passed to child function
-
-  if argc < 1 {
-    panic("Must pass in at least one positional argument")
-  } else if argc > 2 {
-    panic("Must pass in at most 2 positional arguments")
-  }
-
-  let title          = if argc == 2 {args.at(0)} else {[]}
-  let statement-body = if argc == 1 {args.at(0)} else {args.at(1)}
-
-  let new-styles  = if valid-styles(styles) { styles } else { styles-state.get() }
-  let new-colors  = if valid-colors(colors) { colors } else { colors-state.get() }
-  let colors-dict = (
-    "env": get-colors(new-colors, id),
-    "opt": get-opts-colors(new-colors),
-    "raw": get-ratio(new-colors, "raw", "saturation")
-  )
-
-  let new-breakable = if type(breakable) == bool { breakable } else { breakable-state.get() }
-
-  let child-argv = arguments(
-    preheader: preheader,
-    id:        id,
-    breakable: new-breakable,
-    width:     width,
-    height:    height,
-    ..kwargs
-  )
-
-  return (new-styles.statement)(
-    title,
-    statement-body,
-    colors-dict,
-    ..child-argv
+        default-parser(new-args, include-required: include-required)
+      } else {
+        // We are in a set rule
+        if args.pos() != () {
+          return (false, strfmt("box '{}': unexpected position argument(s) in set rule", id))
+        }
+        default-parser(args, include-required: include-required)
+      }
+    }
   )
 }
