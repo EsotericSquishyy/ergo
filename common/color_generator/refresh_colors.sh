@@ -8,7 +8,6 @@ ls ../../src/color/templates/*.json | grep -v -E "${CUSTOM_COLORS}" | xargs rm
 
 python get_themes.py
 python get_previews.py
-python get_jsons.py
 
 for file in ../../src/color/templates/*.json; do
   echo $(basename "$file" .json)

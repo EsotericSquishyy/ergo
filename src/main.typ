@@ -1,13 +1,19 @@
-#import "@preview/elembic:2.1.1" as e
+#import "@preview/elembic:1.1.1" as e
 #import "@preview/oxifmt:1.0.0": strfmt
 
 #import "color/color.typ": (
+  // Base enums
   ergo-base-color,
+  ergo-base-colors,
   ergo-color-scheme,
   ergo-color-schemes,
+
+  // Getters
   get-environment-theming,
   get-document-theming,
-  get-ratio,
+
+  // Higher order types
+  ergo-box-theming,
 )
 #import "style/style.typ": (
   ergo-style,
@@ -32,6 +38,7 @@
   ergo-box-kinds.insert(box-kind, box-kind)
 }
 
+// Configuration state, basically allowing us to have globals
 #let ergo-config-state = state("ergo-config", (
   color-scheme: ergo-color-schemes.bootstrap,
   style:        ergo-styles.tab2,
@@ -56,7 +63,7 @@
   let (ok, result) = e.types.cast(value, target-type)
   if not ok { panic(strfmt("ergo-init: invalid {}: {}", name, result)) }
 
-  result
+  return result
 }
 
 #let enforce-default(value, default) = {
@@ -93,18 +100,21 @@
       }
     }
 
-    new
+    return new
   })
 
+  // so that references work
+  show: e.prepare()
+
   if apply-document-theming {
-    let document-theming = get-document-theming(ergo-config-state.get().at("color-scheme"))
+    let document-theming = get-document-theming(ergo-config-state.get().color-scheme)
 
-    show strong: set text(fill: document-theming.at("strong"))
-    show heading.where(level: 1): set text(fill: document-theming.at("h1"))
-    show heading.where(level: 2): set text(fill: document-theming.at("h2"))
+    show strong: set text(fill: document-theming.strong)
+    show heading.where(level: 1): set text(fill: document-theming.h1)
+    show heading.where(level: 2): set text(fill: document-theming.h2)
 
-    set text(fill: document-theming.at("text1"))
-    set page(fill: document-theming.at("fill"))
+    set text(fill: document-theming.text1)
+    set page(fill: document-theming.fill)
 
     body
   } else {
@@ -122,10 +132,11 @@
   title,
   info,
 ) = context {
-  let colors          = colors-state.get()
-  let bookmark-colors = get-colors(colors, "bookmark")
-  let bgcolor         = rgb(bookmark-colors.at("bgcolor"))
-  let strokecolor     = rgb(bookmark-colors.at("strokecolor"))
+  let color-scheme     = ergo-config-state.get().color-scheme
+  let document-theming = get-document-theming(color-scheme)
+  let bookmark-theming = get-environment-colors(color-scheme, ergo-base-colors.RED)
+  let bgcolor          = document-theming.fill
+  let strokecolor      = bookmark-theming.strokecolor1
 
   block(
     fill: bgcolor,
@@ -147,9 +158,9 @@
 #let equation-box(
   equation,
 ) = context {
-  let colors      = colors-state.get()
-  let opts-colors = get-opts-colors(colors)
-  let text1       = rgb(opts-colors.at("text1"))
+  let color-scheme     = ergo-config-state.get().color-scheme
+  let document-theming = get-document-theming(color-scheme)
+  let text1            = document-theming.text1
 
   align(center)[
     #rect(stroke: text1)[
@@ -178,10 +189,10 @@
   let enforced-style        = enforce-default(style,        ergo-config-state.get().at("style"))
   let enforced-color-scheme = enforce-default(color-scheme, ergo-config-state.get().at("color-scheme"))
 
-  let colors = (
-    "environment":      get-environment-colors(enforced-color-scheme, base-color),
-    "document-theming": get-document-theming(enforced-color-scheme),
-    "raw":              get-ratio(enforced-color-scheme, "raw", "saturation"),
+  let colors = ergo-box-theming(
+    environment-theming: get-environment-colors(enforced-color-scheme, base-color),
+    document-theming:    get-document-theming(enforced-color-scheme),
+    raw:                 0.25
   )
 
   return (enforced-style.custom-box)(
@@ -198,7 +209,10 @@
   )
 }
 
-#let ergo-box(preheader, base-color, box-kind, ..argv) = context {
+#let ergo-box(preheader, base-color, box-kind, ..argv) = {
+  let validated-base-color = validate(base-color, ergo-base-color, "base-color")
+  let validated-box-kind   = validate(box-kind,   ergo-box-kind,   "box-kind")
+
   assert(argv.pos() == (), message: "ergo-box factory only accepts named arguments")
   let factory-named = argv.named()
 
@@ -209,8 +223,8 @@
     display: it => {
       display-ergo-box(
         preheader,
-        base-color,
-        box-kind,
+        validated-base-color,
+        validated-box-kind,
         it.title,
         it.statement,
         it.solution,
@@ -225,7 +239,7 @@
     fields: (
       e.field(
         "title",
-        content,
+        e.types.option(content),
         doc: "The title of the box.",
         default: none,
       ),
@@ -237,7 +251,7 @@
       ),
       e.field(
         "solution",
-        content,
+        e.types.option(content),
         doc: "The proof or solution corresponding to the statement.",
         default: none,
       ),
@@ -267,13 +281,13 @@
       ),
       e.field(
         "width",
-        length,  // TODO: can also be a ratio or auto
+        e.types.union(auto, relative),
         doc: "The width of the box.",
         default: factory-named.at("width", default: 100%),
       ),
       e.field(
         "height",
-        length,
+        e.types.union(auto, relative, fraction),
         doc: "The height of the box.",
         default: factory-named.at("height", default: auto),
       ),

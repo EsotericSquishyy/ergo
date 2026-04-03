@@ -3,17 +3,18 @@
   ergo-colors,
   ergo-styles,
 
-  // Misc.
-  bookmark,
-  equation-box,
-
   // Custom
-  ergo-solution,
-  ergo-statement,
+  ergo-box,
 )
 
 #import "src/style/helpers.typ": (
   ergo-title-selector,
+)
+
+// TODO: explicitly import ergo.presets to access all the below
+#import "src/main.typ": (
+  bookmark,
+  equation-box,
 )
 
 #import "src/style/cosmetic-envs.typ": (
