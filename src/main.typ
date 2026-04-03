@@ -1,11 +1,13 @@
-#import "@preview/elembic:1.1.1" as e
+#import "@preview/elembic:2.1.1" as e
 #import "@preview/oxifmt:1.0.0": strfmt
 
 #import "color/color.typ": (
   ergo-base-color,
   ergo-color-scheme,
   ergo-color-schemes,
+  get-environment-theming,
   get-document-theming,
+  get-ratio,
 )
 #import "style/style.typ": (
   ergo-style,
@@ -55,6 +57,11 @@
   if not ok { panic(strfmt("ergo-init: invalid {}: {}", name, result)) }
 
   result
+}
+
+#let enforce-default(value, default) = {
+  if e.types.is(value, ergo-unset) { return default }
+  return value
 }
 
 
@@ -155,7 +162,7 @@
 
 
 #let display-ergo-box(
-  id,
+  preheader,
   base-color,
   box-kind,
   title,
@@ -168,51 +175,40 @@
   width,
   height,
 ) = context {
-  let new-styles  = if valid-styles(styles) { styles } else { styles-state.get() }
-  let new-colors  = if valid-colors(colors) { colors } else { colors-state.get() }
-  let colors-dict = (
-    "env": get-colors(new-colors, id),
-    "opt": get-opts-colors(new-colors),
-    "raw": get-ratio(new-colors, "raw", "saturation")
+  let enforced-style        = enforce-default(style,        ergo-config-state.get().at("style"))
+  let enforced-color-scheme = enforce-default(color-scheme, ergo-config-state.get().at("color-scheme"))
+
+  let colors = (
+    "environment":      get-environment-colors(enforced-color-scheme, base-color),
+    "document-theming": get-document-theming(enforced-color-scheme),
+    "raw":              get-ratio(enforced-color-scheme, "raw", "saturation"),
   )
 
-  let new-breakable  = if type(breakable)  == bool { breakable }  else { breakable-state.get()  }
-  let new-inline-qed = if type(inline-qed) == bool { inline-qed } else { inline-qed-state.get() }
-  let new-prob-nums  = if type(prob-nums)  == bool { prob-nums }  else { prob-nums-state.get() }
-  new-prob-nums  = not is-proof and new-prob-nums
-
-  let child-argv = arguments(
-    preheader:  preheader,
-    id:         id,
-    inline-qed: new-inline-qed,
-    breakable:  new-breakable,
-    prob-nums:  new-prob-nums,
-    width:      width,
-    height:     height,
-    is-proof:   is-proof,
-    ..kwargs
-  )
-
-  return (new-styles.solution)(
-    title,
-    statement-body,
-    solution-body,
-    colors-dict,
-    ..child-argv
+  return (enforced-style.custom-box)(
+    preheader:    preheader,
+    box-kind:     box-kind,
+    title:        title,
+    statement:    statement,
+    solution:     solution,
+    box-colors:   box-colors,
+    inline-qed:   enforce-default(inline-qed,   ergo-config-state.get().at("inline-qed")),
+    breakable:    enforce-default(breakable,    ergo-config-state.get().at("breakable")),
+    width:        width,
+    height:       height,
   )
 }
 
-#let ergo-box(id, base-color, box-kind, ..argv) = context {
+#let ergo-box(preheader, base-color, box-kind, ..argv) = context {
   assert(argv.pos() == (), message: "ergo-box factory only accepts named arguments")
   let factory-named = argv.named()
 
-  e.element.declare(
-    id,
+  return e.element.declare(
+    preheader,
     prefix:  "@preview/ergo:0.3.0",
-    doc:     strfmt("Formats a {} statement.", id),
+    doc:     strfmt("Formats a {} statement.", preheader),
     display: it => {
       display-ergo-box(
-        id,
+        preheader,
         base-color,
         box-kind,
         it.title,
@@ -271,7 +267,7 @@
       ),
       e.field(
         "width",
-        length,
+        length,  // TODO: can also be a ratio or auto
         doc: "The width of the box.",
         default: factory-named.at("width", default: 100%),
       ),
@@ -295,16 +291,18 @@
           } else {
             return (false, strfmt("box '{}' of kind {}: expected 1-2 positional arguments, got {}", id, box-kind, str(pos.len())))
           }
-        } else {
+        } else if box-kind == "SOLUTION" or box-kind == "PROOF" {
           if pos.len() == 1 {
             arguments(statement: pos.at(0), ..named)
           } else if pos.len() == 2 {
-            arguments(statement: pos.at(0), solution: pos.at(1), ..named)
+            arguments(title: pos.at(0), statement: pos.at(1), ..named)
           } else if pos.len() == 3 {
             arguments(title: pos.at(0), statement: pos.at(1), solution: pos.at(2), ..named)
           } else {
             return (false, strfmt("box '{}' of kind {}: expected 1-3 positional arguments, got {}", id, box-kind, str(pos.len())))
           }
+        } else {
+          return (false, strfmt("box-kind '{}' not recognized", box-kind))
         }
 
         default-parser(new-args, include-required: include-required)
@@ -313,6 +311,7 @@
         if args.pos() != () {
           return (false, strfmt("box '{}': unexpected position argument(s) in set rule", id))
         }
+
         default-parser(args, include-required: include-required)
       }
     }
