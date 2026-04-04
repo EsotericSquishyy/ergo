@@ -1,7 +1,3 @@
-#let correction(body) = {
-  text(fill: rgb("#ea4120"), weight: "semibold", body)
-}
-
 #let proof(body, inline-qed: false, color: none, title-style: "colon") = {
   let content = if title-style == "colon" {
     if (color == none) {

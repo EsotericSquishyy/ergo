@@ -18,7 +18,6 @@
 )
 
 #import "src/style/cosmetic-envs.typ": (
-  correction,
   proof,
   solution
 )

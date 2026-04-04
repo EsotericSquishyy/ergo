@@ -186,10 +186,10 @@
   width,
   height,
 ) = context {
-  let enforced-style        = enforce-default(style,        ergo-config-state.get().at("style"))
-  let enforced-color-scheme = enforce-default(color-scheme, ergo-config-state.get().at("color-scheme"))
+  let enforced-style        = enforce-default(style,        ergo-config-state.get().style)
+  let enforced-color-scheme = enforce-default(color-scheme, ergo-config-state.get().color-scheme)
 
-  let colors = ergo-box-theming(
+  let box-theming = ergo-box-theming(
     environment-theming: get-environment-colors(enforced-color-scheme, base-color),
     document-theming:    get-document-theming(enforced-color-scheme),
     raw:                 0.25
@@ -201,9 +201,9 @@
     title:        title,
     statement:    statement,
     solution:     solution,
-    box-colors:   box-colors,
-    inline-qed:   enforce-default(inline-qed,   ergo-config-state.get().at("inline-qed")),
-    breakable:    enforce-default(breakable,    ergo-config-state.get().at("breakable")),
+    box-theming:  box-theming,
+    inline-qed:   enforce-default(inline-qed,   ergo-config-state.get().inline-qed),
+    breakable:    enforce-default(breakable,    ergo-config-state.get().breakable),
     width:        width,
     height:       height,
   )
@@ -305,6 +305,7 @@
           } else {
             return (false, strfmt("box '{}' of kind {}: expected 1-2 positional arguments, got {}", id, box-kind, str(pos.len())))
           }
+          // TODO : check for inline-qed here, since it is not compatible with stmt
         } else if box-kind == "SOLUTION" or box-kind == "PROOF" {
           if pos.len() == 1 {
             arguments(statement: pos.at(0), ..named)

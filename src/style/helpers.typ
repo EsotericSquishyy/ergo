@@ -4,7 +4,6 @@
 )
 
 #let ergo-title-selector = <__ergo_title>
-#let problem-counter = counter("problem")
 
 #let highlight-raw(content, raw-color) = {
   box(
@@ -19,15 +18,13 @@
 #let get-title-content(
   preheader,
   title,
-  is-proof:    false,
+  box-kind,
   prob-nums:   false,
   pad-env:     true,
   title-style: "colon",
 ) = {
   let xpad = 12pt
   let ypad = 6pt
-
-  let count = if prob-nums [ #{problem-counter.step(); context problem-counter.display()}] else []
 
   let title-content = if title-style == "parens" {
     if title == [] {
@@ -62,7 +59,7 @@
 
 #let get-solution-content(
   solution-body,
-  is-proof,
+  box-kind,
   inline-qed,
   sol-color: none,
   pad-env: true,

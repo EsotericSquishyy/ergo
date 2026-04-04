@@ -7,6 +7,7 @@
 )
 
 
+// TODO: Proof is same color as header
 #let custom-solution(
   title,
   statement-body,
