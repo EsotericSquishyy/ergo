@@ -134,7 +134,7 @@
   if (opts != none) {
     filled-opts.insert("fill",   opts.at("fill",   default: "#ffffff"))
     filled-opts.insert("text1",  opts.at("text1",  default: "#000000"))
-    filled-opts.insert("text2",  opts.at("texcolors-dictt2",  default: "#ffffff"))
+    filled-opts.insert("text2",  opts.at("text2",  default: "#ffffff"))
     filled-opts.insert("h1",     opts.at("h1",     default: "#020004"))
     filled-opts.insert("h2",     opts.at("h2",     default: "#16428e"))
     filled-opts.insert("strong", opts.at("strong", default: "#020004"))
